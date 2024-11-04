@@ -12,6 +12,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundImage: {
+        'hero-pattern': "url('/app/assets/images/slide_1.jpg')",
+      }
     },
   },
   plugins: [],

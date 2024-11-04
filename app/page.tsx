@@ -1,48 +1,50 @@
 import Button from "./components/button";
 import Image from "next/image";
-import fleche from "@/app/assets/images/fleche.png";
+import arrow from "@/app/assets/icons/arrow.png";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { SliderCard } from "./components/slider_card";
+import { StarIcon } from "@heroicons/react/24/solid";
+import { CategorySection } from "./components/category_card";
+import { RecipeSection } from "./components/recipe_card";
+import Header from "./components/header";
 
 export default function Home() {
-  const navLinks = ["Home", "Menu", "Booking", "Pricing"];
+  const starIconStyle = "text-yellow-500 h-5 w-5";
+
   return (
-    <div>
-      <main className="mx-16 my-6">
-        <header className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold">
-            Good <span className="text-orange-400">Food</span>
-          </h1>
-          <nav className="flex gap-4">
-            <ul className="flex gap-4">
-              {navLinks.map((link, index) => (
-                <li className="text-sm cursor-pointer" key={index}>
-                  {link}
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <Button>Login</Button>
-        </header>
-        <section className="flex my-16 space-x-6">
-          <div className="w-1/2">
-            <h2 className="text-6xl font-bold">
+    <div className="overflow-x-hidden w-screen">
+      <main className="lg:mx-16 my-6 mx-6">
+        <Header />
+        <section className="flex flex-col md:flex-row mt-12 md:space-x-8 space-y-6 lg:space-y-0">
+          <div className="lg:w-1/2 w-full">
+            <h2 className="text-5xl lg:text-6xl font-bold">
               <div>
-                <div className="ml-12">Fresh Food</div>
+                <div className="ml-12 bg-[url('../app/assets/images/slide_1.jpg')] bg-clip-text bg-cover bg-center text-transparent">
+                  <span className="text-transparent bg-clip-text bg-cover bg-gradient-to-r from-85% from-black to-transparent">
+                    Fresh
+                  </span>{" "}
+                  Food
+                </div>
                 <div className="flex">
-                  <div className="italic font-medium pb-2 pr-2 text-green-800/70 text-4xl">
+                  <div className="italic font-medium pb-2 pr-2 text-green-800/70 text-3xl lg:text-4xl">
                     With{" "}
                   </div>
-                  Great Taste
-                </div>
-                <div className="flex justify-end w-96">
-                  <Image src={fleche} alt="fleche" width={64} height={64} />
+                  Great
+                  <span className="relative ml-4">
+                    Taste
+                    <Image
+                      className="absolute w-40 top-0 left-4"
+                      src={arrow}
+                      alt="fleche"
+                    />
+                  </span>
                 </div>
               </div>
             </h2>
-            <p className="mt-5">
-              Overall, "Creating Delicious Dishes" is an essential resource for
-              anyone looking to start a food business or take their culinary
-              skills to the next level.
+            <p className="mt-12">
+              Overall, &quot;Creating Delicious Dishes&quot; is an essential
+              resource for anyone looking to start a food business or take their
+              culinary skills to the next level.
             </p>
             <div className="mt-12 rounded-full justify-end flex items-center">
               <input
@@ -57,14 +59,27 @@ export default function Home() {
               </button>
             </div>
           </div>
-          <div className="w-1/2">
-            <div className="w-full h-80 bg-slate-100 rounded-3xl"></div>
-            <div className="w-full bg-black text-white rounded-3xl px-8 py-4 mt-4">
+          <div className="lg:w-1/2 w-full">
+            <SliderCard />
+            <div className="w-full bg-black text-white rounded-3xl px-8 py-4 mt-4 flex items-center justify-between">
               <p className="font-bold text-lg">3,500 + Ratings</p>
-              <div></div>
+              <div className="flex gap-2">
+                <StarIcon className={starIconStyle} />
+                <StarIcon className={starIconStyle} />
+                <StarIcon className={starIconStyle} />
+                <StarIcon className={starIconStyle} />
+              </div>
             </div>
           </div>
         </section>
+        <div className="mt-5 md:mt-0 flex space-y-5 md:space-y-0 md:space-x-12 flex-col md:flex-row">
+          <div className="w-full md:w-1/2 flex justify-center">
+            <CategorySection />
+          </div>
+          <div className="w-full md:w-1/2 flex">
+            <RecipeSection />
+          </div>
+        </div>
       </main>
     </div>
   );
