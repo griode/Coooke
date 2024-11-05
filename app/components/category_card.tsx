@@ -1,11 +1,7 @@
-import {
-  StarIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/24/solid";
+import { BsStarFill, BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import cake from "@/app/assets/icons/cake.png";
 import burger from "@/app/assets/icons/burger.png";
-import salad from "@/app/assets/icons/salade.png";
+import salad from "@/app/assets/icons/salad.png";
 import Image from "next/image";
 
 const listCategories = [
@@ -37,7 +33,7 @@ export const CategorySection = () => {
       <div className="w-fit">
         <div className="flex items-center justify-between space-x-2">
           <button className="rounded-full p-2 hover:bg-gray-200">
-            <ChevronLeftIcon className="w-5 h-5" />
+            <BsChevronLeft className="w-5 h-5" />
           </button>
           <div className="grid grid-cols-3 gap-4 mt-4">
             {listCategories.map((category, index) => (
@@ -45,7 +41,7 @@ export const CategorySection = () => {
             ))}
           </div>
           <button className="rounded-full p-2 hover:bg-gray-200">
-            <ChevronRightIcon className="w-5 h-5" />
+            <BsChevronRight className="w-5 h-5" />
           </button>
         </div>
       </div>
@@ -78,7 +74,7 @@ export const CategoryCard = ({
         <div className="space-y-2 mx-4 my-3">
           <h4 className="text-center text-sm">{title}</h4>
           <div className="flex items-center space-x-1 text-xs">
-            <StarIcon className={textColor} width={12} height={12} />
+            <BsStarFill className={textColor} width={12} height={12} />
             <span>{rating}</span>
           </div>
         </div>

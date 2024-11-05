@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Button from "./button";
+import { BsList, BsListNested } from "react-icons/bs";
 
 const navLinks = ["Home", "Menu", "Booking", "Pricing"];
 
@@ -26,7 +27,7 @@ const Header = () => {
   }, [menuOpen]);
 
   return (
-    <header className="flex justify-between items-center p-4 md:p-0">
+    <header className="flex justify-between items-center">
       <h1 className="text-2xl font-bold">
         cook <span className="text-orange-400">ia</span>
       </h1>
@@ -37,7 +38,11 @@ const Header = () => {
         className="md:hidden text-2xl focus:outline-none z-50"
         aria-label="Menu Button"
       >
-        {menuOpen ? "✕" : "☰"}
+        {menuOpen ? (
+          <BsListNested className="w-5 h-5" />
+        ) : (
+          <BsList className="w-5 h-5" />
+        )}
       </button>
 
       {/* Navigation */}

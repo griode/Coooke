@@ -1,9 +1,7 @@
-import Button from "./components/button";
 import Image from "next/image";
 import arrow from "@/app/assets/icons/arrow.png";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { SliderCard } from "./components/slider_card";
-import { StarIcon } from "@heroicons/react/24/solid";
+import { BsStarFill, BsSearch } from "react-icons/bs"; 
 import { CategorySection } from "./components/category_card";
 import { RecipeSection } from "./components/recipe_card";
 import Header from "./components/header";
@@ -55,7 +53,7 @@ export default function Home() {
                 placeholder="Find Great Food"
               />
               <button className="bg-black rounded-full text-white absolute mr-1">
-                <MagnifyingGlassIcon className="m-3 h-6 w-6" />
+                <BsSearch className="m-3 h-6 w-6" />
               </button>
             </div>
           </div>
@@ -64,10 +62,10 @@ export default function Home() {
             <div className="w-full bg-black text-white rounded-3xl px-8 py-4 mt-4 flex items-center justify-between">
               <p className="font-bold text-lg">3,500 + Ratings</p>
               <div className="flex gap-2">
-                <StarIcon className={starIconStyle} />
-                <StarIcon className={starIconStyle} />
-                <StarIcon className={starIconStyle} />
-                <StarIcon className={starIconStyle} />
+                <BsStarFill className={starIconStyle} />
+                <BsStarFill className={starIconStyle} />
+                <BsStarFill className={starIconStyle} />
+                <BsStarFill className={starIconStyle} />
               </div>
             </div>
           </div>
