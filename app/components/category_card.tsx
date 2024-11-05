@@ -3,8 +3,17 @@ import cake from "@/app/assets/icons/cake.png";
 import burger from "@/app/assets/icons/burger.png";
 import salad from "@/app/assets/icons/salad.png";
 import Image from "next/image";
+import { StaticImageData } from "next/image";
 
-const listCategories = [
+interface Category {
+  icon: StaticImageData;
+  title: string;
+  rating: number;
+  bgColor?: string;
+  textColor?: string;
+}
+
+const listCategories: Category[] = [
   {
     icon: cake,
     title: "Cakes",
@@ -29,38 +38,32 @@ const listCategories = [
 ];
 
 export const CategorySection = () => {
-    return (
-      <div className="w-fit">
-        <div className="flex items-center justify-between space-x-2">
-          <button className="rounded-full p-2 hover:bg-gray-200">
-            <BsChevronLeft className="w-5 h-5" />
-          </button>
-          <div className="grid grid-cols-3 gap-4 mt-4">
-            {listCategories.map((category, index) => (
-              <CategoryCard key={index} {...category} />
-            ))}
-          </div>
-          <button className="rounded-full p-2 hover:bg-gray-200">
-            <BsChevronRight className="w-5 h-5" />
-          </button>
+  return (
+    <div className="w-fit">
+      <div className="flex items-center justify-between space-x-2">
+        <button className="rounded-full p-2 hover:bg-gray-200">
+          <BsChevronLeft className="w-5 h-5" />
+        </button>
+        <div className="grid grid-cols-3 gap-4 mt-4">
+          {listCategories.map((category, index) => (
+            <CategoryCard key={index} {...category} />
+          ))}
         </div>
+        <button className="rounded-full p-2 hover:bg-gray-200">
+          <BsChevronRight className="w-5 h-5" />
+        </button>
       </div>
-    );
+    </div>
+  );
 };
 
 export const CategoryCard = ({
   icon,
   title,
   rating,
-  bgColor,
-  textColor,
-}: {
-  icon: string;
-  title: string;
-  rating: number;
-  bgColor?: string;
-  textColor?: string;
-}) => {
+  bgColor = "bg-gray-200", // Valeur par défaut
+  textColor = "text-gray-800", // Valeur par défaut
+}: Category) => {
   return (
     <div className={`p-1 ${bgColor} ${textColor} rounded-full w-20`}>
       <div className="flex flex-col items-center justify-center">

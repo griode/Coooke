@@ -1,10 +1,16 @@
 import Image from "next/image";
 import image1 from "@/app/assets/images/image_1.jpg";
 import image2 from "@/app/assets/images/image_2.jpg";
+import { StaticImageData } from "next/image";
 
-const listRecipes = [
+interface Recipe {
+  title: string;
+  photoUrl: StaticImageData;
+}
+
+const listRecipes: Recipe[] = [
   {
-    title: "Stuffed eggplants with youghurt and salad",
+    title: "Stuffed eggplants with yogurt and salad",
     photoUrl: image1,
   },
   {
@@ -23,7 +29,7 @@ export const RecipeSection = () => {
   );
 };
 
-export const RecipeCard = ({ recipe }: { recipe: any }) => {
+export const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full bg-slate-100 rounded-3xl relative overflow-hidden">
       <h3 className="text-lg font-bold text-white absolute bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent w-full">
