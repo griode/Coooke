@@ -13,7 +13,7 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
       backgroundImage: {
-        'hero-pattern': "url('/app/assets/images/slide_1.jpg')",
+        'hero-pattern': "url('/app/assets/images/text_bg.jpg')",
       }
     },
   },

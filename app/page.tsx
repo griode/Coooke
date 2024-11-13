@@ -17,7 +17,7 @@ export default function Home() {
           <div className="lg:w-1/2 w-full">
             <h2 className="text-5xl lg:text-6xl font-bold">
               <div>
-                <div className="ml-12 bg-[url('../app/assets/images/slide_1.jpg')] bg-clip-text bg-cover bg-center text-transparent">
+                <div className="ml-12 bg-[url('../app/assets/images/text_bg.jpg')] bg-clip-text bg-cover bg-center text-transparent">
                   <span className="text-transparent bg-clip-text bg-cover bg-gradient-to-r from-85% from-black to-transparent">
                     Fresh
                   </span>{" "}

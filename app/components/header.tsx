@@ -29,7 +29,7 @@ const Header = () => {
   return (
     <header className="flex justify-between items-center">
       <h1 className="text-2xl font-bold">
-        cook <span className="text-orange-400">ia</span>
+        My Cook <span className="text-orange-400">Book</span>
       </h1>
 
       {/* Bouton Menu pour les petits écrans */}

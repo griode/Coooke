@@ -3,26 +3,31 @@
 import Image from "next/image";
 import slide1 from "@/app/assets/images/slide_1.jpg";
 import slide2 from "@/app/assets/images/slide_2.jpg";
+import slide3 from "@/app/assets/images/slide_3.jpg";
+
 import { useEffect, useState } from "react";
 import { BsStarFill } from "react-icons/bs";
 
 export const SliderCard = () => {
   const [currentSlide, setCurrentSlide] = useState(slide1);
   const [isFading, setIsFading] = useState(false);
+  const slides = [slide1, slide2, slide3];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIsFading(true); // Activer l'animation de fondu
       setTimeout(() => {
-        setCurrentSlide((prevSlide) =>
-          prevSlide === slide1 ? slide2 : slide1
-        );
+        setCurrentSlide((prevSlide) => {
+          const currentIndex = slides.indexOf(prevSlide);
+          const nextIndex = (currentIndex + 1) % slides.length;
+          return slides[nextIndex];
+        });
         setIsFading(false); // Désactiver l'animation après le changement
       }, 300); // Durée de l'animation de fondu
     }, 5000);
 
     return () => clearInterval(interval); // Nettoyage de l'intervalle
-  }, []);
+  }, [slides]);
 
   return (
     <div className="w-full h-80 bg-black rounded-3xl overflow-hidden relative">
@@ -41,7 +46,7 @@ export const SliderCard = () => {
       </div>
       <Image
         src={currentSlide}
-        alt="image0"
+        alt="slider image"
         width={1000}
         height={800}
         className={`object-cover w-full h-full transition-opacity duration-300 ${
