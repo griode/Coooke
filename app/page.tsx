@@ -11,6 +11,7 @@ export default function Home() {
 
   return (
     <div className="overflow-x-hidden w-screen">
+      
       <main className="lg:mx-16 my-6 mx-6">
         <Header />
         <section className="flex flex-col md:flex-row mt-12 md:space-x-8 space-y-6 lg:space-y-0">

@@ -31,7 +31,7 @@ export const SliderCard = () => {
 
   return (
     <div className="w-full h-80 bg-black rounded-3xl overflow-hidden relative">
-      <div className="absolute m-7 my-8 z-30 flex items-center space-x-2">
+      <div className="absolute m-7 my-8 z-0 flex items-center space-x-2">
         <div className="bg-black p-2 rounded-full">
           <BsStarFill className="text-yellow-500 h-5 w-5" />
         </div>
@@ -40,7 +40,7 @@ export const SliderCard = () => {
         </h6>
       </div>
       <div className="font-bold absolute object-cover w-full h-full flex items-end">
-        <h3 className="text-white text-2xl px-8 pt-12 pb-7 bg-gradient-to-t z-30 from-black/70 to-transparent">
+        <h3 className="text-white text-2xl px-8 pt-12 pb-7 bg-gradient-to-t z-0 from-black/70 to-transparent">
           Savor Healthy Eats - Keep it Casual and Easy-Going!
         </h3>
       </div>
