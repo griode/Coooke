@@ -1,6 +1,6 @@
 import { MouseEventHandler } from "react";
 
-export default function Button({
+export default function FillButton({
   children,
   onClick,
 }: {

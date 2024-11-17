@@ -1,16 +1,24 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+"use client";
+
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { GrClose } from "react-icons/gr";
+import { useRouter } from "next/navigation"; // Import useRouter for navigation
+import CircularProgress from "@/app/components/circular_progress";
+import { signInWithGoogle } from "@/app/authentication/sign_with_google";
 
 export default function LoginPage({
   closeAction,
 }: {
   closeAction: Dispatch<SetStateAction<boolean>>;
 }) {
+  const router = useRouter(); // Initialize router
+  const [isLoading, setIsLoading] = useState(false); // State to track loading status
+
+  // close the modal
   useEffect(() => {
     // Désactiver le défilement de la page lorsque le modal est ouvert
     document.body.style.overflow = "hidden";
-
     // Nettoyage : réactiver le défilement lorsque le modal est fermé
     return () => {
       document.body.style.overflow = "auto";
@@ -19,6 +27,19 @@ export default function LoginPage({
 
   const closeHandler = () => {
     closeAction(false);
+  };
+
+  // log in with google
+  const googleLoginHandler = () => {
+    setIsLoading(true);
+    signInWithGoogle().then((user) => {
+      if (user) {
+        router.push("/view/home");
+      } else {
+        setIsLoading(false);
+        alert("Error logging in");
+      }
+    });
   };
 
   return (
@@ -46,10 +67,20 @@ export default function LoginPage({
             Transform your ingredients into delicious dishes - Scan and find
             recipes instantly!
           </p>
-          <button className="rounded-full border-2 px-4 py-3 text-sm font-bold w-full mt-6 flex items-center justify-center">
-            <FcGoogle className="text-2xl mr-2" />
-            Continue with Google
-          </button>
+          <div className="mt-6"></div>,
+          {isLoading ? (
+            <div className="flex items-center justify-center">
+              <CircularProgress infinite={isLoading} size={40} />
+            </div>
+          ) : (
+            <button
+              onClick={googleLoginHandler}
+              className="rounded-full border-2 px-4 py-3 text-sm font-bold w-full flex items-center justify-center"
+            >
+              <FcGoogle className="text-2xl mr-2" />
+              Continue with Google
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import Button from "./button";
+import FillButton from "./button";
 import { BsList, BsListNested } from "react-icons/bs";
 import LoginPage from "../view/login/page";
 
@@ -74,7 +74,7 @@ const Header = () => {
 
         {/* Bouton Login */}
         <div className="hidden md:block">
-          <Button onClick={loginHandler}>Login</Button>
+          <FillButton onClick={loginHandler}>Login</FillButton>
         </div>
       </header>
     </>
