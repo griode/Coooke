@@ -6,17 +6,23 @@ export default function Avatar({
   width,
   height,
   radius = 100,
+  onClick,
+  className,
 }: {
   src: string;
   alt: string;
   width: number;
   height: number;
   radius?: number;
+  onClick?: () => void;
+  className?: string;
 }) {
   return (
-      <div
-          style={{ width: `${radius}px`, height: `${radius}px` }}
-          className="relative bg-slate-100 rounded-full">
+    <div
+      onClick={onClick}
+      style={{ width: `${radius}px`, height: `${radius}px` }}
+      className={`relative bg-slate-100 rounded-full ${className}`}
+    >
       <Image
         src={src}
         alt={alt}

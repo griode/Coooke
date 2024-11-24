@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import FillButton from "./button";
 import { BsList, BsListNested } from "react-icons/bs";
 import LoginPage from "../view/login/page";
+import { FillButton } from "./button";
 
 const navLinks = ["Home", "Menu", "Booking", "Pricing"];
 

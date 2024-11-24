@@ -15,11 +15,11 @@ export default function LoginPage({
   const router = useRouter(); // Initialize router
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
 
-  // close the modal
+  // close the modal.tsx
   useEffect(() => {
-    // Désactiver le défilement de la page lorsque le modal est ouvert
+    // Désactiver le défilement de la page lorsque le modal.tsx est ouvert
     document.body.style.overflow = "hidden";
-    // Nettoyage : réactiver le défilement lorsque le modal est fermé
+    // Nettoyage : réactiver le défilement lorsque le modal.tsx est fermé
     return () => {
       document.body.style.overflow = "auto";
     };
