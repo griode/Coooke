@@ -29,7 +29,7 @@ export default function ProfilePage() {
             {currentUser?.displayName ?? "User"}
           </h1>
           <OutlineButton
-            onClick={() => router.push("/view/profile/edit")}
+            onClick={() => router.push("/ui/profile/edit")}
             className="w-fit"
           >
             Edit

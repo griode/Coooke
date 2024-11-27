@@ -8,6 +8,8 @@ import {useEffect} from "react";
 import {useCurrentUser} from "./hooks/use_current_user";
 import Header from "./ui/components/header";
 import {RecipeSection} from "./ui/components/image_recipe_card";
+import Image from "next/image";
+import arrow from "./assets/icons/arrow.png";
 
 export default function Home() {
   const starIconStyle = "text-yellow-500 h-5 w-5";
@@ -45,9 +47,9 @@ export default function Home() {
                   Great
                   <span className="relative ml-4">
                     Taste
-                    <img
+                    <Image
                       className="absolute w-40 top-0 left-4"
-                      src={"arrow"}
+                      src={arrow}
                       alt="fleche"
                     />
                   </span>

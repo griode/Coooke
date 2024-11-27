@@ -1,6 +1,4 @@
 "use client";
-
-import router from "next/router";
 import { HiArrowRightOnRectangle } from "react-icons/hi2";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { OutlineButton } from "./button";
@@ -9,21 +7,24 @@ import NavigationBar from "./navigation_bar";
 import { auth } from "@/app/firebase";
 import SearchPage from "./search";
 import RecipeGenerator from "./recipe_generator";
+import {useRouter} from "next/navigation";
+import {ReactNode} from "react";
 // bell
-
-const logoutHandler = () => {
-  auth.signOut().then(() => {
-    router.push("/");
-  });
-};
 
 export default function NavbarContainer({
   children,
   pageIndex,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   pageIndex: number;
 }) {
+  const router = useRouter();
+  const logoutHandler = () => {
+    auth.signOut().then(() => {
+      router.push("/");
+    });
+  };
+
   return (
     <section className="h-screen w-screen flex space-x-0 md:space-x-2 overflow-hidden">
       <NavigationBar pageIndex={pageIndex} />

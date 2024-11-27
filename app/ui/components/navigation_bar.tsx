@@ -132,7 +132,7 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
       <div className="flex flex-row md:flex-col items-center justify-between gap-12 md:gap-4">
         <Avatar
           className="h-8 w-8 md:h-6 md:w-6"
-          onClick={() => router.push("/view/profile")}
+          onClick={() => router.push("/ui/profile")}
           radius={24}
           src={currentUser?.photoURL ?? ""}
           alt={currentUser?.displayName ?? ""}
