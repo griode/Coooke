@@ -7,11 +7,12 @@ import slide3 from "@/app/assets/images/slide_3.jpg";
 
 import { useEffect, useState } from "react";
 import { BsStarFill } from "react-icons/bs";
+import { useMemo } from "react";
 
 export const SliderCard = () => {
   const [currentSlide, setCurrentSlide] = useState(slide1);
   const [isFading, setIsFading] = useState(false);
-  const slides = [slide1, slide2, slide3];
+  const slides = useMemo(() => [slide1, slide2, slide3], []);
 
   useEffect(() => {
     const interval = setInterval(() => {
