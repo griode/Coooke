@@ -1,7 +1,6 @@
 "use client";
-
-import { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
+// import { useEffect } from "react";
 
 export function AlertDialog({
   children,
@@ -11,14 +10,14 @@ export function AlertDialog({
   setShowDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   // close the modal.tsx
-  useEffect(() => {
-    // Désactiver le défilement de la page lorsque le modal.tsx est ouvert
-    document.body.style.overflow = "hidden";
-    // Nettoyage : réactiver le défilement lorsque le modal.tsx est fermé
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
+  // useEffect(() => {
+  
+  //   document.body.style.overflow = "hidden";
+  //   // Nettoyage : réactiver le défilement lorsque le modal.tsx est fermé
+  //   return () => {
+  //     document.body.style.overflow = "auto";
+  //   };
+  // }, []);
 
   const closeHandler = () => {
     setShowDialog(false);
