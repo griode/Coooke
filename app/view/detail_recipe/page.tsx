@@ -6,7 +6,7 @@ import { CiTimer, CiUser } from "react-icons/ci";
 import { NutritionCard } from "../home/recipe_day";
 import Recipe from "@/app/data/model/recipe_model";
 
-const DetailPage = ({
+export const DetailPage = ({
   recipe,
   setShowDialog,
 }: {
@@ -97,5 +97,3 @@ const DetailPage = ({
     </AlertDialog>
   );
 };
-
-export default DetailPage;
