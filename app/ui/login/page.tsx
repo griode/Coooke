@@ -4,9 +4,9 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { GrClose } from "react-icons/gr";
 import { useRouter } from "next/navigation"; // Import useRouter for navigation
-import CircularProgress from "@/app/components/circular_progress";
 import { signInWithGoogle } from "@/app/authentication/sign_with_google";
-import { IconButton, OutlineButton } from "@/app/components/button";
+import { IconButton, OutlineButton } from "../components/button";
+import CircularProgress from "../components/circular_progress";
 
 export default function LoginPage({
   closeAction,
