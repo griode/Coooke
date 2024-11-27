@@ -3,7 +3,7 @@ import { CiTimer, CiUser } from "react-icons/ci";
 import Recipe from "../data/model/recipe_model";
 import Image from "next/image";
 import { useState } from "react";
-import DetailPage from "../view/detail_recipe/page";
+import { DetailPage } from "@/app/view/detail_recipe/page";
 
 const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
   const [showDetail, setShowDetail] = useState<boolean>(false);

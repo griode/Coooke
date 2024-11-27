@@ -3,7 +3,7 @@ import { RecipeProvider } from "@/app/data/provider/recipe_provider";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Recipe from "@/app/data/model/recipe_model";
-import DetailPage from "../detail_recipe/page";
+import { DetailPage } from "@/app/view/detail_recipe/page";
 
 export function NutritionCard({
   title,
