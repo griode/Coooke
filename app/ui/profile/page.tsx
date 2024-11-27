@@ -1,9 +1,9 @@
 "use client";
-import NavbarContainer from "@/app/components/navbar_container";
 import {useCurrentUser} from "@/app/hooks/use_current_user";
-import Avatar from "@/app/components/avatar";
 import {useRouter} from "next/navigation";
-import {OutlineButton} from "@/app/components/button";
+import Avatar from "../components/avatar";
+import { OutlineButton } from "../components/button";
+import NavbarContainer from "../components/navbar_container";
 
 export default function ProfilePage() {
   const { currentUser, loading } = useCurrentUser();
