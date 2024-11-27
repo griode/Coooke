@@ -47,7 +47,7 @@ const NavItem = ({ item, onClick }: NavItemProps) => {
       className={`flex flex-col items-center justify-center p-2 rounded-3xl cursor-pointer`}
       aria-label={item.name}
     >
-      <div className="flex items-center justify-center text-2xl">
+      <div className="flex items-center justify-center text-4xl md:text-2xl">
         {item.enable ? item.fillIcon : item.icon}
       </div>
     </div>
@@ -100,12 +100,12 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
   }
 
   return (
-    <div className="h-16 bottom-0 w-full absolute flex-row md:static md:top-0 md:left-0 md:right-0 flex border-r md:flex-col md:w-fit md:h-full items-center justify-between bg-slate-100 px-2 py-4">
+    <div className="h-16 bottom-0 w-full absolute flex-row md:static space-x-6 md:space-x-0 md:top-0 md:left-0 md:right-0 flex border-r md:flex-col md:w-fit md:h-full items-center justify-center md:justify-between bg-white/75 backdrop-blur-lg px-2 py-4">
       {/* Top Section */}
-      <div className="flex flex-row md:flex-col items-center space-y-0 md:space-y-4">
+      <div className="flex flex-row md:flex-col items-center gap-4">
         <div
           onClick={() => router.push("/view/home")}
-          className="bg-black rounded-full w-8 h-8 hidden md:block"
+          className="bg-black rounded-full w-0 h-0 md:w-8 md:h-8 hidden md:block"
         >
           <Image
             className="object-cover w-full h-full"
@@ -135,8 +135,9 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
       </div>
 
       {/* Bottom Section */}
-      <div className="flex flex-row md:flex-col items-center justify-between space-y-0 md:space-y-2">
+      <div className="flex flex-row md:flex-col items-center justify-between gap-4">
         <Avatar
+          className="h-10 w-10 md:h-6 md:w-6"
           onClick={() => router.push("/view/profile")}
           radius={24}
           src={currentUser?.photoURL ?? ""}

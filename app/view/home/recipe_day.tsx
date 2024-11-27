@@ -68,7 +68,7 @@ export default function RecipeDay() {
   }, []);
 
   return (
-    <div className="flex gap-3 overflow-x-auto py-4 scrollbar-hidden snap-x snap-mandatory">
+    <div className="flex gap-3 overflow-x-auto scrollbar-hidden snap-x snap-mandatory">
       {recipes?.map((recipe, index) => {
         return <RecipeDayCard key={index} recipe={recipe} />;
       })}

@@ -15,10 +15,10 @@ export default function DetailPage({
 }) {
   return (
     <AlertDialog setShowDialog={setShowDialog}>
-      <div className="p-5">
-        <div className="bg-white rounded-2xl flex w-full space-x-6">
+      <div className="p-0 md:p-5">
+        <div className="bg-white h-screen md:h-full rounded-none md:rounded-2xl flex-col md:flex-row flex w-full md:space-x-6 overflow-y-scroll scrollbar-hidden md:overflow-hidden shadow-md">
           {/* Recipe image view */}
-          <div className="w-1/2 h-full bg-black rounded-l-2xl overflow-hidden">
+          <div className="w-full md:w-1/2 h-1/3 md:h-full bg-black rounded-none md:rounded-l-2xl overflow-hidden">
             <Image
               className="object-cover w-full h-full"
               src={recipe.image ?? ""}
@@ -29,7 +29,7 @@ export default function DetailPage({
             />
           </div>
           {/* Recipe detail view */}
-          <div className="w-1/2 overflow-scroll flex flex-col pr-4">
+          <div className="w-full md:w-1/2 md:overflow-scroll flex flex-col pr-4 px-4 md:px-0">
             <div className="h-4"></div>
             <h1 className="text-5xl font-bold">{recipe.name}</h1>
             <div className="text-gray-500 m-2 flex space-x-2">
@@ -46,7 +46,7 @@ export default function DetailPage({
             <div className="flex gap-8 mt-4">
               <div className="space-y-2">
                 <NutritionCard
-                  title={`${recipe?.nutritionFacts.calories} kcal`}
+                  title={`${recipe?.nutritionFacts?.calories} kcal`}
                   icon={<PiBowlFoodLight />}
                 />
                 <NutritionCard

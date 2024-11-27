@@ -39,7 +39,7 @@ export default function InteractivePanel({
       {/* Bouton pour afficher/masquer le panneau */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-full hover:bg-slate-200 text-2xl"
+        className="p-2 rounded-full hover:bg-slate-200 text-4xl md:text-2xl"
       >
         {isOpen ? activateIcon : icon}
       </button>

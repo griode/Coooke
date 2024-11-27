@@ -34,15 +34,17 @@ export default function RecipeCardX({ recipe }: { recipe: Recipe }) {
               height={800}
             />
           </div>
-          <h1 className="m-2 font-medium line-clamp-1">{recipe.name}</h1>
-          <div className="text-xs text-gray-500 m-2 flex space-x-2">
-            <div className="flex items-center space-x-1">
-              <CiTimer />
-              <span>{`${recipe.duration} min`}</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <CiUser />
-              <span>{`${recipe.servings} reviews`}</span>
+          <div className="m-2">
+            <h1 className="font-medium line-clamp-1">{recipe.name}</h1>
+            <div className="text-xs text-gray-500 flex space-x-2">
+              <div className="flex items-center space-x-1">
+                <CiTimer />
+                <span>{`${recipe.duration} min`}</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <CiUser />
+                <span>{`${recipe.servings} reviews`}</span>
+              </div>
             </div>
           </div>
         </div>
