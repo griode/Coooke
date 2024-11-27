@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DocumentData, DocumentSnapshot, Timestamp } from 'firebase/firestore';
 
 type RecipeData = {
@@ -33,7 +34,7 @@ class Recipe {
   difficulty: string;
   cuisine: string;
   description?: string;
-  nutritionFacts?: Map<string, string>;
+  nutritionFacts?: any;
   diet?: string;
   language?: string;
   index?: number;

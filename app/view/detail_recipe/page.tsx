@@ -6,13 +6,13 @@ import { CiTimer, CiUser } from "react-icons/ci";
 import { NutritionCard } from "../home/recipe_day";
 import Recipe from "@/app/data/model/recipe_model";
 
-export default function DetailPage({
+const DetailPage = ({
   recipe,
   setShowDialog,
 }: {
   recipe: Recipe;
   setShowDialog: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+}) => {
   return (
     <AlertDialog setShowDialog={setShowDialog}>
       <div className="p-0 md:p-5">
@@ -46,7 +46,7 @@ export default function DetailPage({
             <div className="flex gap-8 mt-4">
               <div className="space-y-2">
                 <NutritionCard
-                  title={`${recipe?.nutritionFacts?.calories} kcal`}
+                  title={`${recipe?.nutritionFacts.calories} kcal`}
                   icon={<PiBowlFoodLight />}
                 />
                 <NutritionCard
@@ -96,4 +96,6 @@ export default function DetailPage({
       </div>
     </AlertDialog>
   );
-}
+};
+
+export default DetailPage;
