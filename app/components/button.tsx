@@ -67,7 +67,7 @@ export const IconButton = ({
   return (
     <button
       onClick={!disabled ? onClick : undefined}
-      className={`rounded-full border text-xs font-bold p-2 
+      className={`rounded-full border text-xs font-bold p-1 
         ${
           disabled
             ? "bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"

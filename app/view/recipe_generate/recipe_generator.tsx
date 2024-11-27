@@ -3,14 +3,9 @@
 
 import React, { useState, useRef } from "react";
 import { IconButton } from "@/app/components/button";
-import InteractivePanel from "@/app/components/interactive_panel_props";
-import {
-  HiMiniArrowUp,
-  HiMiniSparkles,
-  HiOutlinePhoto,
-  HiOutlineSparkles,
-} from "react-icons/hi2";
+import { HiMiniArrowUp, HiOutlinePhoto } from "react-icons/hi2";
 import pickImage from "@/app/data/functions/image_picker";
+import { ClosePanelButton } from "@/app/components/interactive_panel_props";
 
 // Define the structure of a single chat entry
 type RecipeGeneratorProps = {
@@ -91,54 +86,51 @@ const RecipeGenerator: React.FC = () => {
   };
 
   return (
-    <InteractivePanel
-      icon={<HiOutlineSparkles />}
-      activateIcon={<HiMiniSparkles />}
-      position="left-16 top-4 bottom-4 overflow-hidden ml-1"
-      child={
-        <div className="space-y-2 w-full flex flex-col items-center justify-between h-full">
-          {/* Header */}
-          <header className="w-full">
-            <h1 className="text-xl font-bold m-4">
-              How can I assist you today? You can:
-            </h1>
-            <hr />
-          </header>
-
-          {/* Chat History */}
-          <div className="h-full w-full overflow-y-scroll p-4 space-y-4">
-            {chatData.map((request, index) => (
-              <RequestContent key={index} content={request} />
-            ))}
-          </div>
-
-          {/* Footer */}
-          <footer className="px-4 pb-4 w-full">
-            <div className="border rounded-2xl w-full">
-              {/* Input field */}
-              <textarea
-                ref={descriptionRef}
-                className="w-full h-16 p-3 outline-none bg-transparent resize-none text-sm"
-                placeholder="Write recipe name or description"
-                aria-label="Recipe description"
-              ></textarea>
-              {/* Action buttons */}
-              <div className="flex justify-between px-3 pb-3">
-                <IconButton onClick={handlePickImage} aria-label="Upload image">
-                  <HiOutlinePhoto className="text-xl" />
-                </IconButton>
-                <IconButton
-                  onClick={handleSendDescription}
-                  aria-label="Send description"
-                >
-                  <HiMiniArrowUp className="text-xl" />
-                </IconButton>
-              </div>
-            </div>
-          </footer>
+    <div className="space-y-2 w-full flex flex-col items-center justify-between h-full">
+      {/* Header */}
+      <header className="w-full">
+        <div className="flex items-center p-2 space-x-4">
+          <ClosePanelButton panelId="chatPanel" />
+          <h1>
+            🍳 Need a recipe, ingredients, or tips? Let’s cook! 😊
+          </h1>
         </div>
-      }
-    />
+
+        <hr />
+      </header>
+
+      {/* Chat History */}
+      <div className="h-full w-full overflow-y-scroll p-4 space-y-4">
+        {chatData.map((request, index) => (
+          <RequestContent key={index} content={request} />
+        ))}
+      </div>
+
+      {/* Footer */}
+      <footer className="px-4 pb-4 w-full">
+        <div className="border rounded-2xl w-full">
+          {/* Input field */}
+          <textarea
+            ref={descriptionRef}
+            className="w-full h-16 p-3 outline-none bg-transparent resize-none text-sm"
+            placeholder="Write recipe name or description"
+            aria-label="Recipe description"
+          ></textarea>
+          {/* Action buttons */}
+          <div className="flex justify-between px-3 pb-3">
+            <IconButton onClick={handlePickImage} aria-label="Upload image">
+              <HiOutlinePhoto className="text-xl" />
+            </IconButton>
+            <IconButton
+              onClick={handleSendDescription}
+              aria-label="Send description"
+            >
+              <HiMiniArrowUp className="text-xl" />
+            </IconButton>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 };
 

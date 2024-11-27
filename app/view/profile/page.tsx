@@ -14,18 +14,18 @@ export default function ProfilePage() {
   }
 
   return (
-    <NavbarContainer>
-      <div className="flex space-x-4 items-center p-8">
+    <NavbarContainer  pageIndex={4}>
+      <div className="flex space-x-4 items-center p-2 md:p-8">
         <Avatar
           src={currentUser?.photoURL ?? ""}
           alt={currentUser?.displayName ?? ""}
           width={100}
           height={100}
-          className="h-36 w-36"
+          className="h-24 w-24 md:h-36 md:w-36"
         />
         <div className="space-y-2">
           <div>Profile</div>
-          <h1 className="text-6xl font-extrabold">
+          <h1 className="text-4xl md:text-6xl font-extrabold">
             {currentUser?.displayName ?? "User"}
           </h1>
           <OutlineButton

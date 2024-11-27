@@ -1,33 +1,66 @@
 "use client";
+import { useEffect, useRef } from "react";
+import { IconButton } from "./button";
+import { HiArrowLeft } from "react-icons/hi2";
 
-import { useState, useRef, useEffect } from "react";
-
-interface InteractivePanelProps {
+interface InteractiveButtonProps {
   icon: React.ReactNode;
   activateIcon: React.ReactNode;
-  child: React.ReactNode;
-  position?: string;
+  panelId: string; // ID unique pour identifier le panneau lié
 }
 
-export default function InteractivePanel({
+export const InteractiveButton = ({
   icon,
-  activateIcon,
-  child,
-  position,
-}: InteractivePanelProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  panelId,
+}: InteractiveButtonProps) => {
+  const handleToggle = () => {
+    const panel = document.getElementById(panelId);
+
+    if (panel) {
+      // Basculer la visibilité en fonction de la classe "hidden"
+      if (panel.classList.contains("hidden")) {
+        panel.classList.remove("hidden");
+      } else {
+        panel.classList.add("hidden");
+      }
+    }
+  };
+
+  return (
+    <button
+      onClick={handleToggle}
+      className="p-2 rounded-full hover:bg-slate-200 text-3xl md:text-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+      aria-controls={panelId} // Amélioration de l'accessibilité
+    >
+      {icon}
+    </button>
+  );
+};
+
+interface InteractivePanelProps {
+  children: React.ReactNode;
+  id: string; // ID unique pour identifier ce panneau
+  className?: string;
+}
+
+export const InteractivePanel = ({
+  children,
+  id,
+  className,
+}: InteractivePanelProps) => {
   const panelRef = useRef<HTMLDivElement>(null);
 
-  // Gestion du clic à l'extérieur
+  // Gestion du clic à l'extérieur pour fermer le panneau
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         panelRef.current &&
         !panelRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false); // Ferme le panneau si on clique à l'extérieur
+        panelRef.current.classList.add("hidden"); // Cache le panneau
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -35,24 +68,40 @@ export default function InteractivePanel({
   }, []);
 
   return (
-    <div>
-      {/* Bouton pour afficher/masquer le panneau */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-full hover:bg-slate-200 text-4xl md:text-2xl"
-      >
-        {isOpen ? activateIcon : icon}
-      </button>
-
-      {/* Panneau interactif */}
-      {isOpen && (
-        <div
-          ref={panelRef}
-          className={`shadow-[0_0_20px_rgba(0,0,0,0.2)] bg-white absolute rounded-xl w-96 z-30 flex flex-col items-center justify-center ${position}`}
-        >
-          {child}
-        </div>
-      )}
+    <div
+      id={id} // ID unique pour la liaison avec le bouton
+      ref={panelRef}
+      className={`hidden shadow-[0_0_20px_rgba(0,0,0,0.2)] bg-white absolute z-30 flex flex-col items-center justify-center ${className}`}
+    >
+      {children}
     </div>
   );
+};
+
+interface ClosePanelButtonProps {
+  panelId: string; // ID du panneau à fermer
+  className?: string; // Optionnel : classes CSS supplémentaires
 }
+
+export const ClosePanelButton = ({
+  panelId,
+  className,
+}: ClosePanelButtonProps) => {
+  const handleClose = () => {
+    const panel = document.getElementById(panelId);
+
+    if (panel) {
+      panel.classList.add("hidden"); // Ajoute la classe "hidden" pour fermer le panneau
+    }
+  };
+
+  return (
+    <IconButton
+      onClick={handleClose}
+      className={`${className}`}
+      aria-controls={panelId} // Amélioration de l'accessibilité
+    >
+      <HiArrowLeft className="text-lg" />
+    </IconButton>
+  );
+};

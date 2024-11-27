@@ -1,6 +1,6 @@
 "use client";
 import NavbarContainer from "@/app/components/navbar_container";
-import RecipeCardX from "@/app/components/recipe_cardx";
+import RecipeCard from "@/app/components/recipe_card";
 import Recipe from "@/app/data/model/recipe_model";
 import { RecipeProvider } from "@/app/data/provider/recipe_provider";
 import { useEffect, useState } from "react";
@@ -26,7 +26,7 @@ export default function HomePage() {
       {/* Horizontal scroll for recipes */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-scroll py-2">
         {recipes.map((recipe, index) => (
-          <RecipeCardX key={index} recipe={recipe} />
+          <RecipeCard key={index} recipe={recipe} />
         ))}
       </div>
       <div className="h-16"></div>

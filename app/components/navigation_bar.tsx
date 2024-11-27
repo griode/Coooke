@@ -10,20 +10,14 @@ import {
   HiOutlineCalendar,
   HiCalendar,
   HiOutlineCog6Tooth,
-  HiMiniCog6Tooth,
-  HiArrowRightOnRectangle,
+  HiMiniSparkles,
 } from "react-icons/hi2";
-import { LiaUserEditSolid } from "react-icons/lia";
-import InteractivePanel from "./interactive_panel_props";
-import { OutlineButton } from "./button";
 
-import RecipeGenerator from "../view/recipe_generate/recipe_generator";
-import { HiOutlineSearch, HiSearch } from "react-icons/hi";
+import { HiOutlineSearch } from "react-icons/hi";
 import Avatar from "./avatar";
 import CircularProgress from "./circular_progress";
 import { useCurrentUser } from "../hooks/use_current_user";
-import SearchPage from "../view/search/page";
-import { auth } from "../firebase";
+import { InteractiveButton } from "./interactive_panel_props";
 
 // Types
 interface NavItemType {
@@ -47,7 +41,7 @@ const NavItem = ({ item, onClick }: NavItemProps) => {
       className={`flex flex-col items-center justify-center p-2 rounded-3xl cursor-pointer`}
       aria-label={item.name}
     >
-      <div className="flex items-center justify-center text-4xl md:text-2xl">
+      <div className="flex items-center justify-center text-3xl md:text-2xl">
         {item.enable ? item.fillIcon : item.icon}
       </div>
     </div>
@@ -60,11 +54,6 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
   const { currentUser, loading } = useCurrentUser();
 
   // log out handler
-  const logoutHandler = () => {
-    auth.signOut().then(() => {
-      router.push("/");
-    });
-  };
 
   const handleClick = (index: number) => {
     pageIndex = index;
@@ -100,9 +89,9 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
   }
 
   return (
-    <div className="h-16 bottom-0 w-full absolute flex-row md:static space-x-6 md:space-x-0 md:top-0 md:left-0 md:right-0 flex border-r md:flex-col md:w-fit md:h-full items-center justify-center md:justify-between bg-white/75 backdrop-blur-lg px-2 py-4">
+    <div className="h-16 bottom-0 w-full flex-row absolute md:static space-x-6 md:space-x-0 md:top-0 md:left-0 md:right-0 flex border-r md:flex-col md:w-fit md:h-full items-center justify-center md:justify-between bg-white/75 backdrop-blur-lg px-2 py-4 md:px-4">
       {/* Top Section */}
-      <div className="flex flex-row md:flex-col items-center gap-4">
+      <div className="flex flex-row md:flex-col items-center gap-12 md:gap-4 static">
         <div
           onClick={() => router.push("/view/home")}
           className="bg-black rounded-full w-0 h-0 md:w-8 md:h-8 hidden md:block"
@@ -125,19 +114,24 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
             }}
           />
         ))}
-        <RecipeGenerator />
-        <InteractivePanel
-          position="left-16 ml-1 top-4 bottom-4"
+
+        <InteractiveButton
+          icon={<HiMiniSparkles />}
+          panelId={"chatPanel"}
+          activateIcon={undefined}
+        />
+
+        <InteractiveButton
           icon={<HiOutlineSearch />}
-          activateIcon={<HiSearch />}
-          child={<SearchPage />}
+          panelId={"searchPanel"}
+          activateIcon={undefined}
         />
       </div>
 
       {/* Bottom Section */}
-      <div className="flex flex-row md:flex-col items-center justify-between gap-4">
+      <div className="flex flex-row md:flex-col items-center justify-between gap-12 md:gap-4">
         <Avatar
-          className="h-10 w-10 md:h-6 md:w-6"
+          className="h-8 w-8 md:h-6 md:w-6"
           onClick={() => router.push("/view/profile")}
           radius={24}
           src={currentUser?.photoURL ?? ""}
@@ -145,29 +139,13 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
           width={100}
           height={100}
         />
-        <InteractivePanel
-          position="left-16 bottom-4 ml-1"
-          icon={<HiOutlineCog6Tooth />}
-          activateIcon={<HiMiniCog6Tooth />}
-          child={
-            <div className="space-y-2 w-full text-xl p-4">
-              <OutlineButton
-                onClick={() => router.push("/view/profile/edit")}
-                className="text-left flex items-center space-x-2 w-full"
-              >
-                <LiaUserEditSolid className="text-xl" />
-                <samp className="text-sm">Edit Profile</samp>
-              </OutlineButton>
-              <OutlineButton
-                onClick={logoutHandler}
-                className="text-left flex items-center space-x-2 w-full"
-              >
-                <HiArrowRightOnRectangle className="text-xl" />
-                <samp className="text-sm">Log out</samp>
-              </OutlineButton>
-            </div>
-          }
-        />
+        <div className="hidden md:block">
+          <InteractiveButton
+            icon={<HiOutlineCog6Tooth />}
+            panelId={"profilePanel"}
+            activateIcon={undefined}
+          />
+        </div>
       </div>
     </div>
   );

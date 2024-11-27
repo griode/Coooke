@@ -1,45 +1,56 @@
+"use client";
+import { CiTimer, CiUser } from "react-icons/ci";
+import Recipe from "../data/model/recipe_model";
 import Image from "next/image";
-import image1 from "@/app/assets/images/image_1.jpg";
-import image2 from "@/app/assets/images/image_2.jpg";
-import { StaticImageData } from "next/image";
+import { useState } from "react";
+import DetailPage from "../view/detail_recipe/page";
 
-interface Recipe {
-  title: string;
-  photoUrl: StaticImageData;
+const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
+  const [showDetail, setShowDetail] = useState<boolean>(false);
+
+  const showDetailHandler = () => {
+    setShowDetail(!showDetail);
+  };
+
+  return (
+    <>
+      {showDetail ? (
+        <DetailPage recipe={recipe} setShowDialog={setShowDetail} />
+      ) : (
+        <></>
+      )}
+      <div onClick={showDetailHandler}>
+        <div
+          onClick={showDetailHandler}
+          className="w-full bg-slate-100 rounded-3xl p-1"
+        >
+          <div className="w-full h-56 bg-slate-300 rounded-3xl overflow-hidden">
+            <Image
+              className="object-cover w-full h-full"
+              src={recipe.image ?? ""}
+              alt={recipe.name}
+              layout="responsive"
+              width={800}
+              height={800}
+            />
+          </div>
+          <div className="m-2">
+            <h1 className="font-medium line-clamp-1">{recipe.name}</h1>
+            <div className="text-xs text-gray-500 flex space-x-2">
+              <div className="flex items-center space-x-1">
+                <CiTimer />
+                <span>{`${recipe.duration} min`}</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <CiUser />
+                <span>{`${recipe.servings} reviews`}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
-const listRecipes: Recipe[] = [
-  {
-    title: "Stuffed eggplants with yogurt and salad",
-    photoUrl: image1,
-  },
-  {
-    title: "Autumn Soup",
-    photoUrl: image2,
-  },
-];
-
-export const RecipeSection = () => {
-  return (
-    <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
-      {listRecipes.map((recipe, index) => (
-        <RecipeCard key={index} recipe={recipe} />
-      ))}
-    </div>
-  );
-};
-
-export const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
-  return (
-    <div className="flex flex-col items-center justify-center w-full h-full bg-slate-100 rounded-3xl relative overflow-hidden">
-      <h3 className="text-lg font-bold text-white absolute bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent w-full">
-        {recipe.title}
-      </h3>
-      <Image
-        className="object-cover w-full h-full"
-        src={recipe.photoUrl}
-        alt={recipe.title}
-      />
-    </div>
-  );
-};
+export default RecipeCard;

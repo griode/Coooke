@@ -1,5 +1,6 @@
 "use client";
 
+import { ClosePanelButton } from "@/app/components/interactive_panel_props";
 import { useState, useEffect, useRef } from "react";
 import { BiSearch } from "react-icons/bi";
 
@@ -34,11 +35,11 @@ export default function SearchPage() {
         onClick={() => setEnable(true)}
       >
         <div
-          className={`bg-white h-10 rounded-t-xl border-b w-full flex items-center space-x-2 px-4 py-2`}
+          className={`bg-white rounded-t-xl border-b w-full flex items-center space-x-2 px-2`}
         >
-          <BiSearch className="text-2xl text-slate-600" />
+          <ClosePanelButton panelId="searchPanel" />
           <input
-            className="w-full h-full outline-none bg-transparent"
+            className="w-full h-12 outline-none bg-transparent"
             type="search"
             placeholder="Search..."
           />
@@ -47,7 +48,7 @@ export default function SearchPage() {
           <div
             className={`${
               enable
-                ? "absolute bg-white top-10 shadow-xl rounded-b-xl left-0 p-2 w-96 h-96 border border-t-0"
+                ? "absolute bg-white top-14 shadow-xl rounded-b-xl left-0 p-2 right-0 h-96 border border-t-0"
                 : ""
             }`}
           ></div>

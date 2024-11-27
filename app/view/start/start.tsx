@@ -5,7 +5,7 @@ import arrow from "@/app/assets/icons/arrow.png";
 import { SliderCard } from "../../components/slider_card";
 import { BsStarFill, BsSearch } from "react-icons/bs";
 import { CategorySection } from "../../components/category_card";
-import { RecipeSection } from "../../components/recipe_card";
+import { RecipeSection } from "../../components/image_recipe_card";
 import Header from "../../components/header";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
