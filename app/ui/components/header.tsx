@@ -1,8 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
-import { BsList, BsListNested } from "react-icons/bs";
-import LoginPage from "../view/login/page";
-import { FillButton } from "./button";
+import {useEffect, useState} from "react";
+import {BsList, BsListNested} from "react-icons/bs";
+import {FillButton} from "./button";
+
+import {LoginPage} from "@/app/ui/components/loginPage";
 
 const navLinks = ["Home", "Menu", "Booking", "Pricing"];
 

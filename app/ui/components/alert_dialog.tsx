@@ -1,13 +1,12 @@
-"use client";
-import { IoClose } from "react-icons/io5";
-import { useEffect } from "react";
+import {IoClose} from "react-icons/io5";
+import {Dispatch, ReactNode, SetStateAction, useEffect} from "react";
 
 export function AlertDialog({
   children,
   setShowDialog,
 }: {
-  children: React.ReactNode;
-  setShowDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  children: ReactNode;
+  setShowDialog: Dispatch<SetStateAction<boolean>>;
 }) {
   useEffect(() => {
     document.body.style.overflow = "hidden";

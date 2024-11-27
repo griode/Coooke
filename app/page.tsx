@@ -1,12 +1,13 @@
+"use client";
 /* eslint-disable @next/next/no-img-element */
-import { BsSearch, BsStarFill } from "react-icons/bs";
-import { CategorySection } from "./ui/components/category_card";
-import { SliderCard } from "./ui/components/slider_card";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useCurrentUser } from "./hooks/use_current_user";
+import {BsSearch, BsStarFill} from "react-icons/bs";
+import {CategorySection} from "./ui/components/category_card";
+import {SliderCard} from "./ui/components/slider_card";
+import {useRouter} from "next/navigation";
+import {useEffect} from "react";
+import {useCurrentUser} from "./hooks/use_current_user";
 import Header from "./ui/components/header";
-import { RecipeSection } from "./ui/components/image_recipe_card";
+import {RecipeSection} from "./ui/components/image_recipe_card";
 
 export default function Home() {
   const starIconStyle = "text-yellow-500 h-5 w-5";
