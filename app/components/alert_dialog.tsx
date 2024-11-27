@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import {useEffect} from "react";
-import {IoClose} from "react-icons/io5";
+import { useEffect } from "react";
+import { IoClose } from "react-icons/io5";
 
 export function AlertDialog({
   children,

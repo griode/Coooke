@@ -1,8 +1,6 @@
 "use client";
-
 import { ClosePanelButton } from "@/app/components/interactive_panel_props";
 import { useState, useEffect, useRef } from "react";
-import { BiSearch } from "react-icons/bi";
 
 export default function SearchPage() {
   const [enable, setEnable] = useState<boolean>(false);
