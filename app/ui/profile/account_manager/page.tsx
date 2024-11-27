@@ -1,12 +1,12 @@
 "use client";
-import { FillButton, OutlineButton } from "@/app/components/button";
 import EditProfileContainer from "../edit_container";
 import { GrLanguage } from "react-icons/gr";
-import Chip from "@/app/components/chip";
 import { TbFrustumOff } from "react-icons/tb";
 import { useAuth } from "@/app/hooks/use_current_user";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FillButton, OutlineButton } from "../../components/button";
+import Chip from "../../components/chip";
 
 const formatDate = (date: Date) => {
   if (!date) return "2000-01-01"; // Valeur par défaut

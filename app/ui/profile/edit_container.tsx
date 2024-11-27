@@ -1,6 +1,6 @@
 "use client";
-import NavbarContainer from "@/app/components/navbar_container";
 import { useRouter } from "next/navigation";
+import NavbarContainer from "../components/navbar_container";
 
 const NavLink = ({
   children,

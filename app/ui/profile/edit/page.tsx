@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-
-import {FillButton, OutlineButton} from "@/app/components/button";
 import {useRouter} from "next/navigation";
 import EditProfileContainer from "../edit_container";
-import Avatar from "@/app/components/avatar";
 import {useAuth, useCurrentUser} from "@/app/hooks/use_current_user";
 import pickImage from "@/app/data/functions/image_picker";
 import {deleteFileByUrl, uploadBase64File,} from "@/app/data/functions/upload_file";
 import {updateProfile} from "firebase/auth";
 import {useState} from "react";
+import Avatar from "../../components/avatar";
+import { OutlineButton, FillButton } from "../../components/button";
 
 const EditProfilePage = () => {
   const router = useRouter();
