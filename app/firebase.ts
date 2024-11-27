@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import {initializeApp} from "firebase/app";
-import {getAnalytics, isSupported} from "firebase/analytics";
 import {getAuth, GoogleAuthProvider} from "firebase/auth";
 import {getFirestore} from "firebase/firestore";
 import {getStorage} from "firebase/storage";
@@ -21,19 +20,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-if (typeof window !== "undefined") {
-  isSupported().then((supported) => {
-    if (supported) {
-      getAnalytics(app);
-    } else {
-      console.warn("Firebase Analytics non pris en charge dans cet environnement.");
-    }
-  });
-}
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const storage = getStorage(app);
 
-export { app, analytics, auth, googleProvider, db, storage };
+export {app, auth, googleProvider, db, storage};
