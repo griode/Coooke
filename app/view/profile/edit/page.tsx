@@ -1,18 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { FillButton, OutlineButton } from "@/app/components/button";
-import { useRouter } from "next/navigation";
+import {FillButton, OutlineButton} from "@/app/components/button";
+import {useRouter} from "next/navigation";
 import EditProfileContainer from "../edit_container";
 import Avatar from "@/app/components/avatar";
-import { useAuth, useCurrentUser } from "@/app/hooks/use_current_user";
+import {useAuth, useCurrentUser} from "@/app/hooks/use_current_user";
 import pickImage from "@/app/data/functions/image_picker";
-import {
-  deleteFileByUrl,
-  uploadBase64File,
-} from "@/app/data/functions/upload_file";
-import { updateProfile } from "firebase/auth";
-import { useState } from "react";
+import {deleteFileByUrl, uploadBase64File,} from "@/app/data/functions/upload_file";
+import {updateProfile} from "firebase/auth";
+import {useState} from "react";
 
 const EditProfilePage = () => {
   const router = useRouter();
@@ -57,7 +54,7 @@ const EditProfilePage = () => {
               alt={userAuth?.fullName ?? ""}
               width={100}
               height={100}
-              radius={80}
+              className="h-20 w-20"
             />
             <OutlineButton
               onClick={changeProfileImageHandler}

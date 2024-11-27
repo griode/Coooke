@@ -1,9 +1,9 @@
 "use client";
 import NavbarContainer from "@/app/components/navbar_container";
-import { useCurrentUser } from "@/app/hooks/use_current_user";
+import {useCurrentUser} from "@/app/hooks/use_current_user";
 import Avatar from "@/app/components/avatar";
-import { useRouter } from "next/navigation";
-import { OutlineButton } from "@/app/components/button";
+import {useRouter} from "next/navigation";
+import {OutlineButton} from "@/app/components/button";
 
 export default function ProfilePage() {
   const { currentUser, loading } = useCurrentUser();
@@ -21,7 +21,7 @@ export default function ProfilePage() {
           alt={currentUser?.displayName ?? ""}
           width={100}
           height={100}
-          radius={120}
+          className="h-36 w-36"
         />
         <div className="space-y-2">
           <div>Profile</div>
