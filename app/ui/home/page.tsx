@@ -1,11 +1,11 @@
 "use client";
-import NavbarContainer from "@/app/components/navbar_container";
-import RecipeCard from "@/app/components/recipe_card";
 import Recipe from "@/app/data/model/recipe_model";
 import { RecipeProvider } from "@/app/data/provider/recipe_provider";
 import { useEffect, useState } from "react";
-import RecipeDay from "./recipe_day";
+import RecipeDay from "../components/recipe_day";
 import "@/app/scroll-style.css"; // Import the CSS file
+import NavbarContainer from "../components/navbar_container";
+import RecipeCard from "../components/recipe_card";
 
 export default function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);

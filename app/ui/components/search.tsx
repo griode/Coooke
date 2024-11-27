@@ -1,6 +1,6 @@
 "use client";
-import { ClosePanelButton } from "@/app/components/interactive_panel_props";
 import { useState, useEffect, useRef } from "react";
+import { ClosePanelButton } from "./interactive_panel_props";
 
 export default function SearchPage() {
   const [enable, setEnable] = useState<boolean>(false);

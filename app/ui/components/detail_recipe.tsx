@@ -1,10 +1,10 @@
 import { PiBowlFoodLight, PiFireSimpleThin } from "react-icons/pi";
 import { GiSteak } from "react-icons/gi";
 import Image from "next/image";
-import { AlertDialog } from "@/app/components/alert_dialog";
 import { CiTimer, CiUser } from "react-icons/ci";
-import { NutritionCard } from "../home/recipe_day";
+import { NutritionCard } from "./recipe_day";
 import Recipe from "@/app/data/model/recipe_model";
+import { AlertDialog } from "./alert_dialog";
 
 export const DetailPage = ({
   recipe,

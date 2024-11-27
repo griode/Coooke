@@ -2,10 +2,10 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { IconButton } from "@/app/components/button";
 import { HiMiniArrowUp, HiOutlinePhoto } from "react-icons/hi2";
 import pickImage from "@/app/data/functions/image_picker";
-import { ClosePanelButton } from "@/app/components/interactive_panel_props";
+import { IconButton } from "./button";
+import { ClosePanelButton } from "./interactive_panel_props";
 
 // Define the structure of a single chat entry
 type RecipeGeneratorProps = {

@@ -3,12 +3,12 @@
 import router from "next/router";
 import { HiArrowRightOnRectangle } from "react-icons/hi2";
 import { LiaUserEditSolid } from "react-icons/lia";
-import RecipeGenerator from "../view/recipe_generate/recipe_generator";
-import SearchPage from "../view/search/page";
 import { OutlineButton } from "./button";
 import { InteractivePanel } from "./interactive_panel_props";
 import NavigationBar from "./navigation_bar";
-import { auth } from "../firebase";
+import { auth } from "@/app/firebase";
+import SearchPage from "./search";
+import RecipeGenerator from "./recipe_generator";
 // bell
 
 const logoutHandler = () => {

@@ -1,9 +1,9 @@
 "use client";
 import { CiTimer, CiUser } from "react-icons/ci";
-import Recipe from "../data/model/recipe_model";
 import Image from "next/image";
 import { useState } from "react";
-import { DetailPage } from "@/app/view/detail_recipe/page";
+import { DetailPage } from "@/app/ui/components/detail_recipe";
+import Recipe from "@/app/data/model/recipe_model";
 
 const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
   const [showDetail, setShowDetail] = useState<boolean>(false);
@@ -51,6 +51,6 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
       </div>
     </>
   );
-}
+};
 
 export default RecipeCard;

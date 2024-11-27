@@ -16,8 +16,8 @@ import {
 import { HiOutlineSearch } from "react-icons/hi";
 import Avatar from "./avatar";
 import CircularProgress from "./circular_progress";
-import { useCurrentUser } from "../hooks/use_current_user";
 import { InteractiveButton } from "./interactive_panel_props";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
 
 // Types
 interface NavItemType {
@@ -69,14 +69,14 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
       name: "Home",
       icon: <HiOutlineHome />,
       fillIcon: <HiMiniHome />,
-      path: "/view/home",
+      path: "/ui/home",
     },
     {
       enable: pageIndex === 1,
       name: "Menu",
       icon: <HiOutlineCalendar />,
       fillIcon: <HiCalendar />,
-      path: "/view/menu",
+      path: "/ui/menu",
     },
   ];
 
