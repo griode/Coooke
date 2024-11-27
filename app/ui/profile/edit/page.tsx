@@ -107,7 +107,7 @@ const EditProfilePage = () => {
         <hr className="my-8" />
         <div className="space-x-4">
           <OutlineButton
-            onClick={() => router.push("/view/profile")}
+            onClick={() => router.push("/ui/profile")}
             className="w-fit"
           >
             Cancel

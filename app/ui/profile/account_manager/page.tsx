@@ -152,7 +152,7 @@ const AccountManagerPage = () => {
         {/* Action Buttons */}
         <div className="space-x-4 flex">
           <OutlineButton
-            onClick={() => router.push("/view/profile")}
+            onClick={() => router.push("/ui/profile")}
             className="w-fit"
             aria-label="Cancel changes"
           >

@@ -51,7 +51,7 @@ export default function NavbarContainer({
           >
             <div className="space-y-2 w-full text-xl p-4">
               <OutlineButton
-                onClick={() => router.push("/view/profile/edit")}
+                onClick={() => router.push("/ui/profile/edit")}
                 className="text-left flex items-center space-x-2 w-full"
               >
                 <LiaUserEditSolid className="text-xl" />

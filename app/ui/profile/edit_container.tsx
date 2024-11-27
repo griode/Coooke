@@ -38,11 +38,11 @@ const EditProfileContainer = ({
     <NavbarContainer pageIndex={2}>
       <div className="flex mt-10 p-8 space-x-20">
         <div className="w-64 border rounded-2xl p-4 h-fit">
-          <NavLink path="/view/profile/edit" isActive={pageEditIndex === 0}>
+          <NavLink path="/ui/profile/edit" isActive={pageEditIndex === 0}>
             Edit profile
           </NavLink>
           <NavLink
-            path="/view/profile/account_manager"
+            path="/ui/profile/account_manager"
             isActive={pageEditIndex === 1}
           >
             Account management
