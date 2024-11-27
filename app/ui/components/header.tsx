@@ -1,7 +1,7 @@
 "use client";
 import {useEffect, useState} from "react";
 import {BsList, BsListNested} from "react-icons/bs";
-import {FillButton} from "./button";
+import {FillButton, IconButton} from "./button";
 
 import {LoginPage} from "@/app/ui/components/loginPage";
 
@@ -42,9 +42,9 @@ const Header = () => {
         </h1>
 
         {/* Bouton Menu pour les petits écrans */}
-        <button
+        <IconButton
           onClick={toggleMenu}
-          className="md:hidden text-2xl focus:outline-none z-20"
+          className="md:hidden text-2xl z-30"
           aria-label="Menu Button"
         >
           {menuOpen ? (
@@ -52,13 +52,13 @@ const Header = () => {
           ) : (
             <BsList className="w-5 h-5" />
           )}
-        </button>
+        </IconButton>
 
         {/* Navigation */}
         <nav
           className={`${
             menuOpen ? "flex" : "hidden"
-          } flex-col md:flex md:flex-row items-center justify-center fixed md:static inset-0 md:inset-auto bg-white md:bg-transparent gap-4 z-10 p-4 md:p-0`}
+          } flex-col md:flex md:flex-row items-center justify-center fixed md:static inset-0 md:inset-auto bg-white md:bg-transparent gap-4 z-20 p-4 md:p-0`}
         >
           <ul className="flex flex-col items-center gap-8 md:gap-4 md:flex-row w-full md:w-auto">
             {navLinks.map((link, index) => (
