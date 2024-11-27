@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     if (currentUser) {
-      router.push("/view/home"); // Redirect to home page if user is logged in
+      router.push("/ui/home"); // Redirect to home page if user is logged in
     }
   }, [router, currentUser]);
 
