@@ -1,4 +1,4 @@
-import { DocumentData, DocumentSnapshot, QueryDocumentSnapshot, Timestamp } from 'firebase/firestore';
+import { DocumentData, DocumentSnapshot, Timestamp } from 'firebase/firestore';
 
 type RecipeData = {
   image?: string;
@@ -26,17 +26,17 @@ class Recipe {
   id?: string;
   createdBy?: string;
   name: string;
-  ingredients: any[];
-  instructions: any[];
-  duration: any;
-  servings: any;
+  ingredients: string[];
+  instructions: string[];
+  duration: number;
+  servings: number;
   difficulty: string;
   cuisine: string;
   description?: string;
-  nutritionFacts?: any;
+  nutritionFacts?: Map<string, string>;
   diet?: string;
   language?: string;
-  index?: any;
+  index?: number;
   createdAt: Timestamp;
   continent: string;
   mealType: string;
@@ -48,8 +48,8 @@ class Recipe {
     this.name = data.name;
     this.ingredients = data.ingredients;
     this.instructions = data.instructions;
-    this.duration = data.duration;
-    this.servings = data.servings;
+    this.duration = Number(data.duration);
+    this.servings = Number(data.servings);
     this.difficulty = data.difficulty;
     this.cuisine = data.cuisine;
     this.description = data.description;
@@ -87,6 +87,7 @@ class Recipe {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static fromJson(json: any): Recipe {
     return new Recipe({
       image: json['image'],
@@ -108,6 +109,7 @@ class Recipe {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   toFireStore(): any {
     return {
       created_by: this.createdBy,

@@ -4,14 +4,15 @@ import NavigationBar from "./navigation_bar";
 // bell
 
 export default function NavbarContainer({
-  children,
+  children, pageIndex
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
+    pageIndex: number;
 }) {
   return (
     <section className="h-screen w-screen flex space-x-2 overflow-hidden">
-      <NavigationBar />
-      <div className="w-full h-full p-4 overflow-hidden">{children}</div>
+      <NavigationBar pageIndex={pageIndex} />
+      <div className="w-full h-full p-4 overflow-x-hidden overflow-y-scroll">{children}</div>
     </section>
   );
 }

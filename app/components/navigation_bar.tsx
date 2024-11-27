@@ -23,9 +23,7 @@ import Avatar from "./avatar";
 import CircularProgress from "./circular_progress";
 import { useCurrentUser } from "../hooks/use_current_user";
 import SearchPage from "../view/search/page";
-
-//
-let pageIndex = 0;
+import { auth } from "../firebase";
 
 // Types
 interface NavItemType {
@@ -57,17 +55,16 @@ const NavItem = ({ item, onClick }: NavItemProps) => {
 };
 
 // Component: Navigation Bar
-export default function NavigationBar() {
+export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
   const router = useRouter(); // Initialize router
   const { currentUser, loading } = useCurrentUser();
 
-  if (loading) {
-    return (
-      <div className="p-24">
-        <CircularProgress size={40} />
-      </div>
-    );
-  }
+  // log out handler
+  const logoutHandler = () => {
+    auth.signOut().then(() => {
+      router.push("/");
+    });
+  };
 
   const handleClick = (index: number) => {
     pageIndex = index;
@@ -94,13 +91,21 @@ export default function NavigationBar() {
     },
   ];
 
+  if (loading) {
+    return (
+      <div className="p-24">
+        <CircularProgress size={40} />
+      </div>
+    );
+  }
+
   return (
-    <div className="flex border-r flex-col w-fit h-full items-center justify-between bg-slate-100 px-2 py-4">
+    <div className="h-16 bottom-0 w-full absolute flex-row md:static md:top-0 md:left-0 md:right-0 flex border-r md:flex-col md:w-fit md:h-full items-center justify-between bg-slate-100 px-2 py-4">
       {/* Top Section */}
-      <div className="flex flex-col items-center space-y-4">
+      <div className="flex flex-row md:flex-col items-center space-y-0 md:space-y-4">
         <div
           onClick={() => router.push("/view/home")}
-          className="bg-black rounded-full w-8 h-8"
+          className="bg-black rounded-full w-8 h-8 hidden md:block"
         >
           <Image
             className="object-cover w-full h-full"
@@ -130,10 +135,10 @@ export default function NavigationBar() {
       </div>
 
       {/* Bottom Section */}
-      <div className="flex flex-col items-center justify-between space-y-2">
+      <div className="flex flex-row md:flex-col items-center justify-between space-y-0 md:space-y-2">
         <Avatar
           onClick={() => router.push("/view/profile")}
-          radius={28}
+          radius={24}
           src={currentUser?.photoURL ?? ""}
           alt={currentUser?.displayName ?? ""}
           width={100}
@@ -145,11 +150,17 @@ export default function NavigationBar() {
           activateIcon={<HiMiniCog6Tooth />}
           child={
             <div className="space-y-2 w-full text-xl p-4">
-              <OutlineButton className="text-left flex items-center space-x-2">
+              <OutlineButton
+                onClick={() => router.push("/view/profile/edit")}
+                className="text-left flex items-center space-x-2 w-full"
+              >
                 <LiaUserEditSolid className="text-xl" />
                 <samp className="text-sm">Edit Profile</samp>
               </OutlineButton>
-              <OutlineButton className="text-left flex items-center space-x-2">
+              <OutlineButton
+                onClick={logoutHandler}
+                className="text-left flex items-center space-x-2 w-full"
+              >
                 <HiArrowRightOnRectangle className="text-xl" />
                 <samp className="text-sm">Log out</samp>
               </OutlineButton>

@@ -20,30 +20,17 @@ export default function HomePage() {
   }, []);
 
   return (
-    <NavbarContainer>
-      {/* Horizontal scroll for RecipeDay */}
-      <div className="flex gap-4 overflow-x-auto px-2 py-4 scrollbar-hidden snap-x snap-mandatory">
-        <div className="shrink-0 snap-start">
-          <RecipeDay />
+    <NavbarContainer pageIndex={0}>
+      
+        <RecipeDay />
+        <h1 className="mt-8 text-xl font-bold">Recent Recipes</h1>
+        {/* Horizontal scroll for recipes */}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-scroll py-2">
+          {recipes.map((recipe, index) => (
+            <RecipeCardX key={index} recipe={recipe} />
+          ))}
         </div>
-        <div className="shrink-0 snap-start">
-          <RecipeDay />
-        </div>
-        <div className="shrink-0 snap-start">
-          <RecipeDay />
-        </div>
-      </div>
-
-      <h1 className="mt-8 mb-4 text-xl font-bold">Recent Recipes</h1>
-
-      {/* Horizontal scroll for recipes */}
-      <div className="flex gap-4 overflow-x-auto px-2 py-4 scrollbar-hidden">
-        {recipes.map((recipe, index) => (
-          <div key={index} className="shrink-0">
-            <RecipeCardX recipe={recipe} />
-          </div>
-        ))}
-      </div>
+      
     </NavbarContainer>
   );
 }

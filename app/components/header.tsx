@@ -69,6 +69,9 @@ const Header = () => {
                 {link}
               </li>
             ))}
+            <div className="block md:hidden w-full">
+              <FillButton className="w-full" onClick={loginHandler}>Login</FillButton>
+            </div>
           </ul>
         </nav>
 

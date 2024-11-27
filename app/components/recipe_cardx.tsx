@@ -22,7 +22,7 @@ export default function RecipeCardX({ recipe }: { recipe: Recipe }) {
       <div onClick={showDetailHandler}>
         <div
           onClick={showDetailHandler}
-          className="w-60 bg-slate-100 rounded-3xl p-1"
+          className="w-full bg-slate-100 rounded-3xl p-1"
         >
           <div className="w-full h-56 bg-slate-300 rounded-3xl overflow-hidden">
             <Image

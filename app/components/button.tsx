@@ -4,18 +4,28 @@ interface ButtonProps {
   children: React.ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: string;
+  disabled?: boolean;
 }
 
 // Outline Button
 export const OutlineButton = ({
   children,
   onClick,
-  className,
+  className = "",
+  disabled = false,
 }: ButtonProps) => {
   return (
     <button
-      onClick={onClick}
-      className={`w-full rounded-xl border text-xs font-bold px-4 py-2 hover:bg-black/5 ${className}`}
+      onClick={!disabled ? onClick : undefined}
+      className={`rounded-xl border text-xs font-bold px-4 py-2 
+        ${
+          disabled
+            ? "bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
+            : "hover:bg-black/5"
+        } 
+        ${className}`}
+      disabled={disabled}
+      aria-disabled={disabled}
     >
       {children}
     </button>
@@ -23,23 +33,49 @@ export const OutlineButton = ({
 };
 
 // Fill Button
-export const FillButton = ({ children, onClick, className }: ButtonProps) => {
+export const FillButton = ({
+  children,
+  onClick,
+  className = "",
+  disabled = false,
+}: ButtonProps) => {
   return (
     <button
-      onClick={onClick}
-      className={`w-full rounded-full bg-black text-white text-xs font-bold px-4 py-2 hover:bg-black/80 ${className}`}
+      onClick={!disabled ? onClick : undefined}
+      className={`rounded-xl border text-xs font-bold px-4 py-2 
+        ${
+          disabled
+            ? "bg-gray-500 text-white border-gray-400 cursor-not-allowed"
+            : "bg-black text-white hover:bg-black/80"
+        } 
+        ${className}`}
+      disabled={disabled}
+      aria-disabled={disabled}
     >
       {children}
     </button>
   );
 };
 
-// icon Button
-export const IconButton = ({ children, onClick, className }: ButtonProps) => {
+// Icon Button
+export const IconButton = ({
+  children,
+  onClick,
+  className = "",
+  disabled = false,
+}: ButtonProps) => {
   return (
     <button
-      onClick={onClick}
-      className={`rounded-full border text-xs font-bold p-2 hover:bg-black/5 ${className}`}
+      onClick={!disabled ? onClick : undefined}
+      className={`rounded-full border text-xs font-bold p-2 
+        ${
+          disabled
+            ? "bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed"
+            : "hover:bg-slate-100 bg-white"
+        } 
+        ${className}`}
+      disabled={disabled}
+      aria-disabled={disabled}
     >
       {children}
     </button>
