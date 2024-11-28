@@ -5,26 +5,21 @@ import {CategorySection} from "./ui/components/category_card";
 import {SliderCard} from "./ui/components/slider_card";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
-import {useCurrentUser} from "./hooks/use_current_user";
 import Header from "./ui/components/header";
 import {RecipeSection} from "./ui/components/image_recipe_card";
 import Image from "next/image";
 import arrow from "./assets/icons/arrow.png";
+import { auth } from "./firebase";
 
 export default function Home() {
   const starIconStyle = "text-yellow-500 h-5 w-5";
   const router = useRouter();
-  const { currentUser, loading } = useCurrentUser();
 
   useEffect(() => {
-    if (currentUser) {
+    if (auth.currentUser !== null) {
       router.push("/ui/home"); // Redirect to home page if user is logged in
     }
-  }, [router, currentUser]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  }, [router]);
 
   return (
     <div className="overflow-x-hidden w-screen">

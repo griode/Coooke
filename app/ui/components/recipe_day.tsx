@@ -42,13 +42,16 @@ const RecipeDayCard = ({ recipe }: { recipe: Recipe }) => {
         {recipe == null ? (
           <div></div>
         ) : (
-          <Image
-            className="object-cover rounded-full"
-            src={recipe?.image ?? ""}
-            alt={recipe?.name}
-            width={1024}
-            height={1024}
-          />
+          recipe.image && (
+            <Image
+              className="object-cover w-full h-full"
+              src={recipe.image}
+              alt={recipe.name}
+              layout="responsive"
+              width={800}
+              height={800}
+            />
+          )
         )}
       </div>
     </div>

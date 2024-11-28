@@ -33,7 +33,7 @@ export const LoginPage = ({
     setIsLoading(true);
     signInWithGoogle().then((user) => {
       if (user) {
-        router.push("/view/home");
+        router.push("/ui/home");
       } else {
         setIsLoading(false);
         alert("Error logging in");
