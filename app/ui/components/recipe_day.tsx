@@ -27,31 +27,26 @@ const RecipeDayCard = ({ recipe }: { recipe: Recipe }) => {
   return (
     <div
       onClick={() => setShowDetail(!showDetail)}
-      className="shrink-0 snap-start px-8 py-4 bg-slate-100 cursor-pointer rounded-3xl justify-between flex items-center overflow-hidden w-96 space-x-6"
+      className="shrink-0 snap-start bg-slate-100 cursor-pointer rounded-3xl justify-between flex items-center overflow-hidden w-96 h-28 space-x-2"
     >
       {showDetail ? (
         <DetailPage recipe={recipe} setShowDialog={setShowDetail} />
       ) : (
         <></>
       )}
-      <div className="">
-        <h1 className="text-xl font-bold text-black/80">{recipe?.name}</h1>
-        <p className="mt-2 line-clamp-2">{recipe?.description}</p>
+      <div className="m-4 w-2/3">
+        <h1 className="text-lg font-bold line-clamp-2">{recipe?.name}</h1>
+        <p className="mt-2 line-clamp-1 text-black/70">{recipe?.description}</p>
       </div>
-      <div className=" bg-slate-200 rounded-full overflow-hidden">
-        {recipe == null ? (
-          <div></div>
-        ) : (
-          recipe.image && (
-            <Image
-              className="object-cover w-full h-full"
-              src={recipe.image}
-              alt={recipe.name}
-              layout="responsive"
-              width={800}
-              height={800}
-            />
-          )
+      <div className="bg-slate-200 h-full w-1/3 rounded-l-full overflow-hidden">
+        {recipe && recipe.image && (
+          <Image
+            className="object-cover w-full h-full"
+            src={recipe.image}
+            alt={recipe.name}
+            width={800}
+            height={800}
+          />
         )}
       </div>
     </div>

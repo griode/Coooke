@@ -37,8 +37,8 @@ const Header = () => {
     <>
       {isLogin ? <LoginPage closeAction={setIsLogin} /> : <></>}
       <header className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">
-          My Cook <span className="text-orange-400">Book</span>
+        <h1 className="text-xl font-black">
+          Cook <span className="text-orange-400">Book</span>
         </h1>
 
         {/* Bouton Menu pour les petits écrans */}

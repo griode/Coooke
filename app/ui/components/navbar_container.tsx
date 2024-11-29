@@ -9,6 +9,8 @@ import SearchPage from "./search";
 import RecipeGenerator from "./recipe_generator";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
+import "@/app/scroll-style.css";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
 // bell
 
 export default function NavbarContainer({
@@ -19,23 +21,28 @@ export default function NavbarContainer({
   pageIndex: number;
 }) {
   const router = useRouter();
+  const { currentUser, loading } = useCurrentUser();
 
   useEffect(() => {
-    if (auth.currentUser == null) {
+    if (currentUser === null && loading === false) {
       router.push("/"); // Redirect to home page if user is logged in
     }
-  }, [router]);
+  }, [router, currentUser, loading]);
 
   const logoutHandler = async () => {
     router.push("/");
     await auth.signOut();
   };
 
+  if (loading) {
+    return <div className="center">Loading...</div>;
+  }
+
   if (auth.currentUser !== null) {
     return (
-      <section className="h-screen w-screen flex space-x-0 md:space-x-2 overflow-hidden">
+      <div className="h-screen w-screen flex space-x-0 md:space-x-2 overflow-hidden">
         <NavigationBar pageIndex={pageIndex} />
-        <div className="w-full h-full p-2 md:p-4 overflow-x-hidden overflow-y-scroll">
+        <div className="w-full h-full p-2 md:p-4 overflow-x-hidden overflow-y-scroll scrollbar-hidden">
           <div>
             {/* Search Panel */}
             <InteractivePanel
@@ -76,7 +83,7 @@ export default function NavbarContainer({
           </div>
           {children}
         </div>
-      </section>
+      </div>
     );
   }
   return <div></div>;

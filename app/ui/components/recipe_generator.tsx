@@ -91,9 +91,7 @@ const RecipeGenerator: React.FC = () => {
       <header className="w-full">
         <div className="flex items-center p-2 space-x-4">
           <ClosePanelButton panelId="chatPanel" />
-          <h1>
-            🍳 Need a recipe, ingredients, or tips? Let’s cook! 😊
-          </h1>
+          <h1>🍳 Need a recipe, ingredients, or tips? Let’s cook! 😊</h1>
         </div>
 
         <hr />
@@ -112,7 +110,7 @@ const RecipeGenerator: React.FC = () => {
           {/* Input field */}
           <textarea
             ref={descriptionRef}
-            className="w-full h-16 p-3 outline-none bg-transparent resize-none text-sm"
+            className="w-full h-16 p-3 outline-none bg-transparent resize-none"
             placeholder="Write recipe name or description"
             aria-label="Recipe description"
           ></textarea>

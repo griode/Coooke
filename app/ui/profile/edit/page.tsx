@@ -1,30 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import EditProfileContainer from "../edit_container";
-import {useAuth, useCurrentUser} from "@/app/hooks/use_current_user";
+import { useAuth, useCurrentUser } from "@/app/hooks/use_current_user";
 import pickImage from "@/app/data/functions/image_picker";
-import {deleteFileByUrl, uploadBase64File,} from "@/app/data/functions/upload_file";
-import {updateProfile} from "firebase/auth";
-import {useState} from "react";
+import {
+  deleteFileByUrl,
+  uploadBase64File,
+} from "@/app/data/functions/upload_file";
+import { updateProfile } from "firebase/auth";
+import { useState } from "react";
 import Avatar from "../../components/avatar";
 import { OutlineButton, FillButton } from "../../components/button";
+import CircularProgress from "../../components/circular_progress";
 
 const EditProfilePage = () => {
   const router = useRouter();
   const { userAuth, loading } = useAuth();
   const { currentUser } = useCurrentUser();
   const [isUpdate, setIsUpdate] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const changeProfileImageHandler = async () => {
     const image = await pickImage();
     if (image) {
+      setIsLoading(true);
       const url = await uploadBase64File(image, "profile");
       deleteFileByUrl(currentUser?.photoURL ?? "");
       updateProfile(currentUser!, {
         photoURL: url,
       });
       currentUser?.reload();
+      setIsLoading(false);
       window.location.reload();
     }
   };
@@ -43,18 +50,26 @@ const EditProfilePage = () => {
           e.stopPropagation();
         }}
       >
-        <h1 className="text-2xl font-bold mb-4">Edit profile</h1>
+        <h1 className="text-2xl font-bold mb-8">Edit profile</h1>
 
         <div className="space-y-1 items-center mb-4">
           <div>Photo</div>
           <div className="flex space-x-4 items-center ">
-            <Avatar
-              src={currentUser?.photoURL ?? ""}
-              alt={userAuth?.fullName ?? ""}
-              width={100}
-              height={100}
-              className="h-20 w-20"
-            />
+            <div className="relative flex items-center justify-center">
+              <Avatar
+                src={currentUser?.photoURL ?? ""}
+                alt={userAuth?.fullName ?? ""}
+                width={100}
+                height={100}
+                className="h-20 w-20"
+              />
+              {isLoading && (
+                <div className="absolute z-10">
+                  <CircularProgress infinite={true} size={50} />
+                </div>
+              )}
+            </div>
+
             <OutlineButton
               onClick={changeProfileImageHandler}
               className="w-fit h-fit"

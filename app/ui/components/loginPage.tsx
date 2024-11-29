@@ -36,7 +36,6 @@ export const LoginPage = ({
         router.push("/ui/home");
       } else {
         setIsLoading(false);
-        alert("Error logging in");
       }
     });
   };
@@ -51,12 +50,12 @@ export const LoginPage = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-none md:rounded-3xl overflow-hidden flex flex-col md:flex-row items-center shadow-2xl relative h-full md:h-fit"
+        className="bg-white rounded-none md:rounded-2xl overflow-hidden flex flex-col md:flex-row items-center shadow-2xl relative h-full md:h-fit"
       >
         <IconButton onClick={closeHandler} className="absolute right-2 top-2">
-          <GrClose />
+          <GrClose className="text-xl m-1" />
         </IconButton>
-        <div className="bg-[url('../app/assets/images/login_bg.png')] w-full h-80 bg-cover"></div>
+        <div className="bg-[url('../app/assets/images/login_bg.png')] w-full h-96 bg-cover"></div>
         <div className="m-6">
           <h1 className="text-2xl font-bold">Login to your account</h1>
           <p className="text-sm mt-6">

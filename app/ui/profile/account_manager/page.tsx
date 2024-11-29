@@ -34,7 +34,7 @@ const AccountManagerPage = () => {
     <EditProfileContainer pageEditIndex={1}>
       <form>
         {/* Page Title */}
-        <h1 className="text-2xl font-bold mb-4">Account Management</h1>
+        <h1 className="text-2xl font-bold mb-8">Account Management</h1>
 
         {/* Allergy Section */}
         <div className="border p-4 rounded-3xl">
@@ -42,7 +42,7 @@ const AccountManagerPage = () => {
             <TbFrustumOff aria-hidden="true" /> <span>Allergies</span>
           </div>
           <hr className="my-2" />
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 items-center">
             {userAuth?.allergens && userAuth.allergens.length > 0 ? (
               userAuth.allergens.map((allergy, index) => (
                 <Chip key={index} title={allergy} />

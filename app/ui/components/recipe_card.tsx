@@ -24,7 +24,7 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
           onClick={showDetailHandler}
           className="w-full bg-slate-100 rounded-3xl p-1"
         >
-          <div className="w-full h-56 bg-slate-300 rounded-3xl overflow-hidden">
+          <div className="w-full bg-slate-300 rounded-3xl overflow-hidden">
             {
               recipe.image && (
                 <Image
