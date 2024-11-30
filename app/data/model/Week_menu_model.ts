@@ -5,12 +5,28 @@ import {
   FirestoreDataConverter,
 } from "firebase/firestore";
 
+type Menu = {
+  date: Timestamp;
+  recipe_ids: string[];
+};
+
+type MenuWeek = {
+  day1: Menu;
+  day2: Menu;
+  day3: Menu;
+  day4: Menu;
+  day5: Menu;
+  day6: Menu;
+  day7: Menu;
+};
+
+
 export class WeekMenuModel {
   userId: string;
   createdAt: Timestamp;
-  menu: Map<string, any>;
+  menu: MenuWeek;
 
-  constructor(userId: string, createdAt: Timestamp, menu: Map<string, any>) {
+  constructor(userId: string, createdAt: Timestamp, menu: MenuWeek) {
     this.userId = userId;
     this.createdAt = createdAt;
     this.menu = menu;

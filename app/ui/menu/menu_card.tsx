@@ -1,6 +1,9 @@
+"use client";
 import { MenuPWeek } from "@/app/data/provider/menu_provider";
 import Image from "next/image";
 import Recipe from "@/app/data/model/recipe_model";
+import { DetailPage } from "../components/detail_recipe";
+import { useState } from "react";
 
 const formatDateToDay = (dateString: string): string => {
   const date = new Date(dateString);
@@ -8,21 +11,36 @@ const formatDateToDay = (dateString: string): string => {
 };
 
 const MenuRecipeCard = ({ recipe }: { recipe: Recipe }) => {
+  const [showDetail, setShowDetail] = useState<boolean>(false);
+
+  const showDetailHandler = () => {
+    setShowDetail(!showDetail);
+  };
+
   return (
-    <div className="w-full">
-      <div className="w-full h-24 bg-slate-300 rounded-md overflow-hidden">
-        {recipe.image && (
-          <Image
-            className="object-cover w-full h-full"
-            src={recipe.image}
-            alt={recipe.name}
-            width={800}
-            height={800}
-          />
-        )}
+    <>
+      {showDetail ? (
+        <DetailPage recipe={recipe} setShowDialog={setShowDetail} />
+      ) : (
+        <></>
+      )}
+      <div onClick={showDetailHandler} className="w-full">
+        <div className="w-full h-24 bg-slate-300 rounded-md overflow-hidden">
+          {recipe.image && (
+            <Image
+              className="object-cover w-full h-full"
+              src={recipe.image}
+              alt={recipe.name}
+              width={800}
+              height={800}
+            />
+          )}
+        </div>
+        <h3 className="mt-1 line-clamp-2 leading-5 text-sm font-semibold">
+          {recipe.name}
+        </h3>
       </div>
-      <h3 className="mt-1 line-clamp-2 leading-5 text-sm font-semibold">{recipe.name}</h3>
-    </div>
+    </>
   );
 };
 
@@ -36,18 +54,39 @@ export const MenuCard = ({ menu }: { menu: MenuPWeek }) => {
         <div className="m-3">
           <div className="w-8 pt-1 bg-blue-400 rounded-xl"></div>
           <h2 className="">Breakfast</h2>
-          <p className="text-xs leading-none text-gray-500">0 Meals</p>
+          <p className="text-xs leading-none text-gray-500">
+            {
+              menu.recipes.filter((recipe) => recipe.mealType === "breakfast")
+                .length
+            }{" "}
+            Meals
+          </p>
           <div className="mt-4 space-y-4">
-            {menu.recipes.map((recipe, index) => (
-              <MenuRecipeCard key={index} recipe={recipe} />
-            ))}
+            {menu.recipes
+              .filter((recipe) => recipe.mealType === "breakfast")
+              .map((recipe, index) => (
+                <MenuRecipeCard key={index} recipe={recipe} />
+              ))}
           </div>
         </div>
         <hr />
         <div className="m-3">
           <div className="w-8 pt-1 bg-orange-300 rounded-xl"></div>
           <h2 className="">Lunch</h2>
-          <p className="text-xs leading-none text-gray-500">0 Meals</p>
+          <p className="text-xs leading-none text-gray-500">
+            {
+              menu.recipes.filter((recipe) => recipe.mealType === "lunch")
+                .length
+            }{" "}
+            Meals
+          </p>
+          <div className="mt-4 space-y-4">
+            {menu.recipes
+              .filter((recipe) => recipe.mealType === "lunch")
+              .map((recipe, index) => (
+                <MenuRecipeCard key={index} recipe={recipe} />
+              ))}
+          </div>
         </div>
       </div>
     </div>

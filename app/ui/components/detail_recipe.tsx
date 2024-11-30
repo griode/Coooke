@@ -5,7 +5,7 @@ import { CiTimer, CiUser } from "react-icons/ci";
 import { NutritionCard } from "./recipe_day";
 import Recipe from "@/app/data/model/recipe_model";
 import { AlertDialog } from "./alert_dialog";
-
+import { PiCheeseThin } from "react-icons/pi";
 export const DetailPage = ({
   recipe,
   setShowDialog,
@@ -61,7 +61,7 @@ export const DetailPage = ({
                 />
                 <NutritionCard
                   title={`${recipe?.nutritionFacts.fat} Fat`}
-                  icon={<PiFireSimpleThin />}
+                  icon={<PiCheeseThin />}
                 />
               </div>
             </div>

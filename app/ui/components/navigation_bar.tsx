@@ -5,13 +5,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 // Icons
 import {
-  HiMiniHome,
-  HiOutlineHome,
   HiOutlineCalendar,
   HiCalendar,
   HiOutlineCog6Tooth,
   HiMiniSparkles,
 } from "react-icons/hi2";
+import { GoHome } from "react-icons/go";
+import { GoHomeFill } from "react-icons/go";
 
 import { HiOutlineSearch } from "react-icons/hi";
 import Avatar from "./avatar";
@@ -67,8 +67,8 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
     {
       enable: pageIndex === 0,
       name: "Home",
-      icon: <HiOutlineHome />,
-      fillIcon: <HiMiniHome />,
+      icon: <GoHome />,
+      fillIcon: <GoHomeFill />,
       path: "/ui/home",
     },
     {
