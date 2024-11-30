@@ -25,18 +25,15 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
           className="w-full bg-slate-100 rounded-3xl p-1"
         >
           <div className="w-full bg-slate-300 rounded-3xl overflow-hidden">
-            {
-              recipe.image && (
-                <Image
-                  className="object-cover w-full h-full"
-                  src={recipe.image}
-                  alt={recipe.name}
-                  layout="responsive"
-                  width={800}
-                  height={800}
-                />
-              )
-            }
+            {recipe.image && (
+              <Image
+                className="object-cover w-full h-full"
+                src={recipe.image}
+                alt={recipe.name}
+                width={800}
+                height={800}
+              />
+            )}
           </div>
           <div className="m-2">
             <h1 className="font-medium line-clamp-1">{recipe.name}</h1>
