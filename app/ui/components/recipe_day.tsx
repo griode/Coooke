@@ -54,7 +54,7 @@ const RecipeDayCard = ({ recipe }: { recipe: Recipe }) => {
 };
 
 export default function RecipeDay() {
-  const [recipes, setRecipes] = useState<Recipe[]>();
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   useEffect(() => {
     const fetchRecipe = async () => {

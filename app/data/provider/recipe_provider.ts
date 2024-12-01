@@ -11,14 +11,13 @@ import Recipe from "../model/recipe_model";
 
 export class RecipeProvider {
   // Get by id
-  static async getRecipeById(id: string): Promise<Recipe | null> {
+  static async getRecipeById(id: string): Promise<Recipe> {
     try {
       const collectionRef = doc(db, "recipes", id);
       const docSnap = await getDoc(collectionRef);
       return Recipe.fromFireStore(docSnap);
     } catch (error) {
-      console.error("Error fetching recipe:", error);
-      return null;
+      throw new Error(`Error fetching recipe: ${error}`);
     }
   }
 
@@ -31,7 +30,7 @@ export class RecipeProvider {
   }
 
   // Get recipe of the day
-  static async getRecipeOfDay(): Promise<(Recipe | null)[]> {
+  static async getRecipeOfDay(): Promise<Recipe[]> {
     try {
       const collectionRef = doc(db, "recipe_day", "en");
       const docSnap = await getDoc(collectionRef);
