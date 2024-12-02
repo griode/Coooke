@@ -101,7 +101,7 @@ export const ClosePanelButton = ({
       className={`${className}`}
       aria-controls={panelId} // Amélioration de l'accessibilité
     >
-      <HiArrowLeft className="text-lg" />
+      <HiArrowLeft/>
     </IconButton>
   );
 };

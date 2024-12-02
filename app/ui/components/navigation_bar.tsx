@@ -89,11 +89,11 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
   }
 
   return (
-    <div className="h-16 md:h-full bottom-0 w-full flex-row fixed md:static gap-8 md:top-0 md:left-0 md:right-0 flex border-r md:flex-col md:w-fit items-center justify-center md:justify-between bg-white/75 backdrop-blur-lg px-2 py-4 md:px-4">
+    <div className="h-16 md:h-full bottom-0 w-full flex-row fixed md:static gap-8 md:top-0 md:left-0 md:right-0 flex border-t md:border-r md:flex-col md:w-fit items-center justify-center md:justify-between bg-white/75 backdrop-blur-lg px-2 py-4 md:px-4">
       {/* Top Section */}
       <div className="flex flex-row md:flex-col items-center gap-8 md:gap-4 static">
         <div
-          onClick={() => router.push("/view/home")}
+          onClick={() => router.push("/ui/home")}
           className="bg-black rounded-full w-0 h-0 md:w-8 md:h-8 hidden md:block"
         >
           <Image
