@@ -1,5 +1,6 @@
 import {IoClose} from "react-icons/io5";
 import {Dispatch, ReactNode, SetStateAction, useEffect} from "react";
+import { IconButton } from "./button";
 
 export function AlertDialog({
   children,
@@ -24,9 +25,9 @@ export function AlertDialog({
       onClick={closeHandler}
       className="fixed inset-0 w-screen z-30 flex flex-col justify-center items-center backdrop-blur-sm"
     >
-      <button className="absolute top-4 right-4 bg-black rounded-full p-1">
-        <IoClose className="text-2xl text-white" />
-      </button>
+      <IconButton className="absolute top-4 right-4">
+        <IoClose/>
+      </IconButton>
       <div
         onClick={(event) => {
           event.stopPropagation();

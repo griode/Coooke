@@ -1,9 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
 import NavbarContainer from "../components/navbar_container";
-import { IconButton, OutlineButton } from "../components/button";
+import { IconButton } from "../components/button";
 import { useState } from "react";
 import { HiOutlineCog6Tooth } from "react-icons/hi2";
+import { HiXMark } from "react-icons/hi2";
 
 const NavLink = ({
   children,
@@ -46,11 +47,15 @@ const EditProfileContainer = ({
         <div
           className={`${
             isOpen ? "block" : "hidden md:block"
-          } w-fit border shadow-2xl md:shadow-none md:rounded-2xl p-4 md:h-fit absolute left-0 top-0 h-full md:static bg-white z-20`}
+          } w-full md:w-fit border shadow-2xl md:shadow-none md:rounded-2xl p-3 md:p-4 md:h-fit fixed left-0 top-0 h-full md:static bg-white z-20`}
         >
-          <OutlineButton className="md:hidden" onClick={toggle}>
-            Close
-          </OutlineButton>
+          <div className="md:hidden flex justify-between items-center ml-3 mb-4">
+            <h2 className="text-2xl font-bold">Setting</h2>
+            <IconButton onClick={toggle}>
+              <HiXMark />
+            </IconButton>
+          </div>
+         
           <NavLink path="/ui/profile/edit" isActive={pageEditIndex === 0}>
             Edit profile
           </NavLink>
@@ -68,7 +73,7 @@ const EditProfileContainer = ({
               isOpen ? "hidden" : "block"
             }`}
           >
-            <HiOutlineCog6Tooth className="text-xl" />
+            <HiOutlineCog6Tooth/>
           </IconButton>
           {children}
         </div>

@@ -71,7 +71,7 @@ export const InteractivePanel = ({
     <div
       id={id} // ID unique pour la liaison avec le bouton
       ref={panelRef}
-      className={`hidden shadow-[0_0_20px_rgba(0,0,0,0.2)] bg-white absolute z-30 flex flex-col items-center justify-center ${className}`}
+      className={`hidden shadow-[0_0_20px_rgba(0,0,0,0.2)] bg-white fixed z-30 flex-col items-center justify-center ${className}`}
     >
       {children}
     </div>
