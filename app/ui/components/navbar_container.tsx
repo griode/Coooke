@@ -6,7 +6,7 @@ import { InteractivePanel } from "./interactive_panel_props";
 import NavigationBar from "./navigation_bar";
 import { auth } from "@/app/firebase";
 import SearchPage from "./search";
-import RecipeGenerator from "./recipe_generator";
+import ChatBox from "../chatbox/chatbox";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 import "@/app/scroll-style.css";
@@ -56,7 +56,7 @@ export default function NavbarContainer({
               id="chatPanel"
               className="left-0 top-0 right-0 bottom-0 md:left-20 md:ml-1 md:top-4 md:bottom-4 md:w-96 md:rounded-xl"
             >
-              <RecipeGenerator />
+              <ChatBox />
             </InteractivePanel>
             {/* Profile Panel */}
             <InteractivePanel

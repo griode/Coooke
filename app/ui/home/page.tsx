@@ -24,7 +24,7 @@ export default function HomePage() {
       <RecipeDay />
       <h1 className="mt-4 md:mt-6 text-xl font-bold">Recent Recipes</h1>
       {/* Horizontal scroll for recipes */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-scroll py-2">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 overflow-y-scroll py-2">
         {recipes.map((recipe, index) => (
           <RecipeCard key={index} recipe={recipe} />
         ))}

@@ -5,6 +5,8 @@ import { IconButton, OutlineButton } from "@/app/ui/components/button";
 import { GrClose } from "react-icons/gr";
 import CircularProgress from "@/app/ui/components/circular_progress";
 import { FcGoogle } from "react-icons/fc";
+import logo from "@/app/assets/icons/logo.svg";
+import Image from "next/image"
 
 export const LoginPage = ({
   closeAction,
@@ -57,6 +59,23 @@ export const LoginPage = ({
         </IconButton>
         <div className="bg-[url('../app/assets/images/login_bg.png')] w-full h-96 bg-cover"></div>
         <div className="m-6">
+          <h1 className="flex items-center my-4">
+            <div className="text-6xl pb-3 font-black">C</div>
+            <div
+
+              className="bg-slate-800 rounded-full w-7 h-7"
+            >
+
+              <Image
+
+                className="w-full h-full"
+                src={logo}
+                alt="logo"
+              />
+
+            </div>
+            <div className="text-4xl font-black pb-1">ook</div>
+          </h1>
           <h1 className="text-2xl font-bold">Login to your account</h1>
           <p className="text-sm mt-6">
             Transform your ingredients into delicious dishes - Scan and find

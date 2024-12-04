@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { RecipeProvider } from "@/app/data/provider/recipe_provider";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Recipe from "@/app/data/model/recipe_model";
 import { DetailPage } from "@/app/ui/components/detail_recipe";
 
@@ -40,12 +40,10 @@ const RecipeDayCard = ({ recipe }: { recipe: Recipe }) => {
       </div>
       <div className="bg-slate-200 h-full w-1/3 rounded-l-full overflow-hidden">
         {recipe && recipe.image && (
-          <Image
+          <img
             className="object-cover w-full h-full"
             src={recipe.image}
             alt={recipe.name}
-            width={800}
-            height={800}
           />
         )}
       </div>

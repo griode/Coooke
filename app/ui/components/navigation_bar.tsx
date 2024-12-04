@@ -1,6 +1,6 @@
 "use client";
 
-import logo from "@/app/assets/icons/logo.png";
+import logo from "@/app/assets/icons/logo.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 // Icons
@@ -94,14 +94,13 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
       <div className="flex flex-row md:flex-col items-center gap-8 md:gap-4 static">
         <div
           onClick={() => router.push("/ui/home")}
-          className="bg-black rounded-full w-0 h-0 md:w-8 md:h-8 hidden md:block"
+          className="bg-slate-800 px-1 rounded-full md:w-8 md:h-8 hidden md:block"
         >
           <Image
-            className="object-cover w-full h-full"
+            onClick={() => router.push("/ui/home")}
+            className="w-full h-full"
             src={logo}
             alt="logo"
-            width={64}
-            height={64}
           />
         </div>
 

@@ -1,9 +1,11 @@
 "use client";
-import {useEffect, useState} from "react";
-import {BsList, BsListNested} from "react-icons/bs";
-import {FillButton, IconButton} from "./button";
+import { useEffect, useState } from "react";
+import { BsList, BsListNested } from "react-icons/bs";
+import { FillButton, IconButton } from "./button";
+import logo from "@/app/assets/icons/logo.svg";
+import Image from "next/image";
 
-import {LoginPage} from "@/app/ui/components/loginPage";
+import { LoginPage } from "@/app/ui/components/loginPage";
 
 const navLinks = ["Home", "Menu", "Booking", "Pricing"];
 
@@ -37,8 +39,23 @@ const Header = () => {
     <>
       {isLogin ? <LoginPage closeAction={setIsLogin} /> : <></>}
       <header className="flex justify-between items-center">
-        <h1 className="text-xl font-black">
-          Cook <span className="text-orange-400">Book</span>
+
+        <h1 className="flex items-center h-2">
+          <div className="text-6xl pb-3 font-black">C</div>
+          <div
+
+            className="bg-slate-800 rounded-full w-7 h-7"
+          >
+
+            <Image
+
+              className="w-full h-full"
+              src={logo}
+              alt="logo"
+            />
+
+          </div>
+          <div className="text-4xl font-black pb-1">ook</div>
         </h1>
 
         {/* Bouton Menu pour les petits écrans */}
@@ -56,9 +73,8 @@ const Header = () => {
 
         {/* Navigation */}
         <nav
-          className={`${
-            menuOpen ? "flex" : "hidden"
-          } flex-col md:flex md:flex-row items-center justify-center fixed md:static inset-0 md:inset-auto bg-white md:bg-transparent gap-4 z-20 p-4 md:p-0`}
+          className={`${menuOpen ? "flex" : "hidden"
+            } flex-col md:flex md:flex-row items-center justify-center fixed md:static inset-0 md:inset-auto bg-white md:bg-transparent gap-4 z-20 p-4 md:p-0`}
         >
           <ul className="flex flex-col items-center gap-8 md:gap-4 md:flex-row w-full md:w-auto">
             {navLinks.map((link, index) => (

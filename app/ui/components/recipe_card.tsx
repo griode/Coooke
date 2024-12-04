@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { CiTimer, CiUser } from "react-icons/ci";
-import Image from "next/image";
 import { useState } from "react";
 import { DetailPage } from "@/app/ui/components/detail_recipe";
 import Recipe from "@/app/data/model/recipe_model";
@@ -22,22 +22,20 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
       <div onClick={showDetailHandler}>
         <div
           onClick={showDetailHandler}
-          className="w-full bg-slate-100 rounded-3xl p-1"
+          className="w-full bg-slate-100  rounded-2xl"
         >
-          <div className="w-full bg-slate-300 rounded-3xl overflow-hidden">
+          <div className="w-full h-36 bg-slate-300 rounded-t-2xl overflow-hidden">
             {recipe.image && (
-              <Image
+              <img
                 className="object-cover w-full h-full"
                 src={recipe.image}
                 alt={recipe.name}
-                width={800}
-                height={800}
               />
             )}
           </div>
-          <div className="m-2">
+          <div className="mx-3 mt-2">
             <h1 className="font-medium line-clamp-1">{recipe.name}</h1>
-            <div className="text-xs text-gray-500 flex space-x-2">
+            <div className="text-xs text-gray-500 flex space-x-2 pb-2">
               <div className="flex items-center space-x-1">
                 <CiTimer />
                 <span>{`${recipe.duration} min`}</span>

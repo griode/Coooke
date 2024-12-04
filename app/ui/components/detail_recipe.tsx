@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import { PiBowlFoodLight, PiFireSimpleThin } from "react-icons/pi";
 import { GiSteak } from "react-icons/gi";
-import Image from "next/image";
 import { CiTimer, CiUser } from "react-icons/ci";
 import { NutritionCard } from "./recipe_day";
 import Recipe from "@/app/data/model/recipe_model";
@@ -23,13 +23,10 @@ export const DetailPage = ({
         <div className="bg-white h-screen md:h-full rounded-none md:rounded-2xl flex-col md:flex-row flex w-full md:space-x-6 overflow-y-scroll scrollbar-hidden md:overflow-hidden shadow-md">
           {/* Recipe image view */}
           <div className="w-full md:w-1/2 md:h-full bg-black rounded-none md:rounded-l-2xl overflow-hidden">
-            <Image
+            <img
               className="object-cover w-full h-full"
               src={recipe.image ?? ""}
               alt={recipe.name}
-              layout="responsive"
-              width={800}
-              height={800}
             />
           </div>
           {/* Recipe detail view */}
