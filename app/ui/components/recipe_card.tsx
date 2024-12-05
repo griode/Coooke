@@ -19,7 +19,7 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
       ) : (
         <></>
       )}
-      <div onClick={showDetailHandler}>
+      <div onClick={showDetailHandler} className="cursor-pointer">
         <div
           onClick={showDetailHandler}
           className="w-full bg-slate-100  rounded-2xl"

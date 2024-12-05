@@ -1,11 +1,10 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { IconButton } from "./button";
+import { FillButton, IconButton } from "./button";
 import { HiArrowLeft } from "react-icons/hi2";
 
 interface InteractiveButtonProps {
   icon: React.ReactNode;
-  activateIcon: React.ReactNode;
   panelId: string; // ID unique pour identifier le panneau lié
 }
 
@@ -18,11 +17,7 @@ export const InteractiveButton = ({
 
     if (panel) {
       // Basculer la visibilité en fonction de la classe "hidden"
-      if (panel.classList.contains("hidden")) {
-        panel.classList.remove("hidden");
-      } else {
-        panel.classList.add("hidden");
-      }
+      panel.classList.toggle("hidden");
     }
   };
 
@@ -55,7 +50,8 @@ export const InteractivePanel = ({
     const handleClickOutside = (event: MouseEvent) => {
       if (
         panelRef.current &&
-        !panelRef.current.contains(event.target as Node)
+        !panelRef.current.contains(event.target as Node) &&
+        (event.target as HTMLElement).id !== id // Ignore si l'élément cliqué a l'ID du panneau
       ) {
         panelRef.current.classList.add("hidden"); // Cache le panneau
       }
@@ -65,7 +61,7 @@ export const InteractivePanel = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [id]);
 
   return (
     <div
@@ -101,7 +97,31 @@ export const ClosePanelButton = ({
       className={`${className}`}
       aria-controls={panelId} // Amélioration de l'accessibilité
     >
-      <HiArrowLeft/>
+      <HiArrowLeft />
     </IconButton>
+  );
+};
+
+export const InteractiveButtonFilled = ({
+  icon,
+  panelId,
+}: InteractiveButtonProps) => {
+  const handleToggle = () => {
+    const panel = document.getElementById(panelId);
+
+    if (panel) {
+      // Basculer la visibilité en fonction de la classe "hidden"
+      panel.classList.toggle("hidden");
+    }
+  };
+
+  return (
+    <FillButton
+      onClick={handleToggle}
+      className="p-2 rounded-full hover:bg-slate-200 text-3xl md:text-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+      aria-controls={panelId} // Amélioration de l'accessibilité
+    >
+      {icon}
+    </FillButton>
   );
 };

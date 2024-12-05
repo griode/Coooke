@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Recipe from "../model/recipe_model";
 import axios from "axios";
+import { mapRecipes } from "./mapper";
 
 const url = "http://127.0.0.1:5001/scan-gourmet/europe-west1/generate_recipe_by_text_fn"
 
 // Generate a recipe based on a prompt
-export const generateRecipeByPrompt = async (prompt: string): Promise<Recipe[]> => {
+async function generateRecipeByPrompt(prompt: string): Promise<Recipe[]> {
     try {
         const data = {
             "text": prompt,
@@ -30,11 +31,4 @@ export const generateRecipeByPrompt = async (prompt: string): Promise<Recipe[]> 
     }
 };
 
-const mapRecipes = (data: Map<string, any>[]): Recipe[] => {
-    const recipes: Recipe[] = [];
-    for (const jsonData of data) {
-        const recipe = Recipe.fromJson(jsonData);
-        recipes.push(recipe);
-    }
-    return recipes;
-};
+export default generateRecipeByPrompt;

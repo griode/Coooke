@@ -6,8 +6,11 @@ import {
   query,
   getDoc,
   doc,
+  addDoc,
+  where,
 } from "firebase/firestore";
 import Recipe from "../model/recipe_model";
+import { uploadImageFromUrl } from "../utils/upload_file";
 
 export class RecipeProvider {
   // Get by id
@@ -29,6 +32,14 @@ export class RecipeProvider {
     return snapshot.docs.map((doc) => Recipe.fromFireStore(doc));
   }
 
+  // Get the documents from the collection
+  static async getRecipesByUser({ item, userId }: { item: number, userId: string }): Promise<Recipe[]> {
+    const collectionRef = collection(db, "recipes");
+    const q = query(collectionRef, limit(item), where("created_by", "==", userId));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => Recipe.fromFireStore(doc));
+  }
+
   // Get recipe of the day
   static async getRecipeOfDay(): Promise<Recipe[]> {
     try {
@@ -43,6 +54,16 @@ export class RecipeProvider {
     } catch (error) {
       console.error("Error fetching recipe of the day:", error);
       return [];
+    }
+  }
+
+  static async saveRecipe(recipe: Recipe): Promise<void> {
+    try {
+      const collectionRef = collection(db, "recipes");
+      recipe.image = await uploadImageFromUrl(recipe.image ?? "", "recipes");
+      await addDoc(collectionRef, recipe.toFireStore());
+    } catch (error) {
+      console.error("Error saving recipe:", error);
     }
   }
 }

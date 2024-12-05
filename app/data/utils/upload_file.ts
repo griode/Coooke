@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { storage } from "@/app/firebase";
-import { ref, getDownloadURL, uploadString, StringFormat, deleteObject } from "firebase/storage";
+import { ref, getDownloadURL, uploadString, StringFormat, deleteObject, uploadBytesResumable } from "firebase/storage";
 import {v1} from "uuid";
 import imageCompression from "browser-image-compression";
 
@@ -50,6 +50,32 @@ export async function uploadBase64File(
   } catch (error) {
     console.error("Error uploading compressed Base64 file:", error);
     throw new Error("Failed to upload compressed Base64 file.");
+  }
+}
+
+export async function uploadImageFromUrl(imageUrl: string, filePath: string): Promise<string> {
+  try {
+      // Télécharger l'image en tant que Blob
+      const response = await fetch(imageUrl);
+      if (!response.ok) {
+          throw new Error(`Erreur lors du téléchargement de l'image : ${response.statusText}`);
+      }
+      const blob = await response.blob();
+
+      // Référence vers Firebase Storage
+      const storageRef = ref(storage,`${filePath}/${v1()}`);
+
+      // Uploader l'image dans Firebase Storage
+      const uploadTask = await uploadBytesResumable(storageRef, blob);
+
+      // Récupérer l'URL publique de l'image
+      const downloadURL = await getDownloadURL(uploadTask.ref);
+      console.log("Image URL dans Firebase Storage: ", downloadURL);
+
+      return downloadURL;
+  } catch (error) {
+      console.error("Erreur dans uploadImageFromUrl : ", error);
+      throw error;
   }
 }
 

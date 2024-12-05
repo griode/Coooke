@@ -5,6 +5,7 @@ interface ButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: string;
   disabled?: boolean;
+  id?: string;
 }
 
 // Outline Button
@@ -35,18 +36,20 @@ export const OutlineButton = ({
 // Fill Button
 export const FillButton = ({
   children,
+  id,
   onClick,
   className = "",
   disabled = false,
 }: ButtonProps) => {
   return (
     <button
+    id={id}
       onClick={!disabled ? onClick : undefined}
       className={`rounded-xl border md:text-sm px-4 py-2 
         ${
           disabled
             ? "bg-gray-500 text-white border-gray-400 cursor-not-allowed"
-            : "bg-black text-white hover:bg-black/80"
+            : "bg-slate-800 text-white hover:bg-slate-900"
         } 
         ${className}`}
       disabled={disabled}

@@ -3,11 +3,11 @@
 import { useRouter } from "next/navigation";
 import EditProfileContainer from "../edit_container";
 import { useAuth, useCurrentUser } from "@/app/hooks/use_current_user";
-import pickImage from "@/app/data/functions/image_picker";
+import pickImage from "@/app/data/utils/image_picker";
 import {
   deleteFileByUrl,
   uploadBase64File,
-} from "@/app/data/functions/upload_file";
+} from "@/app/data/utils/upload_file";
 import { updateProfile } from "firebase/auth";
 import { useState } from "react";
 import Avatar from "../../components/avatar";
@@ -36,7 +36,7 @@ const EditProfilePage = () => {
     }
   };
 
-  const oneSaveHandler = () => {};
+  const oneSaveHandler = () => { };
 
   if (loading) {
     return <div>Loading...</div>;
