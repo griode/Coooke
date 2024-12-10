@@ -2,34 +2,32 @@
 import EditProfileContainer from "../edit_container";
 import {GrLanguage} from "react-icons/gr";
 import {TbFrustumOff} from "react-icons/tb";
-import {useAuth} from "@/app/hooks/use_current_user";
 import {useRouter} from "next/navigation";
-import {useState} from "react";
+// import {useState} from "react";
 import {FillButton, OutlineButton} from "@/app/components/button";
-import Chip from "@/app/components/chip";
+// import Chip from "@/app/components/chip";
 
-const formatDate = (date: Date) => {
-    if (!date) return "2000-01-01"; // Valeur par défaut
-    const d = date;
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, "0"); // Les mois commencent à 0
-    const day = String(d.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-};
+// const formatDate = (date: Date) => {
+//     if (!date) return "2000-01-01"; // Valeur par défaut
+//     const d = date;
+//     const year = d.getFullYear();
+//     const month = String(d.getMonth() + 1).padStart(2, "0"); // Les mois commencent à 0
+//     const day = String(d.getDate()).padStart(2, "0");
+//     return `${year}-${month}-${day}`;
+// };
 
 const AccountManagerPage = () => {
-    const {userAuth, loading} = useAuth();
     const router = useRouter();
-    const [isUpdate, setIsUpdate] = useState<boolean>(true);
-
-    const oneSaveHandler = () => {
-    };
-
-    if (loading) {
-        return (
-            <div className="flex justify-center items-center h-full">Loading...</div>
-        );
-    }
+    // const [isUpdate, setIsUpdate] = useState<boolean>(true);
+    //
+    // const oneSaveHandler = () => {
+    // };
+    //
+    // if (loading) {
+    //     return (
+    //         <div className="flex justify-center items-center h-full">Loading...</div>
+    //     );
+    // }
 
     return (
         <EditProfileContainer pageEditIndex={1}>
@@ -44,13 +42,13 @@ const AccountManagerPage = () => {
                     </div>
                     <hr className="my-2"/>
                     <div className="flex flex-wrap gap-2 items-center">
-                        {userAuth?.allergens && userAuth.allergens.length > 0 ? (
-                            userAuth.allergens.map((allergy, index) => (
-                                <Chip key={index} title={allergy}/>
-                            ))
-                        ) : (
-                            <p className="text-sm text-gray-500">No allergies listed.</p>
-                        )}
+                        {/*{userAuth?.allergens && userAuth.allergens.length > 0 ? (*/}
+                        {/*    userAuth.allergens.map((allergy, index) => (*/}
+                        {/*        <Chip key={index} title={allergy}/>*/}
+                        {/*    ))*/}
+                        {/*) : (*/}
+                        {/*    <p className="text-sm text-gray-500">No allergies listed.</p>*/}
+                        {/*)}*/}
                         <FillButton className="w-fit" aria-label="Add new allergy">
                             Add Allergy
                         </FillButton>
@@ -68,17 +66,17 @@ const AccountManagerPage = () => {
                             type="date"
                             name="birthDate"
                             id="birthDate"
-                            onChange={(e) => {
-                                if (
-                                    e.target.value ==
-                                    formatDate(userAuth?.birth.toDate() ?? new Date())
-                                ) {
-                                    setIsUpdate(true);
-                                } else {
-                                    setIsUpdate(false);
-                                }
-                            }}
-                            defaultValue={formatDate(userAuth?.birth.toDate() ?? new Date())}
+                            // onChange={(e) => {
+                            //     // if (
+                            //     //     e.target.value ==
+                            //     //     formatDate(userAuth?.birth.toDate() ?? new Date())
+                            //     // ) {
+                            //     //     setIsUpdate(true);
+                            //     // } else {
+                            //     //     setIsUpdate(false);
+                            //     // }
+                            // }}
+                            //defaultValue={formatDate(userAuth?.birth.toDate() ?? new Date())}
                             className="w-full h-full outline-none bg-transparent"
                             aria-label="Select your birth date"
                         />
@@ -95,14 +93,14 @@ const AccountManagerPage = () => {
                         <select
                             name="language"
                             id="language"
-                            onChange={(e) => {
-                                if (userAuth?.language == e.target.value) {
-                                    setIsUpdate(true);
-                                } else {
-                                    setIsUpdate(false);
-                                }
-                            }}
-                            defaultValue={userAuth?.language ?? "en"}
+                            // onChange={(e) => {
+                            //     // if (userAuth?.language == e.target.value) {
+                            //     //     setIsUpdate(true);
+                            //     // } else {
+                            //     //     setIsUpdate(false);
+                            //     // }
+                            // }}
+                            //defaultValue={userAuth?.language ?? "en"}
                             className="w-full h-full outline-none bg-white focus:outline-none"
                             aria-label="Select your preferred language"
                         >
@@ -161,8 +159,8 @@ const AccountManagerPage = () => {
                         Cancel
                     </OutlineButton>
                     <FillButton
-                        disabled={isUpdate}
-                        onClick={oneSaveHandler}
+                        // disabled={isUpdate}
+                        // onClick={oneSaveHandler}
                         className="w-fit"
                         aria-label="Save changes"
                     >
