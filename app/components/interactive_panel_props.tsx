@@ -24,7 +24,7 @@ export const InteractiveButton = ({
   return (
     <button
       onClick={handleToggle}
-      className="p-2 rounded-full hover:bg-slate-200 text-3xl md:text-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+      className="p-2 rounded-xl hover:bg-slate-200 text-3xl md:text-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
       aria-controls={panelId} // Amélioration de l'accessibilité
     >
       {icon}

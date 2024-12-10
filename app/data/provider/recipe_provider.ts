@@ -8,9 +8,9 @@ import {
   doc,
   addDoc,
   where,
+  orderBy,
 } from "firebase/firestore";
 import Recipe from "../model/recipe_model";
-import { uploadImageFromUrl } from "../utils/upload_file";
 
 export class RecipeProvider {
   // Get by id
@@ -35,7 +35,7 @@ export class RecipeProvider {
   // Get the documents from the collection
   static async getRecipesByUser({ item, userId }: { item: number, userId: string }): Promise<Recipe[]> {
     const collectionRef = collection(db, "recipes");
-    const q = query(collectionRef, limit(item), where("created_by", "==", userId));
+    const q = query(collectionRef, limit(item), where("created_by", "==", userId), orderBy("created_at", "desc"));
     const snapshot = await getDocs(q);
     return snapshot.docs.map((doc) => Recipe.fromFireStore(doc));
   }
@@ -45,7 +45,7 @@ export class RecipeProvider {
     try {
       const collectionRef = doc(db, "recipe_day", "en");
       const docSnap = await getDoc(collectionRef);
-      const recipeIds: string[] = docSnap.data()?.recipe_id ?? [];
+      const recipeIds: string[] = docSnap.data()?.recipes ?? [];
 
       const recipePromises = recipeIds.map((recipeId) =>
         RecipeProvider.getRecipeById(recipeId)
@@ -60,8 +60,21 @@ export class RecipeProvider {
   static async saveRecipe(recipe: Recipe): Promise<void> {
     try {
       const collectionRef = collection(db, "recipes");
-      recipe.image = await uploadImageFromUrl(recipe.image ?? "", "recipes");
+  
+      // Vérifier si la recette existe déjà
+      const checkQuery = query(collectionRef, where("name", "==", recipe.name), where("created_by", "==", recipe.createdBy));
+      const querySnapshot = await getDocs(checkQuery);
+  
+      if (!querySnapshot.empty) {
+        console.log("Recipe already exists. Skipping addition.");
+        return;
+      }
+  
+      // Ajouter la recette si elle n'existe pas
+      recipe.trainByServer = true;
       await addDoc(collectionRef, recipe.toFireStore());
+  
+      console.log("Recipe saved successfully!");
     } catch (error) {
       console.error("Error saving recipe:", error);
     }

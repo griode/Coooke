@@ -11,10 +11,15 @@ const nextConfig: NextConfig = {
         APP_ID: process.env.APP_ID,
         MEASUREMENT_ID: process.env.MEASUREMENT_ID,
     },
-  /* config options here */
-  images: {
-      domains: ["firebasestorage.googleapis.com", "lh3.googleusercontent.com"],
-  },
+    /* config options here */
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**', // Autorise tous les domaines
+            },
+        ],
+    },
 };
 
 export default nextConfig;

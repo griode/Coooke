@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+ /* Style de la balise select */
+ select {
+    background-color: transparent; /* Fond blanc */
+    appearance: none; /* Enlever les styles par défaut du navigateur */
+    -webkit-appearance: none; /* Compatibilité Webkit */
+    -moz-appearance: none; /* Compatibilité Firefox */
+  }
+
+  /* Style des options dans le menu déroulant */
+ 

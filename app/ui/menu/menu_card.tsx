@@ -2,8 +2,8 @@
 import { MenuPWeek } from "@/app/data/provider/menu_provider";
 import Image from "next/image";
 import Recipe from "@/app/data/model/recipe_model";
-import { DetailPage } from "../components/detail_recipe";
 import { useState } from "react";
+import { DetailPage } from "../detail_recipe/detail_recipe";
 
 const formatDateToDay = (dateString: string): string => {
   const date = new Date(dateString);

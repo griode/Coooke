@@ -20,6 +20,7 @@ type RecipeData = {
   createdAt: Timestamp;
   continent: string;
   mealType: string;
+  trainByServer?: boolean;
 };
 
 class Recipe {
@@ -41,6 +42,7 @@ class Recipe {
   createdAt: Timestamp;
   continent: string;
   mealType: string;
+  trainByServer?: boolean;
 
   constructor(data: RecipeData) {
     this.image = data.image;
@@ -66,7 +68,7 @@ class Recipe {
   static fromFireStore(
     snapshot: DocumentSnapshot<DocumentData, DocumentData>
   ): Recipe {
-      const data = snapshot.data();
+    const data = snapshot.data();
 
     return new Recipe({
       image: data!['image'],
@@ -131,6 +133,7 @@ class Recipe {
       index: this.index,
       continent: this.continent,
       meal_type: this.mealType,
+      train_by_server: this.trainByServer,
     };
   }
 }

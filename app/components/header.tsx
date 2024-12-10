@@ -5,7 +5,7 @@ import { FillButton, IconButton } from "./button";
 import logo from "@/app/assets/icons/logo.svg";
 import Image from "next/image";
 
-import { LoginPage } from "@/app/ui/components/loginPage";
+import { LoginPage } from "@/app/ui/login_page/loginPage";
 
 const navLinks = ["Home", "Menu", "Booking", "Pricing"];
 

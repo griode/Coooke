@@ -1,38 +1,40 @@
-import type { Metadata } from "next";
+"use client"
 import localFont from "next/font/local";
 import "./globals.css";
 import "./scroll-style.css";
-import { Analytics } from "@vercel/analytics/react";
+import {Analytics} from "@vercel/analytics/react";
+import {UserProvider} from "@/app/hooks/use_user_provider";
 
 const geistSans = localFont({
-  src: "./assets/fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+    src: "./assets/fonts/GeistVF.woff",
+    variable: "--font-geist-sans",
+    weight: "100 900",
 });
 const geistMono = localFont({
-  src: "./assets/fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+    src: "./assets/fonts/GeistMonoVF.woff",
+    variable: "--font-geist-mono",
+    weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  title: "cook ia",
-  description: "Create by David Amouzou",
-};
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
+                                       children,
+                                   }: Readonly<{
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-800`}
-      >
-        {children}
-        <Analytics />
-      </body>
-    </html>
-  );
+
+
+    return (
+        <html lang="en">
+        <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-800`}
+        >
+        <UserProvider>
+            {children}
+        </UserProvider>
+
+        <Analytics/>
+        </body>
+        </html>
+    );
 }

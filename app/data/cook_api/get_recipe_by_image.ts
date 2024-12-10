@@ -1,10 +1,10 @@
 import axios from "axios"
-import { mapRecipes } from "./mapper"
+import {mapRecipes} from "./mapper"
 import Recipe from "../model/recipe_model"
 
-const url = "http://127.0.0.1:5001/scan-gourmet/europe-west1/generate_recipe_by_image_fn"
+const url = "https://generate-recipe-by-image-fn-kdraj6z2ta-ew.a.run.app"
 
-function convertDataURLToBase64(dataURL: string){
+function convertDataURLToBase64(dataURL: string) {
     // Vérifier si la chaîne contient le préfixe attendu
     if (dataURL.startsWith("data:image/")) {
         // Extraire la partie Base64 après la virgule
@@ -30,12 +30,8 @@ async function getRecipeByImage(image: string): Promise<Recipe[]> {
             },
         })
 
-        alert(response.status)
-        alert(response.data)
-
         if (response.status === 200) {
-            const recipes = mapRecipes(response.data.data)
-            return recipes
+            return mapRecipes(response.data.data)
         }
         return []
     } catch (error) {
