@@ -1,6 +1,6 @@
 "use client";
 
-import logo from "@/app/assets/icons/logo.svg";
+import logo from "@/app/assets/icons/logo.png";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
 // Icons
@@ -86,7 +86,7 @@ export default function NavigationBar({pageIndex}: { pageIndex: number }) {
                 >
                     <Image
                         onClick={() => router.push("/ui/home")}
-                        className="w-full h-full"
+                        className="w-full h-full object-cover"
                         src={logo}
                         alt="logo"
                     />

@@ -1,7 +1,7 @@
 "use client";
+import React, {useEffect, useState} from "react";
 import Recipe from "@/app/data/model/recipe_model";
 import {RecipeProvider} from "@/app/data/provider/recipe_provider";
-import React, {useEffect, useState} from "react";
 import "@/app/scroll-style.css"; // Import the CSS file
 import RecipeCard from "@/app/components/recipe_card";
 import {getUserId} from "@/app/data/utils/user_manager";
@@ -9,67 +9,84 @@ import {Categories, CategoryItem} from "@/app/ui/home/category";
 import {EmptyView} from "@/app/ui/home/empty_view";
 import NavbarContainer from "@/app/components/navbar_container";
 
-
 export default function HomePage() {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [categorySelected, setCategorySelected] = useState<number>(0);
 
+    // Fonction pour récupérer les recettes
     const fetchRecipes = async () => {
-        const userIdCookie = await getUserId();
-        if (userIdCookie?.value === null || userIdCookie?.value === "") {
-            return;
+        try {
+            const userIdCookie = await getUserId();
+            const userId = userIdCookie?.value ?? "";
+
+            if (!userId) {
+                console.warn("No user ID found");
+                return;
+            }
+
+            const response = await RecipeProvider.getRecipesByUser({item: 8, userId});
+            setRecipes(response);
+        } catch (error) {
+            console.error("Error fetching recipes:", error);
+        } finally {
+            setIsLoading(false);
         }
-        const response = await RecipeProvider.getRecipesByUser({item: 8, userId: userIdCookie?.value ?? ""});
-        setRecipes(response);
-        setIsLoading(false);
     };
 
     useEffect(() => {
-        fetchRecipes().then(
-            () => console.log("Recipes fetched successfully")
-        );
+        fetchRecipes();
     }, []);
 
+    // Gestion dynamique de l'affichage des recettes
     const showView = () => {
         if (isLoading) {
-            return <></>
-        } else if (recipes.length === 0 && !isLoading) {
-            return <EmptyView/>
+            return <div className="text-center">Loading...</div>;
         }
 
-        return <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 overflow-y-scroll py-2">
-            {
+        if (recipes.length === 0) {
+            return <EmptyView/>;
+        }
 
-            }
-            {recipes.map((recipe, index) => (
-                <RecipeCard key={index} recipe={recipe}/>
-            ))}
-        </div>
+        return (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 overflow-y-scroll py-2">
+                {recipes
+                    .filter((recipe) =>
+                        categorySelected === 0 || recipe.mealType === Categories[categorySelected].name
+                    )
+                    .map((recipe, index) => (
+                        <RecipeCard key={index} recipe={recipe}/>
+                    ))}
+            </div>
+        );
     };
 
     return (
         <NavbarContainer pageIndex={0}>
             <div>
+                {/* Titre */}
+                <h1 className="mt-4 text-xl font-bold">
+                    Recent Recipes |{" "}
+                    <span className="text-slate-500 text-lg font-normal">{recipes.length} Recipes</span>
+                </h1>
 
-                <h1 className="mt-4 text-xl font-bold">Recent Recipes | <span
-                    className={"text-slate-500 text-lg font-normal"}>8 Recipes</span></h1>
-                <div className={"flex gap-10 mt-6"}>
-                    {
-                        Categories.map((category, index) => {
-                            category.isActive = category.id === categorySelected;
-                            return <CategoryItem
-                                onClick={() => setCategorySelected(category.id)}
-                                key={index} category={category}/>
-                        })
-                    }
+                {/* Catégories */}
+                <div className="flex gap-10 mt-6">
+                    {Categories.map((category, index) => (
+                        <CategoryItem
+                            key={index}
+                            onClick={() => setCategorySelected(category.id)}
+                            category={{...category, isActive: category.id === categorySelected}}
+                        />
+                    ))}
                 </div>
-                <div className={"mt-6"}>
-                    {showView()}
-                </div>
+
+                {/* Vue des recettes */}
+                <div className="mt-6">{showView()}</div>
+
+                {/* Espacement pour la navigation */}
                 <div className="h-16"></div>
             </div>
-
         </NavbarContainer>
     );
 }

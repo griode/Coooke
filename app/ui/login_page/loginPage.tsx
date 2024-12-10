@@ -5,7 +5,7 @@ import {IconButton, OutlineButton} from "@/app/components/button";
 import {GrClose} from "react-icons/gr";
 import CircularProgress from "@/app/components/circular_progress";
 import {FcGoogle} from "react-icons/fc";
-import logo from "@/app/assets/icons/logo.svg";
+import logo from "@/app/assets/icons/logo.png";
 import Image from "next/image"
 import {setUserId} from "@/app/data/utils/user_manager";
 
