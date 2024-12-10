@@ -2,7 +2,7 @@ import axios from "axios"
 import {mapRecipes} from "./mapper"
 import Recipe from "../model/recipe_model"
 
-const url = "https://generate-recipe-by-image-fn-kdraj6z2ta-ew.a.run.app"
+const url = "http://127.0.0.1:5001/scan-gourmet/europe-west1/generate_recipe_by_image_fn"
 
 function convertDataURLToBase64(dataURL: string) {
     // Vérifier si la chaîne contient le préfixe attendu

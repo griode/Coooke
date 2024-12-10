@@ -3,7 +3,7 @@ import Recipe from "../model/recipe_model";
 import axios from "axios";
 import {mapRecipes} from "./mapper";
 
-const url = "https://generate-recipe-by-text-fn-kdraj6z2ta-ew.a.run.app"
+const url = "http://127.0.0.1:5001/scan-gourmet/europe-west1/generate_recipe_by_text_fn"
 
 // Generate a recipe based on a prompt
 async function generateRecipeByPrompt(prompt: string): Promise<Recipe[]> {

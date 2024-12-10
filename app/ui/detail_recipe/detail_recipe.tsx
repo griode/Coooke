@@ -5,7 +5,7 @@ import {CiTimer, CiUser} from "react-icons/ci";
 import Recipe from "@/app/data/model/recipe_model";
 import {AlertDialog} from "@/app/components/alert_dialog";
 import Image from "next/image";
-import CircularProgress from "@/app/components/circular_progress";
+import {IoFastFoodOutline} from "react-icons/io5";
 
 
 const NutritionCard = ({
@@ -33,6 +33,7 @@ export const DetailPage = ({
     setShowDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
     const [showFullDescription, setShowFullDescription] = useState(false);
+    const [loadImageError, setLoadImageError] = useState<boolean>(false);
 
     return (
         <AlertDialog setShowDialog={setShowDialog}>
@@ -42,17 +43,18 @@ export const DetailPage = ({
                     {/* Recipe image view */}
                     <div
                         className="w-full md:w-1/2 md:h-full bg-slate-100 rounded-none md:rounded-l-2xl overflow-hidden">
-                        {(recipe.image == "" || recipe.image == null) ?
-                            <CircularProgress size={50} infinite={true}/> : (recipe.image == "") ?
-                                <div className={"w-full py-80 h-96 flex justify-center items-center"}>
-                                    <CircularProgress size={30} infinite={true}/>
-                                </div> : (<Image
-                                    className="object-cover w-full h-full"
-                                    src={recipe.image}
-                                    alt={recipe.name}
-                                    width={800}
-                                    height={800}
-                                />)}
+                        {(loadImageError || recipe.image == "" || recipe.image == null) ?
+                            <div
+                                className={"text-9xl text-slate-700 w-full h-96 py-80 flex justify-center items-center"}>
+                                <IoFastFoodOutline className={"animate-pulse"}/>
+                            </div> : (<Image
+                                className="object-cover w-full h-full"
+                                src={recipe.image}
+                                alt={recipe.name}
+                                width={500}
+                                height={500}
+                                onError={() => setLoadImageError(true)}
+                            />)}
                     </div>
                     {/* Recipe detail view */}
                     <div className="w-full md:w-1/2 md:overflow-scroll flex flex-col pr-4 px-4 md:px-0">

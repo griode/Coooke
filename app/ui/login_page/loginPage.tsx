@@ -50,7 +50,7 @@ export const LoginPage = ({
                 e.stopPropagation();
                 closeHandler();
             }}
-            className="fixed inset-0 w-screen bg-black/65 z-40 flex justify-center items-center"
+            className="fixed inset-0 w-screen bg-slate-800/65 z-40 flex justify-center items-center"
         >
             <div
                 onClick={(e) => e.stopPropagation()}

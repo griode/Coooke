@@ -65,7 +65,7 @@ export default function HomePage() {
         <NavbarContainer pageIndex={0}>
             <div>
                 {/* Titre */}
-                <h1 className="mt-4 text-xl font-bold">
+                <h1 className="mt-2 text-xl font-bold">
                     Recent Recipes |{" "}
                     <span className="text-slate-500 text-lg font-normal">{recipes.length} Recipes</span>
                 </h1>

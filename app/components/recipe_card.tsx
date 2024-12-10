@@ -3,12 +3,15 @@ import {useState} from "react";
 import Recipe from "@/app/data/model/recipe_model";
 import {DetailPage} from "../ui/detail_recipe/detail_recipe";
 import Image from "next/image";
-import CircularProgress from "./circular_progress";
 import {PiCookingPot} from "react-icons/pi";
-//import {CiImageOff} from "react-icons/ci";
+import {IoFastFoodOutline} from "react-icons/io5";
+
+//import { HiOutlineBookmark } from "react-icons/hi2";
+// import { HiBookmark } from "react-icons/hi2";
 
 const RecipeCard = ({recipe}: { recipe: Recipe }) => {
     const [showDetail, setShowDetail] = useState<boolean>(false);
+    const [loadImageError, setLoadImageError] = useState<boolean>(false);
 
     const showDetailHandler = () => {
         setShowDetail(!showDetail);
@@ -34,20 +37,18 @@ const RecipeCard = ({recipe}: { recipe: Recipe }) => {
                             </div>
 
                         </div>
-                        {(recipe.image == "" || recipe.image == null) ?
-                            <div className={"w-full h-full flex justify-center items-center"}>
-                                <CircularProgress size={30} infinite={true}/>
-                            </div>
-                            : (recipe.image == "") ?
-                                <div className={"w-full text-3xl h-full flex justify-center items-center"}>
-                                    <CircularProgress size={30} infinite={true}/>
-                                </div> : (<Image
-                                    className="object-cover w-full h-full"
-                                    src={recipe.image}
-                                    alt={recipe.name}
-                                    width={500}
-                                    height={500}
-                                />)}
+
+                        {(loadImageError || recipe.image == "" || recipe.image == null) ?
+                            <div className={"text-4xl text-slate-700 w-full h-full flex justify-center items-center"}>
+                                <IoFastFoodOutline className={"animate-pulse"}/>
+                            </div> : (<Image
+                                className="object-cover w-full h-full"
+                                src={recipe.image}
+                                alt={recipe.name}
+                                width={500}
+                                height={500}
+                                onError={() => setLoadImageError(true)}
+                            />)}
                     </div>
                     <div className="p-3">
                         <h1 className="font-bold text-sm line-clamp-1">{recipe.name}</h1>

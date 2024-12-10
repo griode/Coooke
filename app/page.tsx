@@ -49,7 +49,7 @@ export default function Home() {
                                 <div
                                     className="ml-12 bg-[url('../app/assets/images/text_bg.jpg')] bg-clip-text bg-cover bg-center text-transparent">
                   <span
-                      className="text-transparent bg-clip-text bg-cover bg-gradient-to-r from-85% from-black to-transparent">
+                      className="text-transparent bg-clip-text bg-cover bg-gradient-to-r from-85% from-slate-800 to-transparent">
                     Fresh
                   </span>{" "}
                                     Food
@@ -84,7 +84,7 @@ export default function Home() {
                                 id="search"
                                 placeholder="Find Great Food"
                             />
-                            <button className="bg-black rounded-full text-white absolute mr-1">
+                            <button className="bg-slate-800 rounded-full text-white absolute mr-1">
                                 <BsSearch className="m-3 h-6 w-6"/>
                             </button>
                         </div>
@@ -92,7 +92,7 @@ export default function Home() {
                     <div className="lg:w-1/2 w-full">
                         <SliderCard/>
                         <div
-                            className="w-full bg-black text-white rounded-3xl px-8 py-4 mt-4 flex items-center justify-between">
+                            className="w-full bg-slate-800 text-white rounded-3xl px-8 py-4 mt-4 flex items-center justify-between">
                             <p className="font-bold text-lg">1,000 + Ratings</p>
                             <div className="flex gap-2">
                                 <BsStarFill className={starIconStyle}/>

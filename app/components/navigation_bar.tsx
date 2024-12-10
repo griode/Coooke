@@ -5,7 +5,7 @@ import Image from "next/image";
 import {useRouter} from "next/navigation";
 // Icons
 import {HiCalendar, HiMiniSparkles, HiOutlineCalendar, HiOutlineCog6Tooth,} from "react-icons/hi2";
-import {GoHome, GoHomeFill} from "react-icons/go";
+import {MdFoodBank, MdOutlineFoodBank} from "react-icons/md";
 
 import {HiOutlineSearch} from "react-icons/hi";
 import Avatar from "./avatar";
@@ -61,8 +61,8 @@ export default function NavigationBar({pageIndex}: { pageIndex: number }) {
         {
             enable: pageIndex === 0,
             name: "Home",
-            icon: <GoHome/>,
-            fillIcon: <GoHomeFill/>,
+            icon: <MdOutlineFoodBank className={"text-3xl"}/>,
+            fillIcon: <MdFoodBank className={"text-3xl"}/>,
             path: "/ui/home",
         },
         {
