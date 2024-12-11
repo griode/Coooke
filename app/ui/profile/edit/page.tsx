@@ -14,7 +14,7 @@ import {useCurrentUser} from "@/app/hooks/use_user_provider";
 
 const EditProfilePage = () => {
     const router = useRouter();
-    const {currentUser, userPhotoUrl, setUserPhotoUrl} = useCurrentUser();
+    const {currentUser, userPhotoUrl, setUserPhotoUrl, userInfo} = useCurrentUser();
     const [isUpdate, setIsUpdate] = useState<boolean>(true);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -100,16 +100,16 @@ const EditProfilePage = () => {
                         <hr className="my-2"/>
                         <textarea
                             maxLength={80}
-                            // onChange={(e) => {
-                            //     // if (userAuth?.info == e.target.value) {
-                            //     //     setIsUpdate(true);
-                            //     // } else {
-                            //     //     setIsUpdate(false);
-                            //     // }
-                            // }}
+                            onChange={(e) => {
+                                if (userInfo?.info == e.target.value) {
+                                    setIsUpdate(true);
+                                } else {
+                                    setIsUpdate(false);
+                                }
+                            }}
                             name="bio"
                             id="bio"
-                            // defaultValue={userAuth?.info ?? ""}
+                            defaultValue={userInfo?.info ?? ""}
                             className="w-full h-full outline-none bg-transparent resize-none"
                         ></textarea>
                     </div>

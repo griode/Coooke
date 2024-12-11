@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "./scroll-style.css";
 import {Analytics} from "@vercel/analytics/react";
-import {UserProvider} from "@/app/hooks/use_user_provider";
+import {UserProviderContext} from "@/app/hooks/use_user_provider";
 
 const geistSans = localFont({
     src: "./assets/fonts/GeistVF.woff",
@@ -29,9 +29,9 @@ export default function RootLayout({
         <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-800`}
         >
-        <UserProvider>
+        <UserProviderContext>
             {children}
-        </UserProvider>
+        </UserProviderContext>
 
         <Analytics/>
         </body>

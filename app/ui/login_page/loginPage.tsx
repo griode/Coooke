@@ -31,12 +31,12 @@ export const LoginPage = ({
         closeAction(false);
     };
 
-    // log in with google
+    // log in with Google
     const googleLoginHandler = () => {
         setIsLoading(true);
         signInWithGoogle().then((user) => {
             if (user) {
-                setUserId(user.uid);
+                setUserId(user.uid).then(() => console.log("User logged in"));
                 router.push("/ui/home");
             } else {
                 setIsLoading(false);
@@ -59,27 +59,21 @@ export const LoginPage = ({
                 <IconButton onClick={closeHandler} className="absolute right-2 top-2">
                     <GrClose className="text-xl m-1"/>
                 </IconButton>
-                <div className="bg-[url('../app/assets/images/login_bg.png')] w-full h-96 bg-cover"></div>
-                <div className="m-6">
+                <div className="bg-[url('../app/assets/images/login_bg.png')] w-full h-60 md:h-96  bg-cover"></div>
+                <div className="m-4">
                     <h1 className="flex items-center my-4">
                         <div className="text-6xl pb-3 font-black">C</div>
-                        <div
-
-                            className="bg-slate-800 rounded-full w-7 h-7"
-                        >
-
+                        <div className="bg-slate-800 rounded-full w-7 h-7">
                             <Image
-
                                 className="w-full h-full"
                                 src={logo}
                                 alt="logo"
                             />
-
                         </div>
                         <div className="text-4xl font-black pb-1">ook</div>
                     </h1>
                     <h1 className="text-2xl font-bold">Login to your account</h1>
-                    <p className="text-sm mt-6">
+                    <p className="text-sm mt-4">
                         Transform your ingredients into delicious dishes - Scan and find
                         recipes instantly!
                     </p>

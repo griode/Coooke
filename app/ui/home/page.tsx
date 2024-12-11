@@ -25,7 +25,7 @@ export default function HomePage() {
                 return;
             }
 
-            const response = await RecipeProvider.getRecipesByUser({item: 8, userId});
+            const response = await RecipeProvider.getRecipesByUser({item: 20, userId});
             setRecipes(response);
         } catch (error) {
             console.error("Error fetching recipes:", error);
@@ -35,7 +35,7 @@ export default function HomePage() {
     };
 
     useEffect(() => {
-        fetchRecipes();
+        fetchRecipes().then(r => console.log(r))
     }, []);
 
     // Gestion dynamique de l'affichage des recettes
@@ -49,10 +49,10 @@ export default function HomePage() {
         }
 
         return (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 overflow-y-scroll py-2">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 overflow-y-scroll py-2">
                 {recipes
                     .filter((recipe) =>
-                        categorySelected === 0 || recipe.mealType === Categories[categorySelected].name
+                        categorySelected === 0 || recipe.mealType == Categories[categorySelected].name || recipe.name.toLowerCase().includes(Categories[categorySelected].name.toLowerCase())
                     )
                     .map((recipe, index) => (
                         <RecipeCard key={index} recipe={recipe}/>
@@ -65,13 +65,13 @@ export default function HomePage() {
         <NavbarContainer pageIndex={0}>
             <div>
                 {/* Titre */}
-                <h1 className="mt-2 text-xl font-bold">
+                <h1 className="text-xl font-bold">
                     Recent Recipes |{" "}
                     <span className="text-slate-500 text-lg font-normal">{recipes.length} Recipes</span>
                 </h1>
 
                 {/* Catégories */}
-                <div className="flex gap-10 mt-6">
+                <div className="flex gap-8 mt-5 overflow-x-scroll scrollbar-hidden">
                     {Categories.map((category, index) => (
                         <CategoryItem
                             key={index}
@@ -82,7 +82,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Vue des recettes */}
-                <div className="mt-6">{showView()}</div>
+                <div className="mt-5">{showView()}</div>
 
                 {/* Espacement pour la navigation */}
                 <div className="h-16"></div>

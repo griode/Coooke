@@ -23,7 +23,7 @@ export function AlertDialog({
     return (
         <div
             onClick={closeHandler}
-            className="fixed bg-slate-100/5 inset-0 w-screen z-30 flex flex-col justify-center items-center backdrop-blur-sm"
+            className="fixed bg-slate-800/10 backdrop-blur-sm inset-0 w-screen z-30 flex flex-col justify-center items-center"
         >
             <IconButton className="absolute top-4 right-4">
                 <IoClose/>

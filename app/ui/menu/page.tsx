@@ -3,24 +3,26 @@ import WeekMenuProvider, {MenuPWeek} from "@/app/data/provider/menu_provider";
 import NavbarContainer from "@/app/components/navbar_container";
 import {useEffect, useState} from "react";
 import {MenuCard} from "./menu_card";
-import {getUserId} from "@/app/data/utils/user_manager";
+import {useCurrentUser} from "@/app/hooks/use_user_provider";
 
 export default function MenuPage() {
     const [menus, setMenus] = useState<MenuPWeek[]>([]);
+    const {currentUser, loading} = useCurrentUser()
 
     const fetchMenus = async () => {
-        const userUidCookie = await getUserId();
-
-        if (userUidCookie?.value === null || userUidCookie?.value === "") {
-            return;
-        }
-        const menus = await WeekMenuProvider.getMenuUser(userUidCookie?.value ?? "");
-        setMenus(menus);
+        WeekMenuProvider.getMenuUser(currentUser?.uid ?? "")
+            .then((value) => setMenus(value));
     };
 
     useEffect(() => {
-        fetchMenus();
-    }, []);
+        fetchMenus().then(() => console.log("Menu fetched successfully"));
+    });
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center w-full h-full">Loading...</div>
+        );
+    }
 
     return (
         <NavbarContainer pageIndex={1}>
@@ -31,6 +33,7 @@ export default function MenuPage() {
                         <MenuCard key={index} menu={week}/>
                     ))}
                 </div>
+                <div className="h-16"></div>
             </div>
         </NavbarContainer>
     );

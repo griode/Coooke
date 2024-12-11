@@ -7,30 +7,27 @@ import {RecipeSection} from "@/app/components/image_recipe_card";
 import Image from "next/image";
 import arrow from "./assets/icons/arrow.png";
 import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
-import {getUserId} from "./data/utils/user_manager";
+import {useEffect} from "react";
 import CircularProgress from "@/app/components/circular_progress";
+import {useCurrentUser} from "@/app/hooks/use_user_provider";
 
 export default function Home() {
     const starIconStyle = "text-yellow-500 h-5 w-5";
-    const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
+    const {currentUser, loading} = useCurrentUser();
 
 
     useEffect(() => {
         const getUserHandler = async () => {
-            const userId = await getUserId();
-            if (userId?.value !== null && userId?.value !== "") {
+            if (currentUser !== null) {
                 router.push("/ui/home");
             }
-            setIsLoading(false);
         };
-
         // Call the function
         getUserHandler().then(() => console.log("Page loaded"));
     });
 
-    if (isLoading) {
+    if (loading) {
         return (
             <div className="w-screen h-screen  flex justify-center items-center">
                 <CircularProgress size={40}/>

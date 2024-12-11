@@ -53,9 +53,9 @@ export default function NavbarContainer({
 
     return (
 
-        <div className="h-screen w-screen flex space-x-0 md:space-x-2 overflow-hidden">
+        <div className="h-screen w-screen flex overflow-hidden">
             <NavigationBar pageIndex={pageIndex}/>
-            <div className="w-full h-full p-2 md:p-4 overflow-x-hidden overflow-y-scroll scrollbar-hidden">
+            <div className="w-full h-full p-3 md:p-5 overflow-x-hidden overflow-y-scroll scrollbar-hidden">
                 <div>
                     {/* Search Panel */}
                     <InteractivePanel
@@ -73,20 +73,20 @@ export default function NavbarContainer({
                     </InteractivePanel>
                     {/* Profile Panel */}
                     <InteractivePanel
-                        className="md:left-20 md:ml-1 md:bottom-4 md:w-96 md:rounded-xl"
+                        className="md:left-20 md:ml-1 md:bottom-4 md:w-64 md:rounded-xl"
                         id={"profilePanel"}
                     >
                         <div className="space-y-2 w-full text-xl p-4">
                             <OutlineButton
                                 onClick={() => router.push("/ui/profile/edit")}
-                                className="text-left flex items-center space-x-2 w-full"
+                                className="text-left flex items-center space-x-2 w-full border-0"
                             >
                                 <LiaUserEditSolid className="text-xl"/>
                                 <samp className="text-sm">Edit Profile</samp>
                             </OutlineButton>
                             <OutlineButton
                                 onClick={logoutHandler}
-                                className="text-left flex items-center space-x-2 w-full"
+                                className="text-left flex items-center space-x-2 w-full border-0"
                             >
                                 <HiArrowRightOnRectangle className="text-xl"/>
                                 <samp className="text-sm">Log out</samp>

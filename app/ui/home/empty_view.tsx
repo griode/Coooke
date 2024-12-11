@@ -9,16 +9,14 @@ export const EmptyView = () => {
     return (
         <div
             className="p-5 space-y-4 flex flex-col items-center justify-between border rounded-2xl mt-2 overflow-hidden">
-            <div className="space-x-2 text-4xl text-center flex flex-wrap items-center justify-center">
+            <div className="space-x-2 text-3xl md:text-4xl text-center flex flex-wrap items-center justify-center">
                 <LuEggFried/>
-
-
                 <TbMeat/>
                 <span>Generate your own recipes with AI</span>
                 <MdOutlineSoupKitchen/>
                 <PiCookingPotDuotone/>
             </div>
-            <div className="w-96 flex flex-col items-center justify-center">
+            <div className="md:w-96 flex flex-col items-center justify-center">
                 <p className="text-sm text-center">
                     Transform your ingredients into delicious dishes - Scan and find
                     recipes instantly!
@@ -27,7 +25,6 @@ export const EmptyView = () => {
                     <InteractiveButtonFilled
                         icon={"Generate new recipe"}
                         panelId={"chatPanel"}
-
                     />
                 </div>
             </div>

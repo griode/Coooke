@@ -16,7 +16,7 @@ export const Categories: Category[] = [
     {
         isActive: false,
         id: 0,
-        name: "All",
+        name: "All Recipes",
         icon: <GiBlackBook/>,
     },
     {
@@ -77,7 +77,7 @@ export const CategoryItem = ({category, onClick}: {
                 {category.icon}
             </div>
 
-            <p className={"text-xs"}>{category.name}</p>
+            <p className={"text-xs text-center"}>{category.name}</p>
         </div>
     )
 }

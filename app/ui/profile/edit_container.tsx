@@ -1,9 +1,10 @@
 "use client";
 import {useRouter} from "next/navigation";
 import NavbarContainer from "@/app/components/navbar_container";
-import {IconButton} from "@/app/components/button";
-import {useState} from "react";
+import {FillButton, IconButton} from "@/app/components/button";
+import React, {useState} from "react";
 import {HiOutlineCog6Tooth, HiXMark} from "react-icons/hi2";
+import {auth} from "@/app/firebase";
 
 const NavLink = ({
                      children,
@@ -39,6 +40,11 @@ const EditProfileContainer = ({
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
+    const router = useRouter();
+
+    const logoutHandler = () => {
+        auth.signOut().then(() => router.push("/"))
+    };
 
     return (
         <NavbarContainer pageIndex={2}>
@@ -64,6 +70,9 @@ const EditProfileContainer = ({
                     >
                         Account management
                     </NavLink>
+                    <FillButton
+                        onClick={logoutHandler}
+                        className={"w-full md:hidden mt-2"}>Log out</FillButton>
                 </div>
                 <div className="overflow-y-scroll overflow-x-hidden w-full">
                     <IconButton
@@ -76,6 +85,7 @@ const EditProfileContainer = ({
                     </IconButton>
                     {children}
                 </div>
+
             </div>
         </NavbarContainer>
     );
