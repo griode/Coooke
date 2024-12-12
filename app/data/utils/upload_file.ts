@@ -108,3 +108,52 @@ export async function deleteFileByUrl(fileUrl: string): Promise<void> {
             });
     }
 }
+
+
+export async function compressImageToBase64(
+    base64String: string
+): Promise<string> {
+    // Convertir Base64 en Blob
+    const base64ToBlob = (base64: string): Blob => {
+        const byteString = atob(base64.split(",")[1]);
+        const mimeString = base64.split(",")[0].split(":")[1].split(";")[0];
+        const arrayBuffer = new ArrayBuffer(byteString.length);
+        const intArray = new Uint8Array(arrayBuffer);
+        for (let i = 0; i < byteString.length; i++) {
+            intArray[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([arrayBuffer], { type: mimeString });
+    };
+
+    const fileBlob: any = base64ToBlob(base64String);
+
+    // Définir les options initiales de compression
+    const options = {
+        maxSizeMB: 2.9, // Légèrement inférieur à 3 MB
+        maxWidthOrHeight: 1920, // Dimensions maximales
+        useWebWorker: true,
+    };
+
+    try {
+        let compressedFile = await imageCompression(fileBlob, options);
+
+        // Vérifier la taille de l'image compressée
+        while (compressedFile.size > 3 * 1024 * 1024) {
+            // Réduire la taille maximale pour compresser davantage
+            options.maxSizeMB /= 2;
+
+            // Compresser de nouveau
+            compressedFile = await imageCompression(fileBlob, options);
+
+            // Si les options atteignent une limite trop basse
+            if (options.maxSizeMB < 0.1) {
+                throw new Error("Impossible de compresser l'image sous 3 MB.");
+            }
+        }
+
+        // Convertir Blob compressé en Base64
+        return await imageCompression.getDataUrlFromFile(compressedFile);
+    } catch (error) {
+        throw new Error("Failed to compress image below 3 MB: " + error);
+    }
+}

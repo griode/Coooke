@@ -3,6 +3,7 @@ import Recipe from "../model/recipe_model";
 import { mapRecipes } from "./mapper";
 import { httpsCallable } from "@firebase/functions";
 import { functions } from "@/app/firebase";
+import { compressImageToBase64 } from "../utils/upload_file";
 
 
 // Generate a recipe based on a prompt
@@ -43,10 +44,11 @@ function convertDataURLToBase64(dataURL: string) {
 
 export async function getRecipeByImage(image: string): Promise<Recipe[]> {
     try {
+        const imageCompress = await compressImageToBase64(image)
         const generateRecipe = httpsCallable(functions, "recipe_by_images");
         const response = await generateRecipe({
             "language": "en",
-            "images": [convertDataURLToBase64(image)],
+            "images": [convertDataURLToBase64(imageCompress)],
         })
 
         if (response.data) {

@@ -6,7 +6,7 @@ class UserModel {
     email?: string | null;
     birth: Timestamp;
     allergens: string[] = []; // Replace 'any' with a more specific type if known
-    diet: string;
+    diet?: string;
     info?: string | null;
     language?: string | null;
     cuisine?: string | null;

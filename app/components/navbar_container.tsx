@@ -1,45 +1,40 @@
 'use client'
-import {HiArrowRightOnRectangle} from "react-icons/hi2"
-import {LiaUserEditSolid} from "react-icons/lia"
-import {OutlineButton} from "./button"
-import {InteractivePanel} from "./interactive_panel_props"
+import { HiArrowRightOnRectangle } from "react-icons/hi2"
+import { LiaUserEditSolid } from "react-icons/lia"
+import { OutlineButton } from "./button"
+import { InteractivePanel } from "./interactive_panel_props"
 import NavigationBar from "./navigation_bar"
-import {auth} from "@/app/firebase"
+import { auth } from "@/app/firebase"
 import SearchPage from "./search"
 import ChatBox from "../ui/chatbox/chatbox"
-import {useRouter} from "next/navigation"
-import {ReactNode, useEffect, useState} from "react"
+import { useRouter } from "next/navigation"
+import { ReactNode, useEffect } from "react"
 import "@/app/scroll-style.css"
-import {deleteUserId, getUserId} from "@/app/data/utils/user_manager"
+import { deleteUserId } from "@/app/data/utils/user_manager"
 import CircularProgress from "./circular_progress"
+import { useCurrentUser } from "../hooks/use_user_provider"
 // bell
-
-export default function NavbarContainer({
-                                            children,
-                                            pageIndex,
-                                        }: {
+const NavbarContainer = ({
+    children,
+    pageIndex,
+}: {
     children: ReactNode;
     pageIndex: number;
-}) {
+}) => {
     const router = useRouter();
-    const [isLoading, setIsLoading] = useState(true);
-
-    const getUserHandler = async () => {
-        const userId = await getUserId();
-        if (userId?.value === null || userId?.value === "") {
-            router.push("/");
-        }
-        setIsLoading(false);
-    };
+    const { currentUser, loading } = useCurrentUser();
 
     useEffect(() => {
-        getUserHandler().then(() => console.log("NavbarContainer fetched successfully"));
-    },);
+        console.log("current user")
+        if (currentUser == null) {
+            router.push("/")
+        }
+    }, [currentUser, router])
 
-    if (isLoading) {
+    if (loading) {
         return (
             <div className="w-full h-full flex justify-center items-center">
-                <CircularProgress size={40}/>
+                <CircularProgress size={40} />
             </div>
         );
     }
@@ -54,7 +49,7 @@ export default function NavbarContainer({
     return (
 
         <div className="h-screen w-screen flex overflow-hidden">
-            <NavigationBar pageIndex={pageIndex}/>
+            <NavigationBar pageIndex={pageIndex} />
             <div className="w-full h-full p-3 md:p-5 overflow-x-hidden overflow-y-scroll scrollbar-hidden">
                 <div>
                     {/* Search Panel */}
@@ -62,14 +57,14 @@ export default function NavbarContainer({
                         id="searchPanel"
                         className="left-0 top-0 right-0 bottom-0 md:left-20 md:ml-1 md:top-4 md:bottom-4 md:w-96 md:rounded-xl"
                     >
-                        <SearchPage/>
+                        <SearchPage />
                     </InteractivePanel>
                     {/* Chat Panels */}
                     <InteractivePanel
                         id="chatPanel"
                         className="left-0 top-0 right-0 bottom-0 md:left-20 md:ml-1 md:top-4 md:bottom-4 md:w-96 md:rounded-xl"
                     >
-                        <ChatBox/>
+                        <ChatBox />
                     </InteractivePanel>
                     {/* Profile Panel */}
                     <InteractivePanel
@@ -81,14 +76,14 @@ export default function NavbarContainer({
                                 onClick={() => router.push("/ui/profile/edit")}
                                 className="text-left flex items-center space-x-2 w-full border-0"
                             >
-                                <LiaUserEditSolid className="text-xl"/>
+                                <LiaUserEditSolid className="text-xl" />
                                 <samp className="text-sm">Edit Profile</samp>
                             </OutlineButton>
                             <OutlineButton
                                 onClick={logoutHandler}
                                 className="text-left flex items-center space-x-2 w-full border-0"
                             >
-                                <HiArrowRightOnRectangle className="text-xl"/>
+                                <HiArrowRightOnRectangle className="text-xl" />
                                 <samp className="text-sm">Log out</samp>
                             </OutlineButton>
                         </div>
@@ -101,3 +96,4 @@ export default function NavbarContainer({
     );
 }
 
+export default NavbarContainer

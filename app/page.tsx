@@ -25,7 +25,7 @@ export default function Home() {
         };
         // Call the function
         getUserHandler().then(() => console.log("Page loaded"));
-    });
+    }, [currentUser, router]);
 
     if (loading) {
         return (
