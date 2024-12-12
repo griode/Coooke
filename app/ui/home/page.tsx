@@ -28,7 +28,7 @@ export default function HomePage() {
 
     useEffect(() => {
         fetchRecipes()
-    }, []);
+    });
 
     // Gestion dynamique de l'affichage des recettes
     const showView = () => {

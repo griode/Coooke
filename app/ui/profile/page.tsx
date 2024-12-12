@@ -1,17 +1,17 @@
 "use client";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import Avatar from "@/app/components/avatar";
-import {OutlineButton} from "@/app/components/button";
+import { OutlineButton } from "@/app/components/button";
 import NavbarContainer from "@/app/components/navbar_container";
-import {useCurrentUser} from "@/app/hooks/use_user_provider";
-import {useEffect, useState} from "react";
+import { useCurrentUser } from "@/app/hooks/use_user_provider";
+import { useEffect, useState } from "react";
 import Recipe from "@/app/data/model/recipe_model";
-import {RecipeProvider} from "@/app/data/provider/recipe_provider";
+import { RecipeProvider } from "@/app/data/provider/recipe_provider";
 import RecipeCard from "@/app/components/recipe_card";
-import {EmptyFavorite} from "@/app/ui/profile/empty_favorite";
+import { EmptyFavorite } from "@/app/ui/profile/empty_favorite";
 
 export default function ProfilePage() {
-    const {currentUser, loading, userInfo} = useCurrentUser();
+    const { currentUser, loading, userInfo } = useCurrentUser();
     const router = useRouter();
     const [recipes, setRecipes] = useState<Recipe[]>([]);
 
@@ -31,7 +31,7 @@ export default function ProfilePage() {
         if (userInfo?.favoriteRecipes) {
             fetchRecipes().then(() => console.log("Recipes fetched successfully"));
         }
-    }, [userInfo?.favoriteRecipes]); // Dépendance pour éviter un appel infini
+    },); // Dépendance pour éviter un appel infini
 
     if (loading) {
         return <div>Loading...</div>;
@@ -60,13 +60,13 @@ export default function ProfilePage() {
                     </OutlineButton>
                 </div>
             </div>
-            <hr/>
+            <hr />
             {recipes.length === 0 ? (
-                <EmptyFavorite/>
+                <EmptyFavorite />
             ) : (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 overflow-y-scroll mt-6">
                     {recipes.map((recipe, index) => (
-                        <RecipeCard key={recipe.id ?? index} recipe={recipe}/>
+                        <RecipeCard key={recipe.id ?? index} recipe={recipe} />
                     ))}
                 </div>
             )}
