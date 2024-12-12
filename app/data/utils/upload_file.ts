@@ -98,13 +98,13 @@ export async function uploadImageFromUrl(imageUrl: string, filePath: string): Pr
 }
 
 export async function deleteFileByUrl(fileUrl: string): Promise<void> {
-    // Crée une référence de fichier à partir de l'URL fournie
-    const fileRef = ref(storage, fileUrl);
-    try {
-        // Supprimer le fichier de Firebase Storage
-        await deleteObject(fileRef);
-    } catch (error) {
-        console.error("Erreur lors de la suppression du fichier:", error);
-        throw new Error("Échec de la suppression du fichier.");
+    if (!fileUrl.includes("https://lh3.googleusercontent.com")) {
+        // Crée une référence de fichier à partir de l'URL fournie
+        const fileRef = ref(storage, fileUrl);
+        deleteObject(fileRef)
+            .then(() => console.log("File deleted successfully"))
+            .catch((error) => {
+                console.log("Erreur lors de la suppression du fichier:", error);
+            });
     }
 }

@@ -1,51 +1,45 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Recipe from "@/app/data/model/recipe_model";
-import {RecipeProvider} from "@/app/data/provider/recipe_provider";
+import { RecipeProvider } from "@/app/data/provider/recipe_provider";
 import "@/app/scroll-style.css"; // Import the CSS file
 import RecipeCard from "@/app/components/recipe_card";
-import {getUserId} from "@/app/data/utils/user_manager";
-import {Categories, CategoryItem} from "@/app/ui/home/category";
-import {EmptyView} from "@/app/ui/home/empty_view";
+import { Categories, CategoryItem } from "@/app/ui/home/category";
+import { EmptyView } from "@/app/ui/home/empty_view";
 import NavbarContainer from "@/app/components/navbar_container";
+import { useCurrentUser } from "@/app/hooks/use_user_provider";
+import CircularProgress from "@/app/components/circular_progress";
 
 export default function HomePage() {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [categorySelected, setCategorySelected] = useState<number>(0);
+    const { currentUser } = useCurrentUser();
 
     // Fonction pour récupérer les recettes
-    const fetchRecipes = async () => {
-        try {
-            const userIdCookie = await getUserId();
-            const userId = userIdCookie?.value ?? "";
-
-            if (!userId) {
-                console.warn("No user ID found");
-                return;
-            }
-
-            const response = await RecipeProvider.getRecipesByUser({item: 20, userId});
-            setRecipes(response);
-        } catch (error) {
-            console.error("Error fetching recipes:", error);
-        } finally {
-            setIsLoading(false);
+    const fetchRecipes = () => {
+        if (currentUser) {
+            RecipeProvider.getRecipesByUser({ item: 20, userId: currentUser.uid }).then((recipes) => {
+                setRecipes(recipes);
+            })
+                .finally(() => setIsLoading(false));
         }
     };
 
     useEffect(() => {
-        fetchRecipes().then(r => console.log(r))
+        fetchRecipes()
     }, []);
 
     // Gestion dynamique de l'affichage des recettes
     const showView = () => {
         if (isLoading) {
-            return <div className="text-center">Loading...</div>;
+            return <div className="w-full h-full bg-slate-50 flex justify-center items-center py-6 space-x-2 rounded-md">
+                <CircularProgress size={20} infinite={true} /> <p>Loading...</p>
+            </div>;
         }
 
         if (recipes.length === 0) {
-            return <EmptyView/>;
+            return <EmptyView />;
         }
 
         return (
@@ -55,7 +49,7 @@ export default function HomePage() {
                         categorySelected === 0 || recipe.mealType == Categories[categorySelected].name || recipe.name.toLowerCase().includes(Categories[categorySelected].name.toLowerCase())
                     )
                     .map((recipe, index) => (
-                        <RecipeCard key={index} recipe={recipe}/>
+                        <RecipeCard key={index} recipe={recipe} />
                     ))}
             </div>
         );
@@ -76,7 +70,7 @@ export default function HomePage() {
                         <CategoryItem
                             key={index}
                             onClick={() => setCategorySelected(category.id)}
-                            category={{...category, isActive: category.id === categorySelected}}
+                            category={{ ...category, isActive: category.id === categorySelected }}
                         />
                     ))}
                 </div>
