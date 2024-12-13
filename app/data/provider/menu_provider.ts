@@ -32,12 +32,7 @@ class WeekMenuProvider {
       const docRef = doc(this.weeklyCollection, userId);
       const result = await getDoc(docRef);
 
-      if (!result.exists()) {
-        console.warn(`No menu found for user ID: ${userId}`);
-        return menu;
-      }
-
-      const menuWeek = result.data()?.menu;
+      const menuWeek = result.data()?.menu?? [];
       const menuPromises = Object.entries(menuWeek).map(
         async ([, dayMenu]) => {
           const recipes = await this.fetchRecipes(dayMenu.recipe_ids);

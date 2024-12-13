@@ -1,76 +1,36 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Recipe from "@/app/data/model/recipe_model";
-import { RecipeProvider } from "@/app/data/provider/recipe_provider";
+import React, { useState, useMemo } from "react";
 import "@/app/scroll-style.css"; // Style des barres de défilement
 import RecipeCard from "@/app/components/recipe_card";
 import { Categories, CategoryItem } from "@/app/ui/home/category";
 import { EmptyView } from "@/app/ui/home/empty_view";
 import NavbarContainer from "@/app/components/navbar_container";
-import { useCurrentUser } from "@/app/hooks/use_user_provider";
-import CircularProgress from "@/app/components/circular_progress";
+import { useRecipes } from "@/app/hooks/recipe_context";
 
 export default function HomePage() {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [categorySelected, setCategorySelected] = useState<number>(0);
-  const { currentUser } = useCurrentUser();
+  const { recipes } = useRecipes();
 
-  // Récupération des recettes
-  const fetchRecipes = async () => {
-    if (!currentUser) return;
-
-    setIsLoading(true);
-    try {
-      const fetchedRecipes = await RecipeProvider.getRecipesByUser({
-        item: 20,
-        userId: currentUser.uid,
-      });
-      setRecipes(fetchedRecipes);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Chargement initial
-  useEffect(() => {
-    fetchRecipes();
-  }, [currentUser]);
-
-  // Rendu dynamique des recettes
-  const renderRecipes = () => {
-    if (isLoading) {
-      return (
-        <div className="w-full h-full bg-slate-50 flex justify-center items-center py-6 space-x-2 rounded-md">
-          <CircularProgress size={20} infinite={true} />
-          <p>Loading...</p>
-        </div>
-      );
+  // Filtrage des recettes basé sur la catégorie sélectionnée
+  const filteredRecipes = useMemo(() => {
+    if (categorySelected === 0) {
+      return recipes;
     }
 
-    if (recipes.length === 0) {
-      return <EmptyView />;
-    }
+    const selectedCategory = Categories.find((cat) => cat.id === categorySelected);
+    if (!selectedCategory) return recipes; // Si la catégorie est invalide, renvoyer toutes les recettes
 
-    const filteredRecipes = recipes.filter((recipe) =>
-      categorySelected === 0 ||
-      recipe.mealType === Categories[categorySelected].name ||
-      recipe.name.toLowerCase().includes(Categories[categorySelected].name.toLowerCase())
+    return recipes.filter(
+      (recipe) =>
+        recipe.mealType === selectedCategory.name ||
+        recipe.name.toLowerCase().includes(selectedCategory.name.toLowerCase())
     );
-
-    return (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 overflow-y-scroll py-2">
-        {filteredRecipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
-      </div>
-    );
-  };
+  }, [categorySelected, recipes]);
 
   return (
     <NavbarContainer pageIndex={0}>
-      <div>
+      <div className="p-4">
         {/* Titre */}
         <h1 className="text-xl font-bold">
           Recent Recipes |{" "}
@@ -89,7 +49,17 @@ export default function HomePage() {
         </div>
 
         {/* Vue des recettes */}
-        <div className="mt-5">{renderRecipes()}</div>
+        <div className="mt-5">
+          {filteredRecipes.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 py-2">
+              {filteredRecipes.map((recipe) => (
+                <RecipeCard key={recipe.id} recipe={recipe} />
+              ))}
+            </div>
+          ) : (
+            <EmptyView />
+          )}
+        </div>
 
         {/* Espacement pour la navigation */}
         <div className="h-16"></div>

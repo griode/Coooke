@@ -2,8 +2,9 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import "./scroll-style.css";
-import {Analytics} from "@vercel/analytics/react";
-import {UserProviderContext} from "@/app/hooks/use_user_provider";
+import { Analytics } from "@vercel/analytics/react";
+import { UserProviderContext } from "@/app/hooks/use_user_provider";
+import { RecipeProviderContext } from "./hooks/recipe_context";
 
 const geistSans = localFont({
     src: "./assets/fonts/GeistVF.woff",
@@ -18,23 +19,24 @@ const geistMono = localFont({
 
 
 export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+    children,
+}: Readonly<{
     children: React.ReactNode;
 }>) {
-
-
     return (
         <html lang="en">
-        <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-800`}
-        >
-        <UserProviderContext>
-            {children}
-        </UserProviderContext>
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-800`}
+            >
+                <UserProviderContext>
+                    <RecipeProviderContext>
+                        {children}
+                    </RecipeProviderContext>
 
-        <Analytics/>
-        </body>
+                </UserProviderContext>
+
+                <Analytics />
+            </body>
         </html>
     );
 }

@@ -45,7 +45,7 @@ export const DetailPage = ({
                         className="w-full md:w-1/2 md:h-full bg-slate-100 rounded-none md:rounded-l-2xl overflow-hidden">
                         {(loadImageError || recipe.image == "" || recipe.image == null) ?
                             <div
-                                className={"text-9xl text-slate-700 w-full h-96 py-80 flex justify-center items-center"}>
+                                className={"text-9xl text-slate-700 w-full h-64 md:h-96 md:py-80 flex justify-center items-center"}>
                                 <IoFastFoodOutline className={"animate-pulse"}/>
                             </div> : (<Image
                                 className="object-cover w-full h-full"

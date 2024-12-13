@@ -1,75 +1,77 @@
-'use client'
-import { HiArrowRightOnRectangle } from "react-icons/hi2"
-import { LiaUserEditSolid } from "react-icons/lia"
-import { OutlineButton } from "./button"
-import { InteractivePanel } from "./interactive_panel_props"
-import NavigationBar from "./navigation_bar"
-import { auth } from "@/app/firebase"
-import SearchPage from "./search"
-import ChatBox from "../ui/chatbox/chatbox"
-import { useRouter } from "next/navigation"
-import { ReactNode, useEffect } from "react"
-import "@/app/scroll-style.css"
-import { deleteUserId } from "@/app/data/utils/user_manager"
-import CircularProgress from "./circular_progress"
-import { useCurrentUser } from "../hooks/use_user_provider"
-// bell
-const NavbarContainer = ({
-    children,
-    pageIndex,
-}: {
+"use client";
+
+import { HiArrowRightOnRectangle } from "react-icons/hi2";
+import { LiaUserEditSolid } from "react-icons/lia";
+import { OutlineButton } from "./button";
+import { InteractivePanel } from "./interactive_panel_props";
+import NavigationBar from "./navigation_bar";
+import { auth } from "@/app/firebase";
+import SearchPage from "./search";
+import ChatBox from "../ui/chatbox/chatbox";
+import { useRouter } from "next/navigation";
+import { ReactNode, useEffect, useCallback } from "react";
+import "@/app/scroll-style.css";
+import { deleteUserId } from "@/app/data/utils/user_manager";
+import CircularProgress from "./circular_progress";
+import { useCurrentUser } from "../hooks/use_user_provider";
+import React from "react";
+
+interface NavbarContainerProps {
     children: ReactNode;
     pageIndex: number;
-}) => {
+}
+
+const NavbarContainer = ({ children, pageIndex }: NavbarContainerProps) => {
     const router = useRouter();
     const { currentUser, loading } = useCurrentUser();
 
+    // Vérification de l'utilisateur
     useEffect(() => {
-        console.log("current user")
-        if (currentUser == null) {
-            router.push("/")
+        if (!currentUser) {
+            router.push("/");
         }
-    }, [currentUser, router])
+    }, [currentUser, router]);
+
+    const logoutHandler = useCallback(async () => {
+        try {
+            router.push("/");
+            await auth.signOut();
+            await deleteUserId();
+        } catch (error) {
+            console.error("Error during logout:", error);
+        }
+    }, [router]);
+
+    // Classes globales
+    const containerClass = "w-full h-full flex justify-center items-center";
+    const panelClass =
+        "left-0 top-0 right-0 bottom-0 md:left-20 md:ml-1 md:top-4 md:bottom-4 md:w-96 md:rounded-xl";
 
     if (loading) {
         return (
-            <div className="w-full h-full flex justify-center items-center">
+            <div className={containerClass}>
                 <CircularProgress size={40} />
             </div>
         );
     }
 
-
-    const logoutHandler = async () => {
-        router.push("/")
-        await auth.signOut()
-        await deleteUserId()
-    };
-
     return (
-
         <div className="h-screen w-screen flex overflow-hidden">
             <NavigationBar pageIndex={pageIndex} />
             <div className="w-full h-full p-3 md:p-5 overflow-x-hidden overflow-y-scroll scrollbar-hidden">
                 <div>
                     {/* Search Panel */}
-                    <InteractivePanel
-                        id="searchPanel"
-                        className="left-0 top-0 right-0 bottom-0 md:left-20 md:ml-1 md:top-4 md:bottom-4 md:w-96 md:rounded-xl"
-                    >
+                    <InteractivePanel id="searchPanel" className={panelClass}>
                         <SearchPage />
                     </InteractivePanel>
-                    {/* Chat Panels */}
-                    <InteractivePanel
-                        id="chatPanel"
-                        className="left-0 top-0 right-0 bottom-0 md:left-20 md:ml-1 md:top-4 md:bottom-4 md:w-96 md:rounded-xl"
-                    >
+                    {/* Chat Panel */}
+                    <InteractivePanel id="chatPanel" className={panelClass}>
                         <ChatBox />
                     </InteractivePanel>
                     {/* Profile Panel */}
                     <InteractivePanel
+                        id="profilePanel"
                         className="md:left-20 md:ml-1 md:bottom-4 md:w-64 md:rounded-xl"
-                        id={"profilePanel"}
                     >
                         <div className="space-y-2 w-full text-xl p-4">
                             <OutlineButton
@@ -92,8 +94,7 @@ const NavbarContainer = ({
                 {children}
             </div>
         </div>
-
     );
-}
+};
 
-export default NavbarContainer
+export default React.memo(NavbarContainer);
