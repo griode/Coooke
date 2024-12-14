@@ -1,17 +1,17 @@
-import {Dispatch, SetStateAction, useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
-import {signInWithGoogle} from "@/app/authentication/sign_with_google";
-import {IconButton, OutlineButton} from "@/app/components/button";
-import {GrClose} from "react-icons/gr";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { signInWithGoogle } from "@/app/authentication/sign_with_google";
+import { IconButton, OutlineButton } from "@/app/components/button";
+import { GrClose } from "react-icons/gr";
 import CircularProgress from "@/app/components/circular_progress";
-import {FcGoogle} from "react-icons/fc";
+import { FcGoogle } from "react-icons/fc";
 import logo from "@/app/assets/icons/logo.png";
 import Image from "next/image"
-import {setUserId} from "@/app/data/utils/user_manager";
+import { setUserId } from "@/app/backend/utils/user_manager";
 
 export const LoginPage = ({
-                              closeAction,
-                          }: {
+    closeAction,
+}: {
     closeAction: Dispatch<SetStateAction<boolean>>;
 }) => {
     const router = useRouter(); // Initialize router
@@ -57,7 +57,7 @@ export const LoginPage = ({
                 className="bg-white rounded-none md:rounded-2xl overflow-hidden flex flex-col md:flex-row items-center shadow-2xl relative h-full md:h-fit"
             >
                 <IconButton onClick={closeHandler} className="absolute right-2 top-2">
-                    <GrClose className="text-xl m-1"/>
+                    <GrClose className="text-xl m-1" />
                 </IconButton>
                 <div className="bg-[url('../app/assets/images/login_bg.png')] w-full h-60 md:h-96  bg-cover"></div>
                 <div className="m-4">
@@ -80,14 +80,14 @@ export const LoginPage = ({
                     <div className="mt-6"></div>
                     {isLoading ? (
                         <div className="flex items-center justify-center">
-                            <CircularProgress infinite={isLoading} size={40}/>
+                            <CircularProgress infinite={isLoading} size={40} />
                         </div>
                     ) : (
                         <OutlineButton
                             onClick={googleLoginHandler}
                             className="flex items-center justify-center w-full space-x-2"
                         >
-                            <FcGoogle className="text-2xl"/>
+                            <FcGoogle className="text-2xl" />
                             <span className="text-sm font-normal">Continue with Google</span>
                         </OutlineButton>
                     )}

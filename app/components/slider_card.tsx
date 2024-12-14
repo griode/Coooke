@@ -1,10 +1,8 @@
 "use client";
-
 import Image from "next/image";
 import slide1 from "@/app/assets/images/slide_1.jpg";
 import slide2 from "@/app/assets/images/slide_2.jpg";
 import slide3 from "@/app/assets/images/slide_3.jpg";
-
 import { useEffect, useState, useMemo } from "react";
 import { BsStarFill } from "react-icons/bs";
 
@@ -52,9 +50,8 @@ export const SliderCard = () => {
         width={1000}
         height={800}
         priority // Optimisation pour le premier rendu
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-          isFading ? "opacity-0" : "opacity-100"
-        }`}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isFading ? "opacity-0" : "opacity-100"
+          }`}
       />
     </div>
   );

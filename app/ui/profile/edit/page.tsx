@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import EditProfileContainer from "../edit_container";
 
-import pickImage from "@/app/data/utils/image_picker";
-import {deleteFileByUrl, uploadBase64ImageCompress,} from "@/app/data/utils/upload_file";
-import {updateProfile} from "firebase/auth";
-import {useState} from "react";
+import pickImage from "@/app/backend/utils/image_picker";
+import { deleteFileByUrl, uploadBase64ImageCompress, } from "@/app/backend/utils/upload_file";
+import { updateProfile } from "firebase/auth";
+import { useState } from "react";
 import Avatar from "@/app/components/avatar";
-import {FillButton, OutlineButton} from "@/app/components/button";
+import { FillButton, OutlineButton } from "@/app/components/button";
 import CircularProgress from "@/app/components/circular_progress";
-import {useCurrentUser} from "@/app/hooks/use_user_provider";
+import { useCurrentUser } from "@/app/hooks/use_user_provider";
 
 const EditProfilePage = () => {
     const router = useRouter();
-    const {currentUser, userPhotoUrl, setUserPhotoUrl, userInfo} = useCurrentUser();
+    const { currentUser, userPhotoUrl, setUserPhotoUrl, userInfo } = useCurrentUser();
     const [isUpdate, setIsUpdate] = useState<boolean>(true);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -59,7 +59,7 @@ const EditProfilePage = () => {
                             />
                             {isLoading && (
                                 <div className="absolute z-10">
-                                    <CircularProgress infinite={true} size={50}/>
+                                    <CircularProgress infinite={true} size={50} />
                                 </div>
                             )}
                         </div>
@@ -77,7 +77,7 @@ const EditProfilePage = () => {
                         <div className="font-bold flex space-x-2 items-center">
                             <span>Name</span>
                         </div>
-                        <hr className="my-2"/>
+                        <hr className="my-2" />
                         <input
                             onChange={(e) => {
                                 if (currentUser?.displayName == e.target.value) {
@@ -97,7 +97,7 @@ const EditProfilePage = () => {
                 <label htmlFor="bio">
                     <div className=" border p-4 rounded-3xl mt-6">
                         <div className="font-bold">Bio</div>
-                        <hr className="my-2"/>
+                        <hr className="my-2" />
                         <textarea
                             maxLength={80}
                             onChange={(e) => {
@@ -114,7 +114,7 @@ const EditProfilePage = () => {
                         ></textarea>
                     </div>
                 </label>
-                <hr className="my-8"/>
+                <hr className="my-8" />
                 <div className="space-x-4">
                     <OutlineButton
                         onClick={() => router.push("/ui/profile")}

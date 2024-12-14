@@ -25,16 +25,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-800`}
-            >
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-800`}>
                 <UserProviderContext>
                     <RecipeProviderContext>
                         {children}
                     </RecipeProviderContext>
-
                 </UserProviderContext>
-
                 <Analytics />
             </body>
         </html>

@@ -5,9 +5,9 @@ import Avatar from "@/app/components/avatar";
 import { OutlineButton } from "@/app/components/button";
 import NavbarContainer from "@/app/components/navbar_container";
 import { useCurrentUser } from "@/app/hooks/use_user_provider";
-import { useEffect, useState, useCallback} from "react";
-import Recipe from "@/app/data/model/recipe_model";
-import { RecipeProvider } from "@/app/data/provider/recipe_provider";
+import { useEffect, useState, useCallback } from "react";
+import Recipe from "@/app/backend/model/recipe_model";
+import { RecipeProvider } from "@/app/backend/provider/recipe_provider";
 import RecipeCard from "@/app/components/recipe_card";
 import { EmptyFavorite } from "@/app/ui/profile/empty_favorite";
 
@@ -20,7 +20,6 @@ export default function ProfilePage() {
 
     // Fonction pour récupérer les recettes favorites
     const fetchRecipes = useCallback(async () => {
-
         if (!userInfo?.favoriteRecipes) return;
 
         setLoadingRecipes(true);

@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "@/app/firebase";
 import { User } from "firebase/auth";
-import UserModel from "@/app/data/model/user_model";
-import UserProvider from "@/app/data/provider/user_provider"; // Assurez-vous que `auth` est correctement configuré dans Firebase.
+import UserModel from "@/app/backend/model/user_model";
+import UserProvider from "@/app/backend/provider/user_provider"; // Assurez-vous que `auth` est correctement configuré dans Firebase.
 import { Timestamp } from "firebase/firestore";
 
 interface UserContextType {

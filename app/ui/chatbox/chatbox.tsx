@@ -6,10 +6,10 @@ import { IconButton, OutlineButton } from "@/app/components/button";
 import { ClosePanelButton } from "@/app/components/interactive_panel_props";
 import CircularProgress from "@/app/components/circular_progress";
 import { RecipeGeneratorProps, RequestContent } from "./chat_view";
-import pickImage from "@/app/data/utils/image_picker";
-import { RecipeProvider } from "@/app/data/provider/recipe_provider";
+import pickImage from "@/app/backend/utils/image_picker";
+import { RecipeProvider } from "@/app/backend/provider/recipe_provider";
 import { auth } from "@/app/firebase";
-import { getRecipeByImage, getRecipeByText } from "@/app/data/cook_api/generate_recipes";
+import { getRecipeByImage, getRecipeByText } from "@/app/backend/cook_api/generate_recipes";
 
 
 // Main Recipe Generator Component

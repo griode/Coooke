@@ -1,7 +1,7 @@
 "use client";
-import { MenuPWeek } from "@/app/data/provider/menu_provider";
+import { MenuPWeek } from "@/app/backend/provider/menu_provider";
 import Image from "next/image";
-import Recipe from "@/app/data/model/recipe_model";
+import Recipe from "@/app/backend/model/recipe_model";
 import { useState } from "react";
 import { DetailPage } from "../detail_recipe/detail_recipe";
 

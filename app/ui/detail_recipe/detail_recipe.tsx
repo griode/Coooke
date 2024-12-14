@@ -1,17 +1,17 @@
-import React, {useState} from "react";
-import {PiBowlFoodLight, PiCheeseThin, PiFireSimpleThin} from "react-icons/pi";
-import {GiSteak} from "react-icons/gi";
-import {CiTimer, CiUser} from "react-icons/ci";
-import Recipe from "@/app/data/model/recipe_model";
-import {AlertDialog} from "@/app/components/alert_dialog";
+import React, { useState } from "react";
+import { PiBowlFoodLight, PiCheeseThin, PiFireSimpleThin } from "react-icons/pi";
+import { GiSteak } from "react-icons/gi";
+import { CiTimer, CiUser } from "react-icons/ci";
+import Recipe from "@/app/backend/model/recipe_model";
+import { AlertDialog } from "@/app/components/alert_dialog";
 import Image from "next/image";
-import {IoFastFoodOutline} from "react-icons/io5";
+import { IoFastFoodOutline } from "react-icons/io5";
 
 
 const NutritionCard = ({
-                           title,
-                           icon,
-                       }: {
+    title,
+    icon,
+}: {
     title: string;
     icon: React.ReactNode;
 }) => {
@@ -26,9 +26,9 @@ const NutritionCard = ({
 }
 
 export const DetailPage = ({
-                               recipe,
-                               setShowDialog,
-                           }: {
+    recipe,
+    setShowDialog,
+}: {
     recipe: Recipe;
     setShowDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
@@ -46,7 +46,7 @@ export const DetailPage = ({
                         {(loadImageError || recipe.image == "" || recipe.image == null) ?
                             <div
                                 className={"text-9xl text-slate-700 w-full h-64 md:h-96 md:py-80 flex justify-center items-center"}>
-                                <IoFastFoodOutline className={"animate-pulse"}/>
+                                <IoFastFoodOutline className={"animate-pulse"} />
                             </div> : (<Image
                                 className="object-cover w-full h-full"
                                 src={recipe.image}
@@ -62,11 +62,11 @@ export const DetailPage = ({
                         <h1 className="text-3xl font-bold">{recipe.name}</h1>
                         <div className="text-gray-500 mt-2 flex space-x-2">
                             <div className="flex items-center space-x-1">
-                                <CiTimer/>
+                                <CiTimer />
                                 <span>{`${recipe.duration} min`}</span>
                             </div>
                             <div className="flex items-center space-x-1">
-                                <CiUser/>
+                                <CiUser />
                                 <span>{`${recipe.servings} reviews`}</span>
                             </div>
                         </div>
@@ -86,21 +86,21 @@ export const DetailPage = ({
                             <div className="space-y-2">
                                 <NutritionCard
                                     title={`${recipe?.nutritionFacts.calories} kcal`}
-                                    icon={<PiBowlFoodLight/>}
+                                    icon={<PiBowlFoodLight />}
                                 />
                                 <NutritionCard
                                     title={`${recipe?.nutritionFacts.protein} Protein`}
-                                    icon={<GiSteak/>}
+                                    icon={<GiSteak />}
                                 />
                             </div>
                             <div className="space-y-2">
                                 <NutritionCard
                                     title={`${recipe?.nutritionFacts.carbohydrates} Carbs`}
-                                    icon={<PiFireSimpleThin/>}
+                                    icon={<PiFireSimpleThin />}
                                 />
                                 <NutritionCard
                                     title={`${recipe?.nutritionFacts.fat} Fat`}
-                                    icon={<PiCheeseThin/>}
+                                    icon={<PiCheeseThin />}
                                 />
                             </div>
                         </div>
