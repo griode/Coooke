@@ -7,14 +7,20 @@ import { RecipeSection } from "@/app/components/image_recipe_card";
 import Image from "next/image";
 import arrow from "./assets/icons/arrow.png";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CircularProgress from "@/app/components/circular_progress";
 import { useCurrentUser } from "@/app/hooks/use_current_user";
+import { LoginPage } from "./ui/login_page/loginPage";
 
 export default function Home() {
     const starIconStyle = "text-yellow-500 h-5 w-5";
     const router = useRouter();
     const { currentUser, loading } = useCurrentUser();
+    const [isLogin, setIsLogin] = useState(false);
+
+    const loginHandler = () => {
+        setIsLogin(true);
+    };
 
 
     useEffect(() => {
@@ -37,8 +43,9 @@ export default function Home() {
 
     return (
         <div className="overflow-x-hidden w-screen">
+            {isLogin ? <LoginPage closeAction={setIsLogin} /> : <></>}
             <main className="lg:mx-16 my-6 mx-6">
-                <Header />
+                <Header loginHandler={loginHandler} />
                 <section className="flex flex-col md:flex-row mt-12 md:space-x-8 space-y-6 lg:space-y-0">
                     <div className="lg:w-1/2 w-full">
                         <h2 className="text-5xl lg:text-6xl font-bold">
@@ -75,6 +82,8 @@ export default function Home() {
                         </p>
                         <div className="mt-12 rounded-full justify-end flex items-center">
                             <input
+                                readOnly={true}
+                                onClick={loginHandler}
                                 className="focus:bg-transparent shadow-lg shadow-slate-100 border outline-none text-sm pl-8 py-4 rounded-full bg-transparent w-full"
                                 type="search"
                                 name="search"

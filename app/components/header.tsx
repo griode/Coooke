@@ -1,43 +1,36 @@
 "use client";
-import {useEffect, useState} from "react";
+import {MouseEventHandler, useEffect, useState} from "react";
 // import {BsList, BsListNested} from "react-icons/bs";
 import {FillButton} from "./button";
 import logo from "@/app/assets/icons/logo.png";
 import Image from "next/image";
 
-import {LoginPage} from "@/app/ui/login_page/loginPage";
 
 //const navLinks = ["Home", "Menu", "Booking", "Pricing"];
 
-const Header = () => {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const [isLogin, setIsLogin] = useState(false);
-
-    const loginHandler = () => {
-        setIsLogin(true);
-    };
+const Header = ({ loginHandler }: { loginHandler: MouseEventHandler<HTMLButtonElement> }) => {
+    //const [menuOpen, setMenuOpen] = useState(false);
 
     // Fonction pour basculer l'état du menu
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
+    // const toggleMenu = () => {
+    //     setMenuOpen(!menuOpen);
+    // };
 
     // Empêche le défilement en arrière-plan lorsque le menu est ouvert
-    useEffect(() => {
-        if (menuOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "";
-        }
-        // Nettoyage de l'effet pour éviter les fuites de mémoire
-        return () => {
-            document.body.style.overflow = "";
-        };
-    }, [menuOpen]);
+    // useEffect(() => {
+    //     if (menuOpen) {
+    //         document.body.style.overflow = "hidden";
+    //     } else {
+    //         document.body.style.overflow = "";
+    //     }
+    //     // Nettoyage de l'effet pour éviter les fuites de mémoire
+    //     return () => {
+    //         document.body.style.overflow = "";
+    //     };
+    // }, [menuOpen]);
 
     return (
         <>
-            {isLogin ? <LoginPage closeAction={setIsLogin}/> : <></>}
             <header className="flex justify-between items-center">
 
                 <h1 className="flex items-center h-2">
@@ -94,7 +87,7 @@ const Header = () => {
 
                 {/* Bouton Login */}
                 <div className="">
-                    <FillButton onClick={loginHandler}>Login</FillButton>
+                    <FillButton className="text-lg" onClick={loginHandler}>Get started</FillButton>
                 </div>
             </header>
         </>
