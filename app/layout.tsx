@@ -3,8 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "./scroll-style.css";
 import { Analytics } from "@vercel/analytics/react";
-import { UserProviderContext } from "@/app/hooks/use_user_provider";
-import { RecipeProviderContext } from "./hooks/recipe_context";
+import { UserProviderContext } from "@/app/hooks/use_current_user";
+import { RecipeProviderContext } from "./hooks/use_recipes";
 
 const geistSans = localFont({
     src: "./assets/fonts/GeistVF.woff",

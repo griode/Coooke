@@ -6,7 +6,7 @@ import RecipeCard from "@/app/components/recipe_card";
 import { Categories, CategoryItem } from "@/app/ui/home/category";
 import { EmptyView } from "@/app/ui/home/empty_view";
 import NavbarContainer from "@/app/components/navbar_container";
-import { useRecipes } from "@/app/hooks/recipe_context";
+import { useRecipes } from "@/app/hooks/use_recipes";
 
 export default function HomePage() {
   const [categorySelected, setCategorySelected] = useState<number>(0);
@@ -52,8 +52,8 @@ export default function HomePage() {
         <div className="mt-5">
           {filteredRecipes.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 py-2">
-              {filteredRecipes.map((recipe) => (
-                <RecipeCard key={recipe.id} recipe={recipe} />
+              {filteredRecipes.map((recipe, index) => (
+                <RecipeCard key={index} recipe={recipe} />
               ))}
             </div>
           ) : (

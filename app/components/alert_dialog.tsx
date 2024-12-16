@@ -1,13 +1,15 @@
-import {IoClose} from "react-icons/io5";
-import {Dispatch, ReactNode, SetStateAction, useEffect} from "react";
-import {IconButton} from "./button";
+import { IoClose } from "react-icons/io5";
+import { Dispatch, ReactNode, SetStateAction, useEffect } from "react";
+import { IconButton } from "./button";
 
 export function AlertDialog({
-                                children,
-                                setShowDialog,
-                            }: {
+    children,
+    setShowDialog,
+    header,
+}: {
     children: ReactNode;
     setShowDialog: Dispatch<SetStateAction<boolean>>;
+    header?: ReactNode;
 }) {
     useEffect(() => {
         document.body.style.overflow = "hidden";
@@ -22,12 +24,21 @@ export function AlertDialog({
 
     return (
         <div
-            onClick={closeHandler}
-            className="fixed bg-slate-800/10 backdrop-blur-sm inset-0 w-screen z-30 flex flex-col justify-center items-center"
+            onClick={
+                (event) => {
+                    event.stopPropagation();
+                    closeHandler();
+                }
+            }
+            className="fixed bg-slate-800/65 inset-0 w-screen z-30 flex flex-col justify-center items-center"
         >
-            <IconButton className="absolute top-4 right-4">
-                <IoClose/>
-            </IconButton>
+            <div className="absolute top-4 right-4 flex space-x-4">
+                {header}
+                <IconButton>
+                    <IoClose />
+                </IconButton>
+            </div>
+
             <div
                 onClick={(event) => {
                     event.stopPropagation();

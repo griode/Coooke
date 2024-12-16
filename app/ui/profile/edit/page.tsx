@@ -10,7 +10,7 @@ import { useState } from "react";
 import Avatar from "@/app/components/avatar";
 import { FillButton, OutlineButton } from "@/app/components/button";
 import CircularProgress from "@/app/components/circular_progress";
-import { useCurrentUser } from "@/app/hooks/use_user_provider";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
 
 const EditProfilePage = () => {
     const router = useRouter();

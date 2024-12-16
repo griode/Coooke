@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {DocumentData, DocumentSnapshot, Timestamp} from 'firebase/firestore';
+import { DocumentData, DocumentSnapshot, Timestamp } from 'firebase/firestore';
 
 type RecipeData = {
     image?: string;
@@ -86,6 +86,7 @@ class Recipe {
             diet: data!['diet'],
             index: data!['index'],
             createdAt: data!['created_at'],
+            createdBy: data!['created_by'],
             continent: data!['continent'],
             mealType: data!['meal_type'],
         });

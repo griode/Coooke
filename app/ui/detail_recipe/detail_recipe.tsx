@@ -6,6 +6,11 @@ import Recipe from "@/app/backend/model/recipe_model";
 import { AlertDialog } from "@/app/components/alert_dialog";
 import Image from "next/image";
 import { IoFastFoodOutline } from "react-icons/io5";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
+import { IconButton } from "@/app/components/button";
+import { BsTrash2 } from "react-icons/bs";
+import { useRecipes } from "@/app/hooks/use_recipes";
+import RecipeProvider from "@/app/backend/provider/recipe_provider";
 
 
 const NutritionCard = ({
@@ -34,9 +39,28 @@ export const DetailPage = ({
 }) => {
     const [showFullDescription, setShowFullDescription] = useState(false);
     const [loadImageError, setLoadImageError] = useState<boolean>(false);
+    const { currentUser } = useCurrentUser();
+    const { setRecipes, recipes } = useRecipes();
+
+    const deleteRecipeHandler = () => {
+        const confirmed = window.confirm("Are you sure you want to delete this recipe?");
+        if (confirmed && recipe.id) {
+            RecipeProvider.deleteRecipe(recipe.id).then((value) => {
+                if (value) {
+                    setRecipes(recipes.filter((recipe) => recipe.id !== recipe.id));
+                }
+            });
+        }
+    }
 
     return (
-        <AlertDialog setShowDialog={setShowDialog}>
+        <AlertDialog
+            header={
+                <div className="text-red-500">
+                    {(recipe.createdBy == currentUser?.uid && recipe.id) ? <IconButton onClick={deleteRecipeHandler}><BsTrash2 /></IconButton> : null}
+                </div>
+            }
+            setShowDialog={setShowDialog}>
             <div className="p-0 md:p-5">
                 <div
                     className="bg-white h-screen md:h-full rounded-none md:rounded-2xl flex-col md:flex-row flex w-full md:space-x-6 overflow-y-scroll scrollbar-hidden md:overflow-hidden shadow-md">

@@ -3,7 +3,7 @@ import { auth, db } from "@/app/firebase";
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { weekMenuConverter, WeekMenuModel } from "../model/Week_menu_model";
 import Recipe from "../model/recipe_model";
-import { RecipeProvider } from "./recipe_provider";
+import RecipeProvider from "./recipe_provider";
 
 export type MenuPWeek = {
   date: Date;
@@ -32,7 +32,7 @@ class WeekMenuProvider {
       const docRef = doc(this.weeklyCollection, userId);
       const result = await getDoc(docRef);
 
-      const menuWeek = result.data()?.menu?? [];
+      const menuWeek = result.data()?.menu ?? [];
       const menuPromises = Object.entries(menuWeek).map(
         async ([, dayMenu]) => {
           const recipes = await this.fetchRecipes(dayMenu.recipe_ids);

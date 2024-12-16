@@ -4,7 +4,7 @@ import WeekMenuProvider, { MenuPWeek } from "@/app/backend/provider/menu_provide
 import NavbarContainer from "@/app/components/navbar_container";
 import { useEffect, useState, useCallback } from "react";
 import { MenuCard } from "./menu_card";
-import { useCurrentUser } from "@/app/hooks/use_user_provider";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
 import { EmptyMenu } from "./empty_menu";
 
 export default function MenuPage() {

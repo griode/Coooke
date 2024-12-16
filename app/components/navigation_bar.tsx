@@ -2,15 +2,15 @@
 
 import logo from "@/app/assets/icons/logo.png";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 // Icons
-import {HiCalendar, HiMiniSparkles, HiOutlineCalendar, HiOutlineCog6Tooth,} from "react-icons/hi2";
-import {MdFoodBank, MdOutlineFoodBank} from "react-icons/md";
+import { HiCalendar, HiMiniSparkles, HiOutlineCalendar, HiOutlineCog6Tooth, } from "react-icons/hi2";
+import { MdFoodBank, MdOutlineFoodBank } from "react-icons/md";
 
-import {HiOutlineSearch} from "react-icons/hi";
+import { HiOutlineSearch } from "react-icons/hi";
 import Avatar from "./avatar";
-import {InteractiveButton} from "./interactive_panel_props";
-import {useCurrentUser} from "@/app/hooks/use_user_provider";
+import { InteractiveButton } from "./interactive_panel_props";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
 import React from "react";
 
 // Types
@@ -28,7 +28,7 @@ interface NavItemProps {
 }
 
 // Component: Single Navigation Item
-const NavItem = ({item, onClick}: NavItemProps) => {
+const NavItem = ({ item, onClick }: NavItemProps) => {
     return (
         <div
             onClick={onClick}
@@ -43,9 +43,9 @@ const NavItem = ({item, onClick}: NavItemProps) => {
 };
 
 // Component: Navigation Bar
-export default function NavigationBar({pageIndex}: { pageIndex: number }) {
+export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
     const router = useRouter(); // Initialize router
-    const {currentUser, userPhotoUrl} = useCurrentUser();
+    const { currentUser, userPhotoUrl } = useCurrentUser();
 
     // log out handler
 
@@ -61,15 +61,15 @@ export default function NavigationBar({pageIndex}: { pageIndex: number }) {
         {
             enable: pageIndex === 0,
             name: "Home",
-            icon: <MdOutlineFoodBank className={"text-3xl"}/>,
-            fillIcon: <MdFoodBank className={"text-3xl"}/>,
+            icon: <MdOutlineFoodBank className={"text-3xl"} />,
+            fillIcon: <MdFoodBank className={"text-3xl"} />,
             path: "/ui/home",
         },
         {
             enable: pageIndex === 1,
             name: "Menu",
-            icon: <HiOutlineCalendar/>,
-            fillIcon: <HiCalendar/>,
+            icon: <HiOutlineCalendar />,
+            fillIcon: <HiCalendar />,
             path: "/ui/menu",
         },
     ];
@@ -103,12 +103,12 @@ export default function NavigationBar({pageIndex}: { pageIndex: number }) {
                 ))}
 
                 <InteractiveButton
-                    icon={<HiMiniSparkles/>}
+                    icon={<HiMiniSparkles />}
                     panelId={"chatPanel"}
                 />
 
                 <InteractiveButton
-                    icon={<HiOutlineSearch/>}
+                    icon={<HiOutlineSearch />}
                     panelId={"searchPanel"}
                 />
             </div>
@@ -126,7 +126,7 @@ export default function NavigationBar({pageIndex}: { pageIndex: number }) {
                 />
                 <div className="hidden md:block">
                     <InteractiveButton
-                        icon={<HiOutlineCog6Tooth/>}
+                        icon={<HiOutlineCog6Tooth />}
                         panelId={"profilePanel"}
                     />
                 </div>

@@ -13,7 +13,7 @@ import { ReactNode, useEffect, useCallback } from "react";
 import "@/app/scroll-style.css";
 import { deleteUserId } from "@/app/backend/utils/user_manager";
 import CircularProgress from "./circular_progress";
-import { useCurrentUser } from "../hooks/use_user_provider";
+import { useCurrentUser } from "../hooks/use_current_user";
 import React from "react";
 
 interface NavbarContainerProps {

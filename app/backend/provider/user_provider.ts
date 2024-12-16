@@ -2,6 +2,7 @@
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import UserModel from "../model/user_model";
 import { db } from "@/app/firebase";
+import { use } from "react";
 
 class UserProvider {
 
@@ -41,6 +42,26 @@ class UserProvider {
             await updateDoc(docRef, data);
         } catch (error) {
             console.error("Error updating document:", error);
+        }
+    }
+
+    static async updateUserNumberAuthorizedRequest(userId: string): Promise<number> {
+        const user = await this.getUser(userId);
+        if (user) {
+            const numberOfRequest = user.numberAuthorizedRequest - 1;
+            this.updateUser(userId, { numberAuthorizedRequest: numberOfRequest });
+            return numberOfRequest;
+        } else {
+            return 0;
+        }
+    }
+
+    static async requestAuthorized(userId: string): Promise<boolean> {
+        const user = await this.getUser(userId);
+        if (user && user.numberAuthorizedRequest > 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

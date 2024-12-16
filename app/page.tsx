@@ -9,7 +9,7 @@ import arrow from "./assets/icons/arrow.png";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import CircularProgress from "@/app/components/circular_progress";
-import { useCurrentUser } from "@/app/hooks/use_user_provider";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
 
 export default function Home() {
     const starIconStyle = "text-yellow-500 h-5 w-5";

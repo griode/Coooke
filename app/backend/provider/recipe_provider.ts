@@ -1,4 +1,5 @@
-import { db } from "@/app/firebase";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { auth, db } from "@/app/firebase";
 import {
   collection,
   getDocs,
@@ -9,28 +10,21 @@ import {
   addDoc,
   where,
   orderBy,
+  deleteDoc,
 } from "firebase/firestore";
 import Recipe from "../model/recipe_model";
+import { uploadImageFromUrl } from "../utils/upload_file";
 
-export class RecipeProvider {
-  // Get by id
+class RecipeProvider {
   static async getRecipeById(id: string): Promise<Recipe | null> {
     try {
       const collectionRef = doc(db, "recipes", id);
       const docSnap = await getDoc(collectionRef);
       return Recipe.fromFireStore(docSnap);
     } catch (error) {
-      console.error("Error fetching recipe:", error);
+      console.log("Error fetching recipe:", error);
       return null;
     }
-  }
-
-  // Get the documents from the collection
-  static async getRecipes({ item }: { item: number }): Promise<Recipe[]> {
-    const collectionRef = collection(db, "recipes");
-    const q = query(collectionRef, limit(item));
-    const snapshot = await getDocs(q);
-    return snapshot.docs.map((doc) => Recipe.fromFireStore(doc));
   }
 
   // Get the documents from the collection
@@ -41,43 +35,34 @@ export class RecipeProvider {
     return snapshot.docs.map((doc) => Recipe.fromFireStore(doc));
   }
 
-  // Get recipe of the day
-  static async getRecipeOfDay(): Promise<(Recipe | null)[]> {
+  static async saveRecipe(recipe: Recipe): Promise<string | null> {
     try {
-      const collectionRef = doc(db, "recipe_day", "en");
-      const docSnap = await getDoc(collectionRef);
-      const recipeIds: string[] = docSnap.data()?.recipes ?? [];
-
-      const recipePromises = recipeIds.map((recipeId) =>
-        RecipeProvider.getRecipeById(recipeId)
-      );
-      return Promise.all(recipePromises);
+      const collectionRef = collection(db, "recipes");
+      recipe.image = await uploadImageFromUrl(recipe.image ?? "", "recipes");
+      recipe.createdBy = auth.currentUser?.uid
+      recipe.trainByServer = true
+      const response = await addDoc(collectionRef, recipe.toFireStore());
+      if (response) {
+        return response.id;
+      }
+      return null;
     } catch (error) {
-      console.error("Error fetching recipe of the day:", error);
-      return [];
+      console.error("Error saving recipe:", error);
+      return null;
     }
   }
 
-  static async saveRecipe(recipe: Recipe): Promise<void> {
+  static async deleteRecipe(id: string): Promise<boolean> {
     try {
       const collectionRef = collection(db, "recipes");
-  
-      // Vérifier si la recette existe déjà
-      const checkQuery = query(collectionRef, where("name", "==", recipe.name), where("created_by", "==", recipe.createdBy));
-      const querySnapshot = await getDocs(checkQuery);
-  
-      if (!querySnapshot.empty) {
-        console.log("Recipe already exists. Skipping addition.");
-        return;
-      }
-  
-      // Ajouter la recette si elle n'existe pas
-      recipe.trainByServer = true;
-      await addDoc(collectionRef, recipe.toFireStore());
-  
-      console.log("Recipe saved successfully!");
+      await deleteDoc(doc(collectionRef, id));
+      console.log("Recipe deleted successfully!");
+      return true;
     } catch (error) {
-      console.error("Error saving recipe:", error);
+      console.error("Error deleting recipe:", error);
+      return false;
     }
   }
 }
+
+export default RecipeProvider;

@@ -50,7 +50,7 @@ export const UserProviderContext: React.FC<{ children: React.ReactNode }> = ({ c
                                 size: 0,
                                 gender: "",
                                 registrationToken: "",
-                                numberAuthorizedRequest: 0,
+                                numberAuthorizedRequest: 4,
                                 isPremium: false,
                                 lastRequest: Timestamp.fromDate(new Date()),
                                 numberRequest: 0,

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { PiCookingPot } from "react-icons/pi";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { HiBookmark, HiOutlineBookmark } from "react-icons/hi2";
-import { useCurrentUser } from "@/app/hooks/use_user_provider";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
 import UserProvider from "@/app/backend/provider/user_provider";
 
 const RecipeCard = ({ recipe }: { recipe: Recipe }) => {

@@ -1,12 +1,12 @@
 "use client";
 import EditProfileContainer from "../edit_container";
-import {GrLanguage} from "react-icons/gr";
-import {TbFrustumOff} from "react-icons/tb";
-import {useRouter} from "next/navigation";
-import {useState} from "react";
-import {FillButton, OutlineButton} from "@/app/components/button";
+import { GrLanguage } from "react-icons/gr";
+import { TbFrustumOff } from "react-icons/tb";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FillButton, OutlineButton } from "@/app/components/button";
 import Chip from "@/app/components/chip";
-import {useCurrentUser} from "@/app/hooks/use_user_provider";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
 
 const formatDate = (date: Date) => {
     if (!date) return "2000-01-01"; // Valeur par défaut
@@ -19,7 +19,7 @@ const formatDate = (date: Date) => {
 
 const AccountManagerPage = () => {
     const router = useRouter();
-    const {userInfo, loading} = useCurrentUser()
+    const { userInfo, loading } = useCurrentUser()
     const [isUpdate, setIsUpdate] = useState<boolean>(true);
 
     const oneSaveHandler = () => {
@@ -40,13 +40,13 @@ const AccountManagerPage = () => {
                 {/* Allergy Section */}
                 <div className="border p-4 rounded-3xl">
                     <div className="font-bold flex space-x-2 items-center">
-                        <TbFrustumOff aria-hidden="true"/> <span>Allergies</span>
+                        <TbFrustumOff aria-hidden="true" /> <span>Allergies</span>
                     </div>
-                    <hr className="my-2"/>
+                    <hr className="my-2" />
                     <div className="flex flex-wrap gap-2 items-center">
                         {userInfo?.allergens && userInfo.allergens.length > 0 ? (
                             userInfo.allergens.map((allergy, index) => (
-                                <Chip key={index} title={allergy}/>
+                                <Chip key={index} title={allergy} />
                             ))
                         ) : (
                             <p className="text-sm text-gray-500">No allergies listed.</p>
@@ -63,7 +63,7 @@ const AccountManagerPage = () => {
                         <div className="font-bold flex space-x-2 items-center">
                             <span>Birth Date</span>
                         </div>
-                        <hr className="my-2"/>
+                        <hr className="my-2" />
                         <input
                             type="date"
                             name="birthDate"
@@ -89,9 +89,9 @@ const AccountManagerPage = () => {
                 <label htmlFor="language">
                     <div className="border p-4 rounded-3xl mt-6">
                         <div className="font-bold flex space-x-2 items-center">
-                            <GrLanguage aria-hidden="true"/> <span>Language</span>
+                            <GrLanguage aria-hidden="true" /> <span>Language</span>
                         </div>
-                        <hr className="my-2"/>
+                        <hr className="my-2" />
                         <select
                             name="language"
                             id="language"
@@ -107,8 +107,8 @@ const AccountManagerPage = () => {
                             aria-label="Select your preferred language"
                         >
                             {[
-                                {key: "fr", value: "French"},
-                                {key: "en", value: "English"},
+                                { key: "fr", value: "French" },
+                                { key: "en", value: "English" },
                                 {
                                     key: "es",
                                     value: "Spanish",
@@ -149,7 +149,7 @@ const AccountManagerPage = () => {
                     </OutlineButton>
                 </div>
 
-                <hr className="my-8"/>
+                <hr className="my-8" />
 
                 {/* Action Buttons */}
                 <div className="space-x-4 flex">

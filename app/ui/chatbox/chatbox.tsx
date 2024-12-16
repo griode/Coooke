@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import { HiMiniArrowUp, HiOutlinePhoto } from "react-icons/hi2";
 import { IconButton, OutlineButton } from "@/app/components/button";
@@ -7,23 +6,26 @@ import { ClosePanelButton } from "@/app/components/interactive_panel_props";
 import CircularProgress from "@/app/components/circular_progress";
 import { RecipeGeneratorProps, RequestContent } from "./chat_view";
 import pickImage from "@/app/backend/utils/image_picker";
-import { RecipeProvider } from "@/app/backend/provider/recipe_provider";
-import { auth } from "@/app/firebase";
-import { getRecipeByImage, getRecipeByText } from "@/app/backend/cook_api/generate_recipes";
+import { useRecipes } from "@/app/hooks/use_recipes";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
+import RecipeGenerator from "@/app/backend/provider/recipe_generator";
+import UserProvider from "@/app/backend/provider/user_provider";
+import RecipeProvider from "@/app/backend/provider/recipe_provider";
 
 
-// Main Recipe Generator Component
 export const ChatBox: React.FC = () => {
     const [chatData, setChatData] = useState<RecipeGeneratorProps[]>([]); // Chat history
     const descriptionRef = useRef<HTMLTextAreaElement>(null); // Reference to the input field
     const [loadingTraitement, setLoadingTraitement] = useState(false);
+    const { recipes, setRecipes } = useRecipes();
+    const { currentUser } = useCurrentUser();
 
     // Add a new chat entry
     const handleSendRequest = (request: RecipeGeneratorProps) => {
         setChatData((prevState) => [...prevState, request]);
     };
 
-    function scrollToBottom() {
+    const scrollToBottom = () => {
         const chatBox = document.getElementById("chatBox");
         chatBox?.scrollTo({ top: chatBox?.scrollHeight, behavior: "smooth" });
     }
@@ -42,26 +44,34 @@ export const ChatBox: React.FC = () => {
                 recipes: [],
                 author: "user",
             });
+            const checkRequest = await UserProvider.requestAuthorized(currentUser?.uid ?? "");
+            if (checkRequest === false) {
+                handleSendRequest({
+                    contentType: "text",
+                    recipes: [],
+                    content: "Sorry you have reached the number of daily requests authorized, come back after 24 hours",
+                    author: "bot",
+                });
+                return
+            }
             setLoadingTraitement(true);
             // Call the traitement API
-            const recipes = await getRecipeByImage(image);
+            const newRecipes = await RecipeGenerator.generateWithImage(image);
             setLoadingTraitement(false);
-            if (recipes.length > 0) {
+            if (newRecipes.length > 0) {
                 handleSendRequest({
                     contentType: "recipes",
-                    recipes: recipes,
+                    recipes: newRecipes,
                     content: '',
                     author: "bot",
                 });
-                for (const recipe of recipes) {
-                    recipe.createdBy = auth.currentUser?.uid;
-                    await RecipeProvider.saveRecipe(recipe);
-                }
+                setRecipes([...newRecipes, ...recipes]);
+                await UserProvider.updateUserNumberAuthorizedRequest(currentUser?.uid ?? "")
             } else {
                 handleSendRequest({
                     contentType: "text",
                     recipes: [],
-                    content: "Sorry, I couldn't find any recipe for this description.",
+                    content: "Sorry, I couldn't find any recipe for the image, please try again.",
                     author: "bot",
                 });
             }
@@ -71,7 +81,8 @@ export const ChatBox: React.FC = () => {
 
     // Handle sending a text description
     const handleSendDescription = async () => {
-        const description = descriptionRef.current?.value.trim(); // Get input value
+        const checkRequest = await UserProvider.requestAuthorized(currentUser?.uid ?? "");
+        const description = descriptionRef.current?.value.trim();
         if (description) {
             handleSendRequest({
                 contentType: "text",
@@ -83,17 +94,29 @@ export const ChatBox: React.FC = () => {
                 descriptionRef.current.value = ""; // Clear input field
             }
 
+            if (checkRequest === false) {
+                handleSendRequest({
+                    contentType: "text",
+                    recipes: [],
+                    content: "Sorry you have reached the number of daily requests authorized, come back after 24 hours",
+                    author: "bot",
+                });
+                return
+            }
+
             setLoadingTraitement(true);
             // Call the traitement API
-            const recipes = await getRecipeByText(description);
+            const newRecipes = await RecipeGenerator.generateWithDescription(description);
             setLoadingTraitement(false);
-            if (recipes.length > 0) {
+            if (newRecipes.length > 0) {
                 handleSendRequest({
                     contentType: "recipes",
-                    recipes: recipes,
+                    recipes: newRecipes,
                     content: description,
                     author: "bot",
                 });
+                setRecipes([...newRecipes, ...recipes]);
+                await UserProvider.updateUserNumberAuthorizedRequest(currentUser?.uid ?? "")
             } else {
                 handleSendRequest({
                     contentType: "text",
@@ -128,17 +151,15 @@ export const ChatBox: React.FC = () => {
                     <CircularProgress infinite={true} size={16} />
                     <p>analyse... </p></div>)}
             </div>
-            {/* Footer */}
+
             <footer className="px-4 pb-4 w-full">
                 <div className="border rounded-2xl w-full">
-                    {/* Input field */}
                     <textarea
                         ref={descriptionRef}
                         className="w-full h-18 p-3 outline-none bg-transparent resize-none"
                         placeholder="Write recipe name or description"
                         aria-label="Recipe description"
                     ></textarea>
-                    {/* Action buttons */}
                     <div className="flex justify-between px-3 pb-3">
                         <IconButton onClick={handlePickImage} aria-label="Upload image">
                             <HiOutlinePhoto className="text-xl" />
@@ -156,4 +177,4 @@ export const ChatBox: React.FC = () => {
     );
 };
 
-export default ChatBox;
+export default ChatBox
