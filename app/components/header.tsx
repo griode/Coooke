@@ -1,13 +1,13 @@
 "use client";
 import {useEffect, useState} from "react";
-import {BsList, BsListNested} from "react-icons/bs";
-import {FillButton, IconButton} from "./button";
+// import {BsList, BsListNested} from "react-icons/bs";
+import {FillButton} from "./button";
 import logo from "@/app/assets/icons/logo.png";
 import Image from "next/image";
 
 import {LoginPage} from "@/app/ui/login_page/loginPage";
 
-const navLinks = ["Home", "Menu", "Booking", "Pricing"];
+//const navLinks = ["Home", "Menu", "Booking", "Pricing"];
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -59,7 +59,7 @@ const Header = () => {
                 </h1>
 
                 {/* Bouton Menu pour les petits écrans */}
-                <IconButton
+                {/* <IconButton
                     onClick={toggleMenu}
                     className="md:hidden text-2xl z-30"
                     aria-label="Menu Button"
@@ -69,10 +69,10 @@ const Header = () => {
                     ) : (
                         <BsList className="w-5 h-5"/>
                     )}
-                </IconButton>
+                </IconButton> */}
 
                 {/* Navigation */}
-                <nav
+                {/* <nav
                     className={`${menuOpen ? "flex" : "hidden"
                     } flex-col md:flex md:flex-row items-center justify-center fixed md:static inset-0 md:inset-auto bg-white md:bg-transparent gap-4 z-20 p-4 md:p-0`}
                 >
@@ -90,10 +90,10 @@ const Header = () => {
                             <FillButton className="w-full" onClick={loginHandler}>Login</FillButton>
                         </div>
                     </ul>
-                </nav>
+                </nav> */}
 
                 {/* Bouton Login */}
-                <div className="hidden md:block">
+                <div className="">
                     <FillButton onClick={loginHandler}>Login</FillButton>
                 </div>
             </header>
