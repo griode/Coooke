@@ -57,14 +57,11 @@ export async function compressImageToBase64(
 
 // Delete a file from Firebase Storage
 export async function deleteFileByUrl(fileUrl: string): Promise<void> {
-    if (!fileUrl.includes("https://lh3.googleusercontent.com")) {
-        // Crée une référence de fichier à partir de l'URL fournie
+    try {
         const fileRef = ref(storage, fileUrl);
-        deleteObject(fileRef)
-            .then(() => console.log("File deleted successfully"))
-            .catch((error) => {
-                console.error("Erreur lors de la suppression du fichier:", error);
-            });
+        await deleteObject(fileRef)
+    } catch (error) {
+        console.log("Error to delete image or image dose not existe : " + error);
     }
 }
 

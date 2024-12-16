@@ -2,7 +2,6 @@
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import UserModel from "../model/user_model";
 import { db } from "@/app/firebase";
-import { use } from "react";
 
 class UserProvider {
 

@@ -6,17 +6,21 @@ import EditProfileContainer from "../edit_container";
 import pickImage from "@/app/backend/utils/image_picker";
 import { deleteFileByUrl, uploadBase64ImageCompress, } from "@/app/backend/utils/upload_file";
 import { updateProfile } from "firebase/auth";
-import { useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Avatar from "@/app/components/avatar";
 import { FillButton, OutlineButton } from "@/app/components/button";
 import CircularProgress from "@/app/components/circular_progress";
 import { useCurrentUser } from "@/app/hooks/use_current_user";
+import UserProvider from "@/app/backend/provider/user_provider";
+import { CiCircleCheck } from "react-icons/ci";
+import { auth } from "@/app/firebase";
 
 const EditProfilePage = () => {
     const router = useRouter();
-    const { currentUser, userPhotoUrl, setUserPhotoUrl, userInfo } = useCurrentUser();
+    const { currentUser, userPhotoUrl, setUserPhotoUrl, userInfo, setUserInfo } = useCurrentUser();
     const [isUpdate, setIsUpdate] = useState<boolean>(true);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [showSaveMessage, setShowSaveMessage] = useState<boolean>(false);
 
     const changeProfileImageHandler = async () => {
         const image = await pickImage();
@@ -32,17 +36,44 @@ const EditProfilePage = () => {
         }
     };
 
-    const oneSaveHandler = () => {
+    const oneSaveHandler = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const infoForm = document.getElementById("info-form") as HTMLFormElement;
+        if (infoForm) {
+            const formData = new FormData(infoForm);
+            await updateProfile(currentUser!, {
+                displayName: formData.get("fullName") as string,
+            });
+            await UserProvider.updateUser(currentUser?.uid ?? "", {
+                fullName: formData.get("fullName") as string,
+                info: formData.get("bio") as string,
+            });
+            const user = await UserProvider.getUser(currentUser?.uid ?? "");
+            if (user) {
+                setUserInfo(user);
+            }
+            setShowSaveMessage(true)
+            setInterval(() => {
+                setShowSaveMessage(false)
+                return;
+            }, 3000);
+            setIsUpdate(false);
+        }
     };
 
 
     return (
         <EditProfileContainer pageEditIndex={0}>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }}
+            {
+                showSaveMessage && (<div className="shadow-xl flex text-sm fixed md:bottom-4 right-4 bg-slate-800 text-white px-3 py-2 rounded-full">
+                    <CiCircleCheck className="mr-1 text-xl" />
+                    Informations is save successfully
+                </div>)
+            }
+
+            <form id="info-form"
+
+                onSubmit={oneSaveHandler}
             >
                 <h1 className="text-2xl font-bold mb-8">Edit profile</h1>
 
@@ -124,7 +155,6 @@ const EditProfilePage = () => {
                     </OutlineButton>
                     <FillButton
                         disabled={isUpdate}
-                        onClick={oneSaveHandler}
                         className="w-fit"
                     >
                         Save
