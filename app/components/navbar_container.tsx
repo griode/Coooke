@@ -11,7 +11,7 @@ import ChatBox from "../ui/chatbox/chatbox";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect, useCallback } from "react";
 import "@/app/scroll-style.css";
-import { deleteUserId } from "@/app/backend/utils/user_manager";
+import { deleteUserId } from "@/app/lib/utils/user_manager";
 import CircularProgress from "./circular_progress";
 import { useCurrentUser } from "../hooks/use_current_user";
 import React from "react";

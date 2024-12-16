@@ -5,10 +5,10 @@ import { OutlineButton } from "@/app/components/button";
 import NavbarContainer from "@/app/components/navbar_container";
 import { useCurrentUser } from "@/app/hooks/use_current_user";
 import { useEffect, useState, useCallback } from "react";
-import Recipe from "@/app/backend/model/recipe_model";
+import Recipe from "@/app/lib/model/recipe_model";
 import RecipeCard from "@/app/components/recipe_card";
 import { EmptyFavorite } from "@/app/ui/profile/empty_favorite";
-import RecipeProvider from "@/app/backend/provider/recipe_provider";
+import RecipeProvider from "@/app/lib/provider/recipe_provider";
 
 export default function ProfilePage() {
     const { currentUser, loading: loadingUser, userInfo } = useCurrentUser();

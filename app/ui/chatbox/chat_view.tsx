@@ -1,4 +1,4 @@
-import Recipe from "@/app/backend/model/recipe_model";
+import Recipe from "@/app/lib/model/recipe_model";
 import RecipeCard from "@/app/components/recipe_card";
 import Image from "next/image";
 

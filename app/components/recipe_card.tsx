@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Recipe from "@/app/backend/model/recipe_model";
+import Recipe from "@/app/lib/model/recipe_model";
 import { DetailPage } from "../ui/detail_recipe/detail_recipe";
 import Image from "next/image";
 import { PiCookingPot } from "react-icons/pi";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { HiBookmark, HiOutlineBookmark } from "react-icons/hi2";
 import { useCurrentUser } from "@/app/hooks/use_current_user";
-import UserProvider from "@/app/backend/provider/user_provider";
+import UserProvider from "@/app/lib/provider/user_provider";
 
 const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
     const [showDetail, setShowDetail] = useState(false);

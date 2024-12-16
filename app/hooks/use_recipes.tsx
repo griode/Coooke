@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import Recipe from "../backend/model/recipe_model";
+import Recipe from "../lib/model/recipe_model";
 import { useCurrentUser } from "./use_current_user";
-import { getUserId } from "../backend/utils/user_manager";
-import RecipeProvider from "../backend/provider/recipe_provider";
+import { getUserId } from "../lib/utils/user_manager";
+import RecipeProvider from "../lib/provider/recipe_provider";
 
 interface RecipeContextType {
     recipes: Recipe[];

@@ -3,15 +3,15 @@
 import { useRouter } from "next/navigation";
 import EditProfileContainer from "../edit_container";
 
-import pickImage from "@/app/backend/utils/image_picker";
-import { deleteFileByUrl, uploadBase64ImageCompress, } from "@/app/backend/utils/upload_file";
+import pickImage from "@/app/lib/utils/image_picker";
+import { deleteFileByUrl, uploadBase64ImageCompress, } from "@/app/lib/utils/upload_file";
 import { updateProfile } from "firebase/auth";
 import { FormEvent, useRef, useState } from "react";
 import Avatar from "@/app/components/avatar";
 import { FillButton, OutlineButton } from "@/app/components/button";
 import CircularProgress from "@/app/components/circular_progress";
 import { useCurrentUser } from "@/app/hooks/use_current_user";
-import UserProvider from "@/app/backend/provider/user_provider";
+import UserProvider from "@/app/lib/provider/user_provider";
 import { CiCircleCheck } from "react-icons/ci";
 import { auth } from "@/app/firebase";
 

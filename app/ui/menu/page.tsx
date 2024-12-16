@@ -1,6 +1,6 @@
 "use client";
 
-import WeekMenuProvider, { MenuPWeek } from "@/app/backend/provider/menu_provider";
+import WeekMenuProvider, { MenuPWeek } from "@/app/lib/provider/menu_provider";
 import NavbarContainer from "@/app/components/navbar_container";
 import { useEffect, useState, useCallback } from "react";
 import { MenuCard } from "./menu_card";

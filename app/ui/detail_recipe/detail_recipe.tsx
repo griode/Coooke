@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PiBowlFoodLight, PiCheeseThin, PiFireSimpleThin } from "react-icons/pi";
 import { GiSteak } from "react-icons/gi";
 import { CiTimer, CiUser } from "react-icons/ci";
-import Recipe from "@/app/backend/model/recipe_model";
+import Recipe from "@/app/lib/model/recipe_model";
 import { AlertDialog } from "@/app/components/alert_dialog";
 import Image from "next/image";
 import { IoFastFoodOutline } from "react-icons/io5";
@@ -10,7 +10,7 @@ import { useCurrentUser } from "@/app/hooks/use_current_user";
 import { IconButton } from "@/app/components/button";
 import { BsTrash2 } from "react-icons/bs";
 import { useRecipes } from "@/app/hooks/use_recipes";
-import RecipeProvider from "@/app/backend/provider/recipe_provider";
+import RecipeProvider from "@/app/lib/provider/recipe_provider";
 
 
 const NutritionCard = ({
@@ -25,7 +25,7 @@ const NutritionCard = ({
             <div className="p-2 rounded-lg bg-slate-200 text-black text-2xl">
                 {icon}
             </div>
-            <h3>{title}</h3>
+            <h3 className="line-clamp-2 text-sm">{title}</h3>
         </div>
     );
 }
@@ -106,7 +106,7 @@ export const DetailPage = ({
                                 {showFullDescription ? "Read less" : "Read more"}
                             </button>
                         </p>
-                        <div className="flex gap-8 mt-4">
+                        <div className="grid grid-cols-2 gap-8 mt-4">
                             <div className="space-y-2">
                                 <NutritionCard
                                     title={`${recipe?.nutritionFacts.calories} kcal`}

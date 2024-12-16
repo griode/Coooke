@@ -5,12 +5,12 @@ import { IconButton, OutlineButton } from "@/app/components/button";
 import { ClosePanelButton } from "@/app/components/interactive_panel_props";
 import CircularProgress from "@/app/components/circular_progress";
 import { RecipeGeneratorProps, RequestContent } from "./chat_view";
-import pickImage from "@/app/backend/utils/image_picker";
+import pickImage from "@/app/lib/utils/image_picker";
 import { useRecipes } from "@/app/hooks/use_recipes";
 import { useCurrentUser } from "@/app/hooks/use_current_user";
-import RecipeGenerator from "@/app/backend/provider/recipe_generator";
-import UserProvider from "@/app/backend/provider/user_provider";
-import RecipeProvider from "@/app/backend/provider/recipe_provider";
+import RecipeGenerator from "@/app/lib/provider/recipe_generator";
+import UserProvider from "@/app/lib/provider/user_provider";
+import RecipeProvider from "@/app/lib/provider/recipe_provider";
 
 
 export const ChatBox: React.FC = () => {
