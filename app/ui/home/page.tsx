@@ -30,7 +30,7 @@ export default function HomePage() {
 
   return (
     <NavbarContainer pageIndex={0}>
-      <div className="p-4">
+      <div className="p-0 md:p-4">
         {/* Titre */}
         <h1 className="text-xl font-bold">
           Recent Recipes |{" "}
