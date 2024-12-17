@@ -1,11 +1,10 @@
 "use client"
-import localFont from "next/font/local";
 import "./globals.css";
 import "./scroll-style.css";
 import { Analytics } from "@vercel/analytics/react";
 import { UserProviderContext } from "@/app/hooks/use_current_user";
 import { RecipeProviderContext } from "./hooks/use_recipes";
-import { Poppins, Inter} from '@next/font/google';
+import { Poppins} from "next/font/google";
 
 const poppins = Poppins({
     subsets: ['latin'],
