@@ -6,7 +6,7 @@ import { OutlineButton } from "./button";
 import { InteractivePanel } from "./interactive_panel_props";
 import NavigationBar from "./navigation_bar";
 import { auth } from "@/app/firebase";
-import SearchPage from "./search";
+import SearchPage from "../ui/search/search";
 import ChatBox from "../ui/chatbox/chatbox";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect, useCallback } from "react";

@@ -46,13 +46,13 @@ export const Categories: Category[] = [
     {
         isActive: false,
         id: 5,
-        name: "Snacks",
+        name: "Snack",
         icon: <LiaDrumstickBiteSolid/>,
     },
     {
         isActive: false,
         id: 6,
-        name: "Soups",
+        name: "Soup",
         icon: <LuSoup/>,
     },
     {

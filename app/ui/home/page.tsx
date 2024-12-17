@@ -23,7 +23,7 @@ export default function HomePage() {
 
     return recipes.filter(
       (recipe) =>
-        recipe.mealType === selectedCategory.name ||
+        recipe.mealType.toLocaleLowerCase() === selectedCategory.name.toLocaleLowerCase() ||
         recipe.name.toLowerCase().includes(selectedCategory.name.toLowerCase())
     );
   }, [categorySelected, recipes]);

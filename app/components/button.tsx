@@ -18,7 +18,7 @@ export const OutlineButton = ({
     return (
         <button
             onClick={!disabled ? onClick : undefined}
-            className={`rounded-full border border-slate-400 md:text-sm font-bold px-4 py-2 
+            className={`rounded-full border border-slate-400 md:text-sm px-4 py-2 
         ${disabled
                     ? "bg-gray-200 text-slate-500 border-gray-300 cursor-not-allowed"
                     : "hover:bg-slate-800/5"

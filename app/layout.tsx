@@ -5,17 +5,14 @@ import "./scroll-style.css";
 import { Analytics } from "@vercel/analytics/react";
 import { UserProviderContext } from "@/app/hooks/use_current_user";
 import { RecipeProviderContext } from "./hooks/use_recipes";
+import { Poppins, Inter} from '@next/font/google';
 
-const geistSans = localFont({
-    src: "./assets/fonts/GeistVF.woff",
-    variable: "--font-geist-sans",
-    weight: "100 900",
-});
-const geistMono = localFont({
-    src: "./assets/fonts/GeistMonoVF.woff",
-    variable: "--font-geist-mono",
-    weight: "100 900",
-});
+const poppins = Poppins({
+    subsets: ['latin'],
+    weight: ['400', '500', '600', '700'],
+    display: 'swap',
+    fallback: ['sans-serif'],
+})
 
 
 export default function RootLayout({
@@ -25,7 +22,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-slate-800`}>
+            <body className={`${poppins.className} antialiased bg-white text-slate-800`}>
                 <UserProviderContext>
                     <RecipeProviderContext>
                         {children}

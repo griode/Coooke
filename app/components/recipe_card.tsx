@@ -63,7 +63,7 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
                 className="w-full bg-slate-50 rounded-2xl shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow"
             >
                 {/* Image de la recette */}
-                <div className="w-full h-36 bg-slate-300 rounded-t-2xl overflow-hidden relative">
+                <div className="w-full h-36 bg-slate-300 rounded-t-2xl overflow-hidden relative z-0">
                     {/* Durée de préparation */}
                     <div className="absolute text-xs bottom-2 left-3">
                         <div className="flex items-center space-x-1 bg-white px-1 rounded-full shadow">
@@ -90,31 +90,33 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
                 </div>
 
                 {/* Informations sur la recette */}
-                <div className="p-3 flex justify-between items-start gap-2">
-                    <div>
-                        <h1 className="font-bold text-sm line-clamp-1">{recipe.name}</h1>
-                        <div className="text-xs text-gray-500">{recipe.cuisine}</div>
+                <div className="p-3 justify-between items-start gap-2">
+                    <div className="flex space-x-2 justify-between">
+                        <h1 className="font-semibold text-sm line-clamp-1">{recipe.name}</h1>
+                        {/* Bouton pour ajouter ou retirer des favoris */}
+                        {recipe.id && (
+                            <button
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    toggleFavorite();
+                                }}
+                                className={`hover:bg-slate-200 p-1 rounded-full flex items-center justify-center transition-colors ${updatingFavorite ? "opacity-50 cursor-not-allowed" : ""
+                                    }`}
+                                aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                                disabled={updatingFavorite}
+                            >
+                                {isFavorite ? (
+                                    <HiBookmark className="text-slate-900" />
+                                ) : (
+                                    <HiOutlineBookmark />
+                                )}
+                            </button>
+                        )}
                     </div>
-
-                    {/* Bouton pour ajouter ou retirer des favoris */}
-                    {recipe.id && (
-                        <button
-                            onClick={(event) => {
-                                event.stopPropagation();
-                                toggleFavorite();
-                            }}
-                            className={`hover:bg-slate-200 p-1 rounded-full flex items-center justify-center transition-colors ${updatingFavorite ? "opacity-50 cursor-not-allowed" : ""
-                                }`}
-                            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-                            disabled={updatingFavorite}
-                        >
-                            {isFavorite ? (
-                                <HiBookmark className="text-slate-900" />
-                            ) : (
-                                <HiOutlineBookmark />
-                            )}
-                        </button>
-                    )}
+                    <div className="flex space-x-2 mt-2 w-full">
+                        <div className="bg-slate-200 w-fit text-ellipsis line-clamp-1 py-1 px-2 rounded-md text-xs text-gray-500">{recipe.cuisine}</div>
+                        <div className="bg-slate-200 w-fit text-ellipsis line-clamp-1 py-1 px-2 rounded-md text-xs text-gray-500">{recipe.mealType}</div>
+                    </div>
                 </div>
             </div>
         </>
