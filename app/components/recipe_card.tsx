@@ -92,7 +92,7 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
                 {/* Informations sur la recette */}
                 <div className="p-3 justify-between items-start gap-2">
                     <div className="flex space-x-2 justify-between">
-                        <h1 className="font-semibold text-sm line-clamp-1">{recipe.name}</h1>
+                        <h1 className="font-semibold line-clamp-1">{recipe.name}</h1>
                         {/* Bouton pour ajouter ou retirer des favoris */}
                         {recipe.id && (
                             <button

@@ -32,10 +32,10 @@ const NavItem = ({ item, onClick }: NavItemProps) => {
     return (
         <div
             onClick={onClick}
-            className={`flex flex-col items-center justify-center p-2 rounded-3xl cursor-pointer`}
+            className={`flex flex-col items-center justify-center p-2 rounded-3xl cursor-pointer hover:bg-slate-100`}
             aria-label={item.name}
         >
-            <div className="flex items-center justify-center text-3xl md:text-2xl">
+            <div className="flex items-center justify-center text-3xl">
                 {item.enable ? item.fillIcon : item.icon}
             </div>
         </div>
@@ -116,7 +116,7 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
             {/* Bottom Section */}
             <div className="flex flex-row md:flex-col items-center justify-between md:gap-4">
                 <Avatar
-                    className="h-8 w-8 md:h-6 md:w-6"
+                    className="h-8 w-8"
                     onClick={() => router.push("/ui/profile")}
                     radius={24}
                     src={userPhotoUrl ?? ""}

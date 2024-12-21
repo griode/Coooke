@@ -38,7 +38,7 @@ export default function HomePage() {
         </h1>
 
         {/* Catégories */}
-        <div className="flex gap-8 mt-5 overflow-x-scroll scrollbar-hidden">
+        <div className="flex gap-5 mt-5 flex-wrap">
           {Categories.map((category) => (
             <CategoryItem
               key={category.id}

@@ -1,24 +1,24 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { HiMiniArrowUp, HiOutlinePhoto } from "react-icons/hi2";
-import { IconButton, OutlineButton } from "@/app/components/button";
-import { ClosePanelButton } from "@/app/components/interactive_panel_props";
+import React, {useEffect, useRef, useState} from "react";
+import {HiMiniArrowUp, HiOutlinePhoto} from "react-icons/hi2";
+import {IconButton} from "@/app/components/button";
+import {ClosePanelButton} from "@/app/components/interactive_panel_props";
 import CircularProgress from "@/app/components/circular_progress";
-import { RecipeGeneratorProps, RequestContent } from "./chat_view";
+import {RecipeGeneratorProps, RequestContent} from "./chat_view";
 import pickImage from "@/app/lib/utils/image_picker";
-import { useRecipes } from "@/app/hooks/use_recipes";
-import { useCurrentUser } from "@/app/hooks/use_current_user";
+import {useRecipes} from "@/app/hooks/use_recipes";
+import {useCurrentUser} from "@/app/hooks/use_current_user";
 import RecipeGenerator from "@/app/lib/provider/recipe_generator";
 import UserProvider from "@/app/lib/provider/user_provider";
-import RecipeProvider from "@/app/lib/provider/recipe_provider";
+import {CiEraser} from "react-icons/ci";
 
 
 export const ChatBox: React.FC = () => {
     const [chatData, setChatData] = useState<RecipeGeneratorProps[]>([]); // Chat history
     const descriptionRef = useRef<HTMLTextAreaElement>(null); // Reference to the input field
     const [loadingTraitement, setLoadingTraitement] = useState(false);
-    const { recipes, setRecipes } = useRecipes();
-    const { currentUser } = useCurrentUser();
+    const {recipes, setRecipes} = useRecipes();
+    const {currentUser} = useCurrentUser();
 
     // Add a new chat entry
     const handleSendRequest = (request: RecipeGeneratorProps) => {
@@ -27,7 +27,7 @@ export const ChatBox: React.FC = () => {
 
     const scrollToBottom = () => {
         const chatBox = document.getElementById("chatBox");
-        chatBox?.scrollTo({ top: chatBox?.scrollHeight, behavior: "smooth" });
+        chatBox?.scrollTo({top: chatBox?.scrollHeight, behavior: "smooth"});
     }
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export const ChatBox: React.FC = () => {
                 author: "user",
             });
             const checkRequest = await UserProvider.requestAuthorized(currentUser?.uid ?? "");
-            if (checkRequest === false) {
+            if (!checkRequest) {
                 handleSendRequest({
                     contentType: "text",
                     recipes: [],
@@ -94,7 +94,7 @@ export const ChatBox: React.FC = () => {
                 descriptionRef.current.value = ""; // Clear input field
             }
 
-            if (checkRequest === false) {
+            if (!checkRequest) {
                 handleSendRequest({
                     contentType: "text",
                     recipes: [],
@@ -133,22 +133,29 @@ export const ChatBox: React.FC = () => {
         <div className="space-y-2 w-full flex flex-col items-center justify-between h-full">
             {/* Header */}
             <header className="w-full">
-                <div className="flex items-center p-2 space-x-4">
-                    <ClosePanelButton panelId="chatPanel" />
-                    <h1 className="text-xs">🍳 Need a recipe, ingredients, or tips? Let’s cook! 😊</h1>
-                    <OutlineButton onClick={() => setChatData([])}>Clear</OutlineButton>
+                <div className="flex items-center p-2 space-x-4 justify-between">
+                    <div className={'flex space-x-2 items-center'}>
+                        <ClosePanelButton panelId="chatPanel"/>
+                        <h1 className="flex items-end text-2xl font-black">
+                            <span className={"text-4xl"}>C</span>
+                            <span className={"text-2xl"}>ook</span>
+                            <span className={"text-4xl"}>b</span>
+                            <span className={"text-2xl"}>ook</span>
+                        </h1>
+                    </div>
+                    <IconButton onClick={() => setChatData([])}><CiEraser/></IconButton>
                 </div>
-                <hr />
+                <hr/>
             </header>
             {/* Chat History */}
             <div
                 id="chatBox"
                 className="h-full w-full overflow-y-scroll p-4">
                 {chatData.map((request, index) => (
-                    <RequestContent key={index} content={request} />
+                    <RequestContent key={index} content={request}/>
                 ))}
                 {loadingTraitement && (<div className="flex space-x-2 items-center">
-                    <CircularProgress infinite={true} size={16} />
+                    <CircularProgress infinite={true} size={16}/>
                     <p>analyse... </p></div>)}
             </div>
 
@@ -162,13 +169,13 @@ export const ChatBox: React.FC = () => {
                     ></textarea>
                     <div className="flex justify-between px-3 pb-3">
                         <IconButton onClick={handlePickImage} aria-label="Upload image">
-                            <HiOutlinePhoto className="text-xl" />
+                            <HiOutlinePhoto className="text-xl"/>
                         </IconButton>
                         <IconButton
                             onClick={handleSendDescription}
                             aria-label="Send description"
                         >
-                            <HiMiniArrowUp className="text-xl" />
+                            <HiMiniArrowUp className="text-xl"/>
                         </IconButton>
                     </div>
                 </div>
