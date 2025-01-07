@@ -5,6 +5,7 @@ import {FillButton, IconButton} from "@/components/button";
 import React, {useState} from "react";
 import {HiOutlineCog6Tooth, HiXMark} from "react-icons/hi2";
 import {auth} from "@/app/firebase";
+import {routeNames} from "@/app/router/router";
 
 const NavLink = ({
                      children,
@@ -61,11 +62,11 @@ const EditProfileContainer = ({
                         </IconButton>
                     </div>
 
-                    <NavLink path="/ui/profile/edit" isActive={pageEditIndex === 0}>
+                    <NavLink path={routeNames.edit_profile} isActive={pageEditIndex === 0}>
                         Edit profile
                     </NavLink>
                     <NavLink
-                        path="/ui/profile/account_manager"
+                        path={routeNames.account_manager}
                         isActive={pageEditIndex === 1}
                     >
                         Account management

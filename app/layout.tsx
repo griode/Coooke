@@ -1,6 +1,6 @@
 "use client"
-import "./globals.css";
-import "./scroll-style.css";
+import "../style/globals.css";
+import "../style/scroll-style.css";
 import { Analytics } from "@vercel/analytics/react";
 import { UserProviderContext } from "@/hooks/use_current_user";
 import { RecipeProviderContext } from "@/hooks/use_recipes";

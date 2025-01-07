@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import "@/app/scroll-style.css"; // Style des barres de défilement
+import "@/style/scroll-style.css"; // Style des barres de défilement
 import RecipeCard from "@/components/recipe_card";
 import { Categories, CategoryItem } from "@/app/home/category";
 import { EmptyView } from "@/app/home/empty_view";

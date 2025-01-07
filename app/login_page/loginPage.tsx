@@ -8,6 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 import logo from "@/assets/icons/logo.png";
 import Image from "next/image"
 import { setUserId } from "@/lib/utils/user_manager";
+import {routeNames} from "@/app/router/router";
 
 export const LoginPage = ({
     closeAction,
@@ -37,7 +38,7 @@ export const LoginPage = ({
         signInWithGoogle().then((user) => {
             if (user) {
                 setUserId(user.uid).then(() => console.log("User logged in"));
-                router.push("/ui/home");
+                router.push(routeNames.home);
             } else {
                 setIsLoading(false);
             }
@@ -59,7 +60,7 @@ export const LoginPage = ({
                 <IconButton onClick={closeHandler} className="absolute right-2 top-2">
                     <GrClose className="text-xl m-1" />
                 </IconButton>
-                <div className="bg-[url('../app/assets/images/login_bg.png')] w-full h-60 md:h-96  bg-cover"></div>
+                <div className={`bg-[url('../assets/images/login_bg.png')] w-full h-60 md:h-96  bg-cover`}></div>
                 <div className="m-4">
                     <h1 className="flex items-center my-4">
                         <div className="text-6xl pb-3 font-black">C</div>

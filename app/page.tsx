@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import CircularProgress from "@/components/circular_progress";
 import { useCurrentUser } from "@/hooks/use_current_user";
 import { LoginPage } from "@/app/login_page/loginPage";
+import {routeNames} from "@/app/router/router";
 
 export default function Home() {
   const starIconStyle = "text-yellow-500 h-5 w-5";
@@ -25,7 +26,7 @@ export default function Home() {
   useEffect(() => {
     const getUserHandler = async () => {
       if (currentUser !== null) {
-        router.push("/ui/home");
+        router.push(routeNames.home);
       }
     };
     // Call the function
@@ -49,7 +50,7 @@ export default function Home() {
           <div className="lg:w-1/2 w-full">
             <h2 className="text-5xl lg:text-6xl font-bold">
               <div>
-                <div className="ml-12 bg-[url('../app/assets/images/text_bg.jpg')] bg-clip-text bg-cover bg-center text-transparent">
+                <div className={`ml-12 bg-[url('../assets/images/text_bg.jpg')] bg-clip-text bg-cover bg-center text-transparent`}>
                   <span className="text-transparent bg-clip-text bg-cover bg-gradient-to-r from-85% from-slate-800 to-transparent">
                     Fresh
                   </span>{" "}

@@ -17,6 +17,7 @@ import Avatar from "./avatar";
 import { InteractiveButton } from "./interactive_panel_props";
 import { useCurrentUser } from "@/hooks/use_current_user";
 import React from "react";
+import {routeNames} from "@/app/router/router";
 
 // Types
 interface NavItemType {
@@ -68,14 +69,14 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
       name: "Home",
       icon: <MdOutlineFoodBank className={"text-3xl"} />,
       fillIcon: <MdFoodBank className={"text-3xl"} />,
-      path: "/ui/home",
+      path: routeNames.home,
     },
     {
       enable: pageIndex === 1,
       name: "Menu",
       icon: <HiOutlineCalendar />,
       fillIcon: <HiCalendar />,
-      path: "/ui/menu",
+      path: routeNames.menu,
     },
   ];
 
@@ -84,11 +85,11 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
       {/* Top Section */}
       <div className="flex flex-row md:flex-col items-center justify-between h-full w-full p-2 gap-2">
         <div
-          onClick={() => router.push("/ui/home")}
+          onClick={() => router.push(routeNames.home)}
           className="bg-slate-800 rounded-full md:w-8 md:h-8 hidden md:block"
         >
           <Image
-            onClick={() => router.push("/ui/home")}
+            onClick={() => router.push(routeNames.home)}
             className="w-full h-full object-cover"
             src={logo}
             alt="logo"
@@ -113,9 +114,10 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
             name: "Profile",
             icon: (
               <Avatar
-                className="h-8 w-8 object-cover"
-                onClick={() => router.push("/ui/profile")}
+                className="h-8 w-8 object-cover text-sm"
+                onClick={() => router.push(routeNames.profile)}
                 radius={24}
+                name={currentUser?.displayName ?? ""}
                 src={userPhotoUrl ?? ""}
                 alt={currentUser?.displayName ?? ""}
                 width={100}
@@ -123,7 +125,7 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
               />
             ),
             fillIcon: <HiOutlineCog6Tooth />,
-            path: "/ui/profile",
+            path: routeNames.profile,
           }}
           onClick={() => {}}
         />
