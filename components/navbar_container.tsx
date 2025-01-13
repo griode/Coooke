@@ -76,14 +76,14 @@ const NavbarContainer = ({ children, pageIndex }: NavbarContainerProps) => {
             <div className="space-y-2 w-full text-xl p-4">
               <OutlineButton
                 onClick={() => router.push(routeNames.edit_profile)}
-                className="text-left flex items-center space-x-2 w-full border-0"
+                className="text-left flex items-center space-x-2 w-full border-none"
               >
                 <LiaUserEditSolid className="text-xl" />
                 <samp className="text-sm">Edit Profile</samp>
               </OutlineButton>
               <OutlineButton
                 onClick={logoutHandler}
-                className="text-left flex items-center space-x-2 w-full border-0"
+                className="text-left flex items-center space-x-2 w-full border-none"
               >
                 <HiArrowRightOnRectangle className="text-xl" />
                 <samp className="text-sm">Log out</samp>

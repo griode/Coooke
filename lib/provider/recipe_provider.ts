@@ -35,22 +35,22 @@ class RecipeProvider {
     return snapshot.docs.map((doc) => Recipe.fromFireStore(doc));
   }
 
-  static async saveRecipe(recipe: Recipe): Promise<string | null> {
-    try {
-      const collectionRef = collection(db, "recipes");
-      recipe.image = await uploadImageFromUrl(recipe.image ?? "", "recipes");
-      recipe.createdBy = auth.currentUser?.uid
-      recipe.trainByServer = true
-      const response = await addDoc(collectionRef, recipe.toFireStore());
-      if (response) {
-        return response.id;
-      }
-      return null;
-    } catch (error) {
-      console.error("Error saving recipe:", error);
-      return null;
-    }
-  }
+  // static async saveRecipe(recipe: Recipe): Promise<string | null> {
+  //   try {
+  //     const collectionRef = collection(db, "recipes");
+  //     recipe.image = await uploadImageFromUrl(recipe.image ?? "", "recipes");
+  //     recipe.createdBy = auth.currentUser?.uid
+  //     recipe.trainByServer = true
+  //     const response = await addDoc(collectionRef, recipe.toFireStore());
+  //     if (response) {
+  //       return response.id;
+  //     }
+  //     return null;
+  //   } catch (error) {
+  //     console.error("Error saving recipe:", error);
+  //     return null;
+  //   }
+  // }
 
   static async deleteRecipe(id: string): Promise<boolean> {
     try {

@@ -19,7 +19,6 @@ export default function Avatar({
   width,
   height,
   name = "V",
-  radius = 50,
   onClick,
   className = "",
 }: AvatarProps) {
@@ -29,7 +28,6 @@ export default function Avatar({
     <div
       onClick={onClick}
       className={`bg-slate-100 cursor-pointer rounded-full overflow-hidden ${className}`}
-      style={{ borderRadius: radius }}
     >
       {src === "" || loadingError ? (
         <div className="w-full h-full font-bold flex justify-center items-center">

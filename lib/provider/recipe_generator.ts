@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { auth, functions } from "@/app/firebase"
 import { httpsCallable } from "firebase/functions"
 import Recipe from "../model/recipe_model"
@@ -8,6 +7,11 @@ import RecipeProvider from "./recipe_provider"
 type BaseType = {
     base64: string;
     mimeType: string;
+}
+
+const request_headers = {
+    'Content-Type': 'application/json',
+    'api-key': 'jkhui'
 }
 
 const mapRecipes = (data: any): Recipe[] => {
@@ -37,14 +41,18 @@ class RecipeGenerator {
     // Generate a recipe based on a prompt
     static async generateWithDescription(prompt: string): Promise<Recipe[]> {
         try {
-            const generateRecipe = httpsCallable(functions, "recipe_by_description")
-            const response = await generateRecipe({ "text": prompt, "language": "en" })
+            const response = await fetch('http://127.0.0.1:8000/gen_witch_text/', {
+                method: 'POST',
+                headers: request_headers,
+                body: JSON.stringify({ text: prompt, language: "en" }),
+            })
 
-            if (response.data) {
-                const newRecipes = mapRecipes(response.data);
+            if (response.ok) {
+                const data = (await response.json())['data'];
+                const newRecipes = mapRecipes(data);
                 for (const recipe of newRecipes) {
                     recipe.createdBy = auth.currentUser?.uid
-                    await RecipeProvider.saveRecipe(recipe)
+                    //await RecipeProvider.saveRecipe(recipe)
                 }
                 return newRecipes;
             }
@@ -63,15 +71,18 @@ class RecipeGenerator {
         if (!imageConvert) { return [] }
 
         try {
-
-            const generateRecipe = httpsCallable(functions, "recipe_by_images");
-            const response = await generateRecipe({
-                "language": "en",
-                "images": [imageConvert],
+            const response = await fetch('http://127.0.0.1:8000/gen_witch_image/', {
+                method: 'POST',
+                headers: request_headers,
+                body: JSON.stringify({
+                    "language": "en",
+                    "images": [imageConvert],
+                }),
             })
-
-            if (response.data) {
-                return mapRecipes(response.data)
+            console.log(response)
+            if (response.ok) {
+                const recipes = (await response.json())['data'];
+                return mapRecipes(recipes)
             }
             return []
         } catch (error) {

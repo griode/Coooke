@@ -136,11 +136,8 @@ export const ChatBox: React.FC = () => {
                 <div className="flex items-center p-2 space-x-4 justify-between">
                     <div className={'flex space-x-2 items-center'}>
                         <ClosePanelButton panelId="chatPanel"/>
-                        <h1 className="flex items-end text-2xl font-black">
-                            <span className={"text-4xl"}>C</span>
-                            <span className={"text-2xl"}>ook</span>
-                            <span className={"text-4xl"}>b</span>
-                            <span className={"text-2xl"}>ook</span>
+                        <h1 className="flex items-center justify-center">
+                            <span>🍳 Let's Cook Something Amazing! 🥗</span>
                         </h1>
                     </div>
                     <IconButton onClick={() => setChatData([])}><CiEraser/></IconButton>

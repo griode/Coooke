@@ -89,7 +89,7 @@ export const LoginPage = ({
                             className="flex items-center justify-center w-full space-x-2"
                         >
                             <FcGoogle className="text-2xl" />
-                            <span className="text-sm font-normal">Continue with Google</span>
+                            <span>Continue with Google</span>
                         </OutlineButton>
                     )}
                 </div>
