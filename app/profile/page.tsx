@@ -5,11 +5,10 @@ import { OutlineButton } from "@/components/button";
 import NavbarContainer from "@/components/navbar_container";
 import { useCurrentUser } from "@/hooks/use_current_user";
 import { useEffect, useState, useCallback } from "react";
-import Recipe from "@/lib/model/recipe_model";
 import RecipeCard from "@/components/recipe_card";
 import { EmptyFavorite } from "@/app/profile/empty_favorite";
-import RecipeProvider from "@/lib/provider/recipe_provider";
 import { routeNames } from "@/app/router/router";
+import {Recipe} from "@/api/entities/recipe";
 
 export default function ProfilePage() {
   const { currentUser, loading: loadingUser, userInfo } = useCurrentUser();
@@ -20,24 +19,24 @@ export default function ProfilePage() {
 
   // Fonction pour récupérer les recettes favorites
   const fetchRecipes = useCallback(async () => {
-    if (!userInfo?.favoriteRecipes) return;
-
-    setLoadingRecipes(true);
-    setError(null); // Réinitialise l'erreur avant de charger les données
-
-    try {
-      const recipeIds = userInfo.favoriteRecipes;
-      const fetchedRecipes = await Promise.all(
-        recipeIds.map((recipeId) => RecipeProvider.getRecipeById(recipeId))
-      );
-      setRecipes(fetchedRecipes.filter((recipe): recipe is Recipe => !!recipe));
-    } catch (err) {
-      console.error("Failed to fetch recipes:", err);
-      setError("An error occurred while fetching your favorite recipes.");
-    } finally {
-      setLoadingRecipes(false);
-    }
-  }, [userInfo?.favoriteRecipes]);
+    // if (!userInfo?.favoriteRecipes) return;
+    //
+    // setLoadingRecipes(true);
+    // setError(null); // Réinitialise l'erreur avant de charger les données
+    //
+    // try {
+    //   const recipeIds = userInfo.favoriteRecipes;
+    //   const fetchedRecipes = await Promise.all(
+    //     recipeIds.map((recipeId) => RecipeProvider.getRecipeById(recipeId))
+    //   );
+    //   setRecipes(fetchedRecipes.filter((recipe): recipe is Recipe => !!recipe));
+    // } catch (err) {
+    //   console.error("Failed to fetch recipes:", err);
+    //   setError("An error occurred while fetching your favorite recipes.");
+    // } finally {
+    //   setLoadingRecipes(false);
+    // }
+  }, []);
 
   // Effect pour charger les recettes lors du chargement du profil
   useEffect(() => {

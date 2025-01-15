@@ -10,7 +10,7 @@ import ChatBox from "@/app/chatbox/chatbox";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect, useCallback } from "react";
 import "@/style/scroll-style.css";
-import { deleteUserId } from "@/lib/utils/user_manager";
+import { deleteUserId } from "@/utils/user_manager";
 import CircularProgress from "./circular_progress";
 import { useCurrentUser } from "@/hooks/use_current_user";
 import React from "react";
@@ -57,17 +57,13 @@ const NavbarContainer = ({ children, pageIndex }: NavbarContainerProps) => {
 
   return (
     <div className="h-screen w-screen flex overflow-hidden">
-      <NavigationBar pageIndex={pageIndex} />
-      <div className="w-full h-full p-3 md:p-5 overflow-x-hidden overflow-y-scroll scrollbar-hidden">
+      <div className="w-full bg-slate-50 h-full p-3 md:p-5 overflow-x-hidden overflow-y-scroll scrollbar-hidden">
         <div>
           {/* Search Panel */}
           <InteractivePanel id="searchPanel" className={panelClass}>
             <SearchPage />
           </InteractivePanel>
-          {/* Chat Panel */}
-          <InteractivePanel id="chatPanel" className={panelClass}>
-            <ChatBox />
-          </InteractivePanel>
+
           {/* Profile Panel */}
           <InteractivePanel
             id="profilePanel"
@@ -91,7 +87,11 @@ const NavbarContainer = ({ children, pageIndex }: NavbarContainerProps) => {
             </div>
           </InteractivePanel>
         </div>
-        {children}
+        <div className="flex gap-4">
+          <div className={"bg-white fixed md:static bottom-0"}><ChatBox /></div>
+          <div className={"bg-white"}>{children}</div>
+        </div>
+
       </div>
     </div>
   );

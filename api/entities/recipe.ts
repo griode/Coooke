@@ -12,7 +12,14 @@ export type Recipe = {
     difficulty: string;
     cuisine: string;
     description?: string;
-    nutritionFacts?: Map<string, string>;
+    nutritionFacts?: {
+        carbone: string;
+        protein: string;
+        fibres: string;
+        sel: string;
+        sodium: string;
+        potassium: string;
+    };
     diet?: string;
     language?: string;
     index?: number;

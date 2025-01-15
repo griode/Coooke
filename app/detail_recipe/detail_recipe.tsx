@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import { PiBowlFoodLight, PiCheeseThin, PiFireSimpleThin } from "react-icons/pi";
 import { GiSteak } from "react-icons/gi";
 import { CiTimer, CiUser } from "react-icons/ci";
-import Recipe from "@/lib/model/recipe_model";
 import { AlertDialog } from "@/components/alert_dialog";
 import Image from "next/image";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { useCurrentUser } from "@/hooks/use_current_user";
 import { IconButton } from "@/components/button";
 import { BsTrash2 } from "react-icons/bs";
-import { useRecipes } from "@/hooks/use_recipes";
-import RecipeProvider from "@/lib/provider/recipe_provider";
+import {Recipe} from "@/api/entities/recipe";
 
 
 const NutritionCard = ({
@@ -40,16 +38,10 @@ export const DetailPage = ({
     const [showFullDescription, setShowFullDescription] = useState(false);
     const [loadImageError, setLoadImageError] = useState<boolean>(false);
     const { currentUser } = useCurrentUser();
-    const { setRecipes, recipes } = useRecipes();
-
     const deleteRecipeHandler = () => {
         const confirmed = window.confirm("Are you sure you want to delete this recipe?");
         if (confirmed && recipe.id) {
-            RecipeProvider.deleteRecipe(recipe.id).then((value) => {
-                if (value) {
-                    setRecipes(recipes.filter((recipe) => recipe.id !== recipe.id));
-                }
-            });
+
         }
     }
 
@@ -109,21 +101,21 @@ export const DetailPage = ({
                         <div className="grid grid-cols-2 gap-8 mt-4">
                             <div className="space-y-2">
                                 <NutritionCard
-                                    title={`${recipe?.nutritionFacts.calories} kcal`}
+                                    title={`kcal`}
                                     icon={<PiBowlFoodLight />}
                                 />
                                 <NutritionCard
-                                    title={`${recipe?.nutritionFacts.protein} Protein`}
+                                    title={`Protein`}
                                     icon={<GiSteak />}
                                 />
                             </div>
                             <div className="space-y-2">
                                 <NutritionCard
-                                    title={`${recipe?.nutritionFacts.carbohydrates} Carbs`}
+                                    title={``}
                                     icon={<PiFireSimpleThin />}
                                 />
                                 <NutritionCard
-                                    title={`${recipe?.nutritionFacts.fat} Fat`}
+                                    title={""}
                                     icon={<PiCheeseThin />}
                                 />
                             </div>

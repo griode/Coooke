@@ -71,13 +71,6 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
       fillIcon: <MdFoodBank className={"text-3xl"} />,
       path: routeNames.home,
     },
-    {
-      enable: pageIndex === 1,
-      name: "Menu",
-      icon: <HiOutlineCalendar />,
-      fillIcon: <HiCalendar />,
-      path: routeNames.menu,
-    },
   ];
 
   return (
@@ -105,7 +98,6 @@ export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
             }}
           />
         ))}
-        <InteractiveButton icon={<HiMiniSparkles />} panelId={"chatPanel"} />
         <InteractiveButton icon={<HiOutlineSearch />} panelId={"searchPanel"} />
         <div className="h-full hidden md:block"></div>
         <NavItem

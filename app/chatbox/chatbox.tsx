@@ -5,22 +5,15 @@ import {IconButton} from "@/components/button";
 import {ClosePanelButton} from "@/components/interactive_panel_props";
 import CircularProgress from "@/components/circular_progress";
 import {RecipeGeneratorProps, RequestContent} from "./chat_view";
-import pickImage from "@/lib/utils/image_picker";
-import {useRecipes} from "@/hooks/use_recipes";
-import {useCurrentUser} from "@/hooks/use_current_user";
-import RecipeGenerator from "@/lib/provider/recipe_generator";
-import UserProvider from "@/lib/provider/user_provider";
+import pickImage from "@/utils/image_picker";
 import {CiEraser} from "react-icons/ci";
 
 
 export const ChatBox: React.FC = () => {
     const [chatData, setChatData] = useState<RecipeGeneratorProps[]>([]); // Chat history
     const descriptionRef = useRef<HTMLTextAreaElement>(null); // Reference to the input field
-    const [loadingTraitement, setLoadingTraitement] = useState(false);
-    const {recipes, setRecipes} = useRecipes();
-    const {currentUser} = useCurrentUser();
-
-    // Add a new chat entry
+    const [isProcessing] = useState(false);
+// Add a new chat entry
     const handleSendRequest = (request: RecipeGeneratorProps) => {
         setChatData((prevState) => [...prevState, request]);
     };
@@ -44,8 +37,7 @@ export const ChatBox: React.FC = () => {
                 recipes: [],
                 author: "user",
             });
-            const checkRequest = await UserProvider.requestAuthorized(currentUser?.uid ?? "");
-            if (!checkRequest) {
+
                 handleSendRequest({
                     contentType: "text",
                     recipes: [],
@@ -53,35 +45,14 @@ export const ChatBox: React.FC = () => {
                     author: "bot",
                 });
                 return
-            }
-            setLoadingTraitement(true);
-            // Call the traitement API
-            const newRecipes = await RecipeGenerator.generateWithImage(image);
-            setLoadingTraitement(false);
-            if (newRecipes.length > 0) {
-                handleSendRequest({
-                    contentType: "recipes",
-                    recipes: newRecipes,
-                    content: '',
-                    author: "bot",
-                });
-                setRecipes([...newRecipes, ...recipes]);
-                await UserProvider.updateUserNumberAuthorizedRequest(currentUser?.uid ?? "")
-            } else {
-                handleSendRequest({
-                    contentType: "text",
-                    recipes: [],
-                    content: "Sorry, I couldn't find any recipe for the image, please try again.",
-                    author: "bot",
-                });
-            }
+
         }
         scrollToBottom();
     }
 
     // Handle sending a text description
     const handleSendDescription = async () => {
-        const checkRequest = await UserProvider.requestAuthorized(currentUser?.uid ?? "");
+
         const description = descriptionRef.current?.value.trim();
         if (description) {
             handleSendRequest({
@@ -94,7 +65,7 @@ export const ChatBox: React.FC = () => {
                 descriptionRef.current.value = ""; // Clear input field
             }
 
-            if (!checkRequest) {
+
                 handleSendRequest({
                     contentType: "text",
                     recipes: [],
@@ -102,29 +73,8 @@ export const ChatBox: React.FC = () => {
                     author: "bot",
                 });
                 return
-            }
 
-            setLoadingTraitement(true);
-            // Call the traitement API
-            const newRecipes = await RecipeGenerator.generateWithDescription(description);
-            setLoadingTraitement(false);
-            if (newRecipes.length > 0) {
-                handleSendRequest({
-                    contentType: "recipes",
-                    recipes: newRecipes,
-                    content: description,
-                    author: "bot",
-                });
-                setRecipes([...newRecipes, ...recipes]);
-                await UserProvider.updateUserNumberAuthorizedRequest(currentUser?.uid ?? "")
-            } else {
-                handleSendRequest({
-                    contentType: "text",
-                    recipes: [],
-                    content: "Sorry, I couldn't find any recipe for this description.",
-                    author: "bot",
-                });
-            }
+
         }
         scrollToBottom();
     };
@@ -135,7 +85,6 @@ export const ChatBox: React.FC = () => {
             <header className="w-full">
                 <div className="flex items-center p-2 space-x-4 justify-between">
                     <div className={'flex space-x-2 items-center'}>
-                        <ClosePanelButton panelId="chatPanel"/>
                         <h1 className="flex items-center justify-center">
                             <span>🍳 Let's Cook Something Amazing! 🥗</span>
                         </h1>
@@ -151,7 +100,7 @@ export const ChatBox: React.FC = () => {
                 {chatData.map((request, index) => (
                     <RequestContent key={index} content={request}/>
                 ))}
-                {loadingTraitement && (<div className="flex space-x-2 items-center">
+                {isProcessing && (<div className="flex space-x-2 items-center">
                     <CircularProgress infinite={true} size={16}/>
                     <p>analyse... </p></div>)}
             </div>

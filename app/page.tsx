@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import CircularProgress from "@/components/circular_progress";
 import { useCurrentUser } from "@/hooks/use_current_user";
 import { LoginPage } from "@/app/login_page/loginPage";
-import {routeNames} from "@/app/router/router";
+import { routeNames } from "@/app/router/router";
 
 export default function Home() {
   const starIconStyle = "text-yellow-500 h-5 w-5";
@@ -42,15 +42,17 @@ export default function Home() {
   }
 
   return (
-    <div className="overflow-x-hidden w-screen">
+    <main className="overflow-x-hidden w-screen">
       {isLogin ? <LoginPage closeAction={setIsLogin} /> : <></>}
-      <main className="lg:mx-16 my-6 mx-6">
+      <div className="lg:mx-16 my-6 mx-6">
         <Header loginHandler={loginHandler} />
         <section className="flex flex-col md:flex-row mt-12 md:space-x-8 space-y-6 lg:space-y-0">
           <div className="lg:w-1/2 w-full">
             <h2 className="text-5xl lg:text-6xl font-bold">
               <div>
-                <div className={`ml-12 bg-[url('../assets/images/text_bg.jpg')] bg-clip-text bg-cover bg-center text-transparent`}>
+                <div
+                  className={`ml-12 bg-[url('../assets/images/text_bg.jpg')] bg-clip-text bg-cover bg-center text-transparent`}
+                >
                   <span className="text-transparent bg-clip-text bg-cover bg-gradient-to-r from-85% from-slate-800 to-transparent">
                     Fresh
                   </span>{" "}
@@ -113,7 +115,7 @@ export default function Home() {
             <RecipeSection />
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }

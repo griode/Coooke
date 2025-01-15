@@ -1,6 +1,7 @@
-import Recipe from "@/lib/model/recipe_model";
 import RecipeCard from "@/components/recipe_card";
 import Image from "next/image";
+import {Recipe} from "@/api/entities/recipe";
+import React from "react";
 
 
 // Define the structure of a single chat entry

@@ -7,7 +7,7 @@ import CircularProgress from "@/components/circular_progress";
 import { FcGoogle } from "react-icons/fc";
 import logo from "@/assets/icons/logo.png";
 import Image from "next/image"
-import { setUserId } from "@/lib/utils/user_manager";
+import { setUserId } from "@/utils/user_manager";
 import {routeNames} from "@/app/router/router";
 
 export const LoginPage = ({

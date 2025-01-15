@@ -1,22 +1,46 @@
-import UserModel from "@/data/entities/user_auth";
-import {apiConfig} from "@/data/config";
+import {apiConfig} from "@/api/config";
+import {UserAuth} from "@/api/entities/user_auth";
 
 
 export class UserProvider {
-    static users: UserModel | undefined;
+    static user: UserAuth | undefined;
 
-    get = async (uid: string)=> {
-        const response = await fetch(`${apiConfig.base_url}/user/?uid=${uid}`)
-        const data = await response.json()
+    static get = async (uid: string)=> {
+        try {
+            const response = await fetch(`${apiConfig.base_url}/user/?uid=${uid}`, {
+                method: 'GET',
+                headers: apiConfig.request_headers,
+            })
+            if (!response.ok) return null;
+
+            const data = (await response.json())['data'];
+            if (data.length === 0) return null;
+
+            const userData: UserAuth = data[0];
+            return userData;
+
+        } catch (error) {
+            console.error("Unexpected error:", error);
+            return null;
+        }
     }
 
     // add new user
-    create = (user: UserModel)=> {
-        const response = fetch(`${apiConfig.base_url}/user/`, {
-            method: 'POST',
-            body: JSON.stringify(user)
-        })
-    }
+    static create = async (user: UserAuth) => {
+        try {
+            const response = await fetch(`${apiConfig.base_url}/user/`, {
+                method: 'POST',
+                headers: apiConfig.request_headers,
+                body: JSON.stringify(user)
+            })
 
-    // update user token
+            if (!response.ok) return null;
+            const data = (await response.json())['data'];
+
+            return data[0] as UserAuth;
+        } catch (error) {
+            console.error("Unexpected error:", error)
+            return null
+        }
+    }
 }

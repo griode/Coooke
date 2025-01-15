@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import Recipe from "@/lib/model/recipe_model";
+import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { useCurrentUser } from "./use_current_user";
-import { getUserId } from "@/lib/utils/user_manager";
-import RecipeProvider from "@/lib/provider/recipe_provider";
+import { getUserId } from "@/utils/user_manager";
+import {Recipe} from "@/api/entities/recipe";
+import {RecipeProvider} from "@/api/provider/recipe_provider";
 
 interface RecipeContextType {
     recipes: Recipe[];
@@ -25,14 +25,14 @@ export const RecipeProviderContext: React.FC<{ children: ReactNode }> = ({ child
                 setRecipes([]);
                 setLoadingRecipes(false);
                 return;
-            } // Pas d'utilisateur connecté
+            }
             setLoadingRecipes(true);
             try {
-                const fetchedRecipes = await RecipeProvider.getRecipesByUser({
-                    item: 20,
-                    userId: currentUser.uid,
-                });
-                setRecipes(fetchedRecipes);
+                // const fetchedRecipes = await RecipeProvider.getRecipesByUser({
+                //     item: 20,
+                //     userId: currentUser.uid,
+                // });
+                setRecipes([]);
             } catch (fetchError) {
                 setError(fetchError as Error);
             } finally {

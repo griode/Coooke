@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Recipe from "@/lib/model/recipe_model";
+import {Recipe} from "@/api/entities/recipe";
 import { DetailPage } from "@/app/detail_recipe/detail_recipe";
 import Image from "next/image";
 import { PiCookingPot } from "react-icons/pi";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { HiBookmark, HiOutlineBookmark } from "react-icons/hi2";
 import { useCurrentUser } from "@/hooks/use_current_user";
-import UserProvider from "@/lib/provider/user_provider";
 
 const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
     const [showDetail, setShowDetail] = useState(false);
@@ -18,37 +17,37 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
     const [updatingFavorite, setUpdatingFavorite] = useState(false);
 
     // Vérifie si la recette est dans les favoris au chargement
-    useEffect(() => {
-        setIsFavorite(userInfo?.favoriteRecipes?.includes(recipe.id ?? "") ?? false);
-    }, [userInfo?.favoriteRecipes, recipe.id]);
+    // useEffect(() => {
+    //     setIsFavorite(userInfo?.favoriteRecipes?.includes(recipe.id ?? "") ?? false);
+    // }, [userInfo?.favoriteRecipes, recipe.id]);
 
     // Gère l'affichage des détails de la recette
     const toggleDetail = () => setShowDetail((prev) => !prev);
 
     // Ajoute ou supprime une recette des favoris
     const toggleFavorite = async () => {
-        if (!userInfo || !recipe.id) {
-            alert("Please log in to manage your favorites.");
-            return;
-        }
-
-        const updatedFavorites = isFavorite
-            ? userInfo.favoriteRecipes.filter((id) => id !== recipe.id)
-            : [...(userInfo.favoriteRecipes ?? []), recipe.id];
-
-        setUpdatingFavorite(true);
-
-        try {
-            await UserProvider.updateUser(userInfo.id ?? "", { favoriteRecipes: updatedFavorites });
-            const updatedUser = await UserProvider.getUser(userInfo.id ?? "");
-            setUserInfo(updatedUser);
-            setIsFavorite(!isFavorite);
-        } catch (error) {
-            console.error("Error updating favorites:", error);
-            alert("Failed to update favorites. Please try again.");
-        } finally {
-            setUpdatingFavorite(false);
-        }
+        // if (!userInfo || !recipe.id) {
+        //     alert("Please log in to manage your favorites.");
+        //     return;
+        // }
+        //
+        // const updatedFavorites = isFavorite
+        //     ? userInfo.favoriteRecipes.filter((id) => id !== recipe.id)
+        //     : [...(userInfo.favoriteRecipes ?? []), recipe.id];
+        //
+        // setUpdatingFavorite(true);
+        //
+        // try {
+        //     await UserProvider.updateUser(userInfo.id ?? "", { favoriteRecipes: updatedFavorites });
+        //     const updatedUser = await UserProvider.getUser(userInfo.id ?? "");
+        //     setUserInfo(updatedUser);
+        //     setIsFavorite(!isFavorite);
+        // } catch (error) {
+        //     console.error("Error updating favorites:", error);
+        //     alert("Failed to update favorites. Please try again.");
+        // } finally {
+        //     setUpdatingFavorite(false);
+        // }
     };
 
     return (

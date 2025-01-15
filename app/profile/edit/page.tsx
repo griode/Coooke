@@ -3,15 +3,15 @@
 import { useRouter } from "next/navigation";
 import EditProfileContainer from "../edit_container";
 
-import pickImage from "@/lib/utils/image_picker";
-import { deleteFileByUrl, uploadBase64ImageCompress, } from "@/lib/utils/upload_file";
+import pickImage from "@/utils/image_picker";
+import { deleteFileByUrl, uploadBase64ImageCompress, } from "@/utils/upload_file";
 import { updateProfile } from "firebase/auth";
 import { FormEvent, useRef, useState } from "react";
 import Avatar from "@/components/avatar";
 import { FillButton, OutlineButton } from "@/components/button";
 import CircularProgress from "@/components/circular_progress";
 import { useCurrentUser } from "@/hooks/use_current_user";
-import UserProvider from "@/lib/provider/user_provider";
+import UserProvider from "@/api/provider/user_provider";
 import { CiCircleCheck } from "react-icons/ci";
 import { auth } from "@/app/firebase";
 
@@ -27,7 +27,7 @@ const EditProfilePage = () => {
         if (image) {
             setIsLoading(true);
             const url = await uploadBase64ImageCompress(image, "profile");
-            await deleteFileByUrl(currentUser?.photoURL ?? "");
+            ///await deleteFileByUrl(currentUser?.photoURL ?? "");
             updateProfile(currentUser!, {
                 photoURL: url,
             });

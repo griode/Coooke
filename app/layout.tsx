@@ -4,7 +4,9 @@ import "../style/scroll-style.css";
 import { Analytics } from "@vercel/analytics/react";
 import { UserProviderContext } from "@/hooks/use_current_user";
 import { RecipeProviderContext } from "@/hooks/use_recipes";
-import { Poppins} from "next/font/google";
+import { Poppins } from "next/font/google";
+import React from "react";
+
 
 const poppins = Poppins({
     subsets: ['latin'],
