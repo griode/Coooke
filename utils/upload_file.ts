@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { functions, storage } from "@/app/firebase";
-import { deleteObject, getDownloadURL, ref, StringFormat, uploadString } from "firebase/storage";
+import { storage } from "@/app/firebase";
+import { deleteObject, ref } from "firebase/storage";
 import { v1 } from "uuid";
 import imageCompression from "browser-image-compression";
-import { httpsCallable } from "firebase/functions";
+import { uploadData } from 'aws-amplify/storage';
 
 // Compress an image to a Base64 string
 export async function compressImageToBase64(
@@ -74,36 +74,25 @@ export async function uploadBase64ImageCompress(
         const compressedBase64 = await compressImageToBase64(base64String, 0.8);
 
         // Créer une référence pour le fichier dans Firebase Storage
-        const fileRef = ref(storage, `${storagePath}/${v1()}`);
+        const fileRef = `${storagePath}/${v1()}`;
 
         // Uploader le Base64 compressé dans Firebase Storage
         if (!compressedBase64) {
             return null;
         }
-        await uploadString(fileRef, compressedBase64, StringFormat.DATA_URL);
+        //await uploadString(fileRef, compressedBase64, StringFormat.DATA_URL);
+        console.log('Uploading compressed Base64 file started ')
+        const result = await uploadData({
+            path: fileRef,
+            // Alternatively, path: ({identityId}) => `album/${identityId}/1.jpg`
+            data: compressedBase64,
+        }).result;
+        console.log('Succeeded: ', result);
 
         // Obtenir et retourner l'URL de téléchargement
-        return await getDownloadURL(fileRef);
+        return '';
     } catch (error) {
         console.error("Failed to upload compressed Base64 file." + error);
         return null;
-    }
-}
-
-export async function uploadImageFromUrl(imageUrl: string, filePath: string): Promise<string> {
-    try {
-        const generateRecipe = httpsCallable(functions, "upload_image_to_storage");
-        const response = await generateRecipe({
-            "url": imageUrl,
-            "path": filePath,
-        });
-        const url = (response.data as { url?: string })?.url as string;
-        if (url) {
-            return url;
-        }
-        return ""
-    } catch (error) {
-        console.error("Erreur dans uploadImageFromUrl : ", error);
-        return ""
     }
 }

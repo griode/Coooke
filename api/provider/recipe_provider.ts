@@ -1,17 +1,10 @@
-import { auth, functions } from "@/app/firebase"
-import { httpsCallable } from "firebase/functions"
-import Recipe from "../model/recipe_model"
+import Recipe from "@/data/entities/recipe"
 import { compressImageToBase64 } from "../utils/upload_file"
-import RecipeProvider from "./recipe_provider"
+import {apiConfig} from "@/data/config";
 
 type BaseType = {
     base64: string;
     mimeType: string;
-}
-
-const request_headers = {
-    'Content-Type': 'application/json',
-    'api-key': 'jkhui'
 }
 
 const mapRecipes = (data: any): Recipe[] => {
@@ -37,13 +30,13 @@ const convertDataURLToBase64 = (dataURL: string): BaseType | null => {
     }
 }
 
-class RecipeGenerator {
+export class RecipeProvider {
     // Generate a recipe based on a prompt
     static async generateWithDescription(prompt: string): Promise<Recipe[]> {
         try {
-            const response = await fetch('http://127.0.0.1:8000/gen_witch_text/', {
+            const response = await fetch(`${apiConfig.base_url}/gen_witch_text/`, {
                 method: 'POST',
-                headers: request_headers,
+                headers: apiConfig.request_headers,
                 body: JSON.stringify({ text: prompt, language: "en" }),
             })
 
@@ -71,9 +64,9 @@ class RecipeGenerator {
         if (!imageConvert) { return [] }
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/gen_witch_image/', {
+            const response = await fetch(`${apiConfig.base_url}/gen_witch_image/`, {
                 method: 'POST',
-                headers: request_headers,
+                headers: apiConfig.request_headers,
                 body: JSON.stringify({
                     "language": "en",
                     "images": [imageConvert],
@@ -91,5 +84,3 @@ class RecipeGenerator {
         }
     }
 }
-
-export default RecipeGenerator;
