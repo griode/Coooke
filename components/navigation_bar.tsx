@@ -1,133 +1,87 @@
-"use client";
-
-import logo from "@/assets/icons/logo.png";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-// Icons
-import {
-  HiCalendar,
-  HiMiniSparkles,
-  HiOutlineCalendar,
-  HiOutlineCog6Tooth,
-} from "react-icons/hi2";
-import { MdFoodBank, MdOutlineFoodBank } from "react-icons/md";
-
-import { HiOutlineSearch } from "react-icons/hi";
 import Avatar from "./avatar";
-import { InteractiveButton } from "./interactive_panel_props";
+import Image from "next/image";
+import logo from "@/assets/icons/logo.png";
 import { useCurrentUser } from "@/hooks/use_current_user";
-import React from "react";
-import {routeNames} from "@/app/router/router";
+import { InteractiveButton, InteractivePanel } from "./interactive_panel_props";
+import { HiArrowRightOnRectangle } from "react-icons/hi2";
+import { LiaUserEditSolid } from "react-icons/lia";
+import { OutlineButton } from "./button";
+import { useCallback } from "react";
+import { auth } from "@/app/firebase";
+import { useRouter } from "next/navigation";
 
-// Types
-interface NavItemType {
-  enable: boolean;
-  name: string;
-  icon: React.ReactNode;
-  fillIcon: React.ReactNode;
-  path: string; // Path of the navigation item
-}
+export const NavigationBar = () => {
+  const { currentUser, userInfo } = useCurrentUser();
+  const router = useRouter();
 
-interface NavItemProps {
-  item: NavItemType;
-  onClick?: () => void;
-}
+  const logoutHandler = useCallback(async () => {
+    try {
+      router.push("/");
+      await auth.signOut();
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  }, [router]);
 
-// Component: Single Navigation Item
-const NavItem = ({ item, onClick }: NavItemProps) => {
   return (
-    <div
-      onClick={onClick}
-      className={`flex flex-col items-center justify-center p-2 rounded-3xl cursor-pointer hover:bg-slate-100`}
-      aria-label={item.name}
-    >
-      <div className="flex items-center justify-center text-3xl">
-        {item.enable ? item.fillIcon : item.icon}
+    <div className="flex justify-between items-center">
+      <h1 className="flex items-center h-2">
+        <div className="text-5xl mb-1 font-black">C</div>
+        <div className="bg-slate-800 rounded-full w-6 h-6">
+          <Image className="w-full h-full" src={logo} alt="logo" />
+        </div>
+        <div className="text-4xl font-black pb-1">ook</div>
+      </h1>
+      <div className="gap-2 flex">
+        <div className="rounded-full border w-10 h-10 flex items-center justify-center">
+          {userInfo?.number_of_tokens ?? 0}
+        </div>
+        <InteractiveButton
+          icon={
+            <Avatar
+              className="w-9 h-9"
+              name={currentUser?.displayName ?? ""}
+              src={currentUser?.photoURL ?? ""}
+              alt={`${currentUser?.displayName ?? ""}'s avatar`}
+              width={100}
+              height={100}
+            />
+          }
+          panelId={"profile-panel"}
+        />
+
+        <InteractivePanel
+          id="profile-panel"
+          className="rounded-xl top-12 mt-3 right-0 md:right-24 lg:right-36 mr-6"
+        >
+          <div className="space-y-2 w-full text-xl p-4">
+            <div className="flex items-center space-x-2">
+              <Avatar
+                className="w-10 h-10"
+                name={currentUser?.displayName ?? ""}
+                src={currentUser?.photoURL ?? ""}
+                alt={`${currentUser?.displayName ?? ""}'s avatar`}
+                width={100}
+                height={100}
+              />
+              <div className="flex flex-col">
+                <samp className="font-bold text-sm">
+                  {currentUser?.displayName ?? ""}
+                </samp>
+                <samp className="text-xs">{currentUser?.email ?? ""}</samp>
+              </div>
+            </div>
+            <hr />
+            <OutlineButton
+              onClick={logoutHandler}
+              className="text-left text-lg flex items-center space-x-2 w-full border-none"
+            >
+              <HiArrowRightOnRectangle className="text-xl" />
+              <samp className="text-sm">Log out</samp>
+            </OutlineButton>
+          </div>
+        </InteractivePanel>
       </div>
     </div>
   );
 };
-
-// Component: Navigation Bar
-export default function NavigationBar({ pageIndex }: { pageIndex: number }) {
-  const router = useRouter(); // Initialize router
-  const { currentUser, userPhotoUrl } = useCurrentUser();
-
-  // log out handler
-
-  const handleClick = (index: number) => {
-    pageIndex = index;
-    if (index < 2) {
-      router.push(navItems[index].path);
-    }
-  };
-
-  // Navigation items configuration
-  const navItems: NavItemType[] = [
-    {
-      enable: pageIndex === 0,
-      name: "Home",
-      icon: <MdOutlineFoodBank className={"text-3xl"} />,
-      fillIcon: <MdFoodBank className={"text-3xl"} />,
-      path: routeNames.home,
-    },
-  ];
-
-  return (
-    <div className="h-16 md:h-full bottom-0 w-full flex-row fixed md:static gap-8 md:top-0 md:left-0 md:right-0 flex border-t md:border-r md:flex-col md:w-fit items-center justify-center md:justify-between bg-white/75 backdrop-blur-lg z-30">
-      {/* Top Section */}
-      <div className="flex flex-row md:flex-col items-center justify-between h-full w-full p-2 gap-2">
-        <div
-          onClick={() => router.push(routeNames.home)}
-          className="bg-slate-800 rounded-full md:w-8 md:h-8 hidden md:block"
-        >
-          <Image
-            onClick={() => router.push(routeNames.home)}
-            className="w-full h-full object-cover"
-            src={logo}
-            alt="logo"
-          />
-        </div>
-
-        {navItems.slice(0, 2).map((item, index) => (
-          <NavItem
-            key={index}
-            item={item}
-            onClick={() => {
-              handleClick(index);
-            }}
-          />
-        ))}
-        <InteractiveButton icon={<HiOutlineSearch />} panelId={"searchPanel"} />
-        <div className="h-full hidden md:block"></div>
-        <NavItem
-          item={{
-            enable: false,
-            name: "Profile",
-            icon: (
-              <Avatar
-                className="h-8 w-8 object-cover text-sm"
-                onClick={() => router.push(routeNames.profile)}
-                radius={24}
-                name={currentUser?.displayName ?? ""}
-                src={userPhotoUrl ?? ""}
-                alt={currentUser?.displayName ?? ""}
-                width={100}
-                height={100}
-              />
-            ),
-            fillIcon: <HiOutlineCog6Tooth />,
-            path: routeNames.profile,
-          }}
-          onClick={() => {}}
-        />
-        <div className="hidden md:block">
-          <InteractiveButton
-            icon={<HiOutlineCog6Tooth />}
-            panelId={"profilePanel"}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import "../style/globals.css";
 import "../style/scroll-style.css";
 import { Analytics } from "@vercel/analytics/react";
@@ -7,30 +7,28 @@ import { RecipeProviderContext } from "@/hooks/use_recipes";
 import { Poppins } from "next/font/google";
 import React from "react";
 
-
 const poppins = Poppins({
-    subsets: ['latin'],
-    weight: ['400', '500', '600', '700'],
-    display: 'swap',
-    fallback: ['sans-serif'],
-})
-
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  fallback: ["sans-serif"],
+});
 
 export default function RootLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <html lang="en">
-            <body className={`${poppins.className} antialiased bg-white text-slate-800`}>
-                <UserProviderContext>
-                    <RecipeProviderContext>
-                        {children}
-                    </RecipeProviderContext>
-                </UserProviderContext>
-                <Analytics />
-            </body>
-        </html>
-    );
+  return (
+    <html lang="en">
+      <body
+        className={`${poppins.className} antialiased bg-white text-slate-800`}
+      >
+        <UserProviderContext>
+          <RecipeProviderContext>{children}</RecipeProviderContext>
+        </UserProviderContext>
+        <Analytics />
+      </body>
+    </html>
+  );
 }

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { signInWithGoogle } from "@/authentication/sign_with_google";
+import { signInWithGoogle } from "@/api//authentication/sign_with_google";
 import { IconButton, OutlineButton } from "@/components/button";
 import { GrClose } from "react-icons/gr";
 import CircularProgress from "@/components/circular_progress";

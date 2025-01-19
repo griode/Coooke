@@ -1,58 +1,50 @@
 "use client";
-import {MouseEventHandler, useEffect, useState} from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 // import {BsList, BsListNested} from "react-icons/bs";
-import {FillButton} from "./button";
+import { FillButton } from "./button";
 import logo from "@/assets/icons/logo.png";
 import Image from "next/image";
 
-
 //const navLinks = ["Home", "Menu", "Booking", "Pricing"];
 
-const Header = ({ loginHandler }: { loginHandler: MouseEventHandler<HTMLButtonElement> }) => {
-    //const [menuOpen, setMenuOpen] = useState(false);
+const Header = ({
+  loginHandler,
+}: {
+  loginHandler: MouseEventHandler<HTMLButtonElement>;
+}) => {
+  //const [menuOpen, setMenuOpen] = useState(false);
 
-    // Fonction pour basculer l'état du menu
-    // const toggleMenu = () => {
-    //     setMenuOpen(!menuOpen);
-    // };
+  // Fonction pour basculer l'état du menu
+  // const toggleMenu = () => {
+  //     setMenuOpen(!menuOpen);
+  // };
 
-    // Empêche le défilement en arrière-plan lorsque le menu est ouvert
-    // useEffect(() => {
-    //     if (menuOpen) {
-    //         document.body.style.overflow = "hidden";
-    //     } else {
-    //         document.body.style.overflow = "";
-    //     }
-    //     // Nettoyage de l'effet pour éviter les fuites de mémoire
-    //     return () => {
-    //         document.body.style.overflow = "";
-    //     };
-    // }, [menuOpen]);
+  // Empêche le défilement en arrière-plan lorsque le menu est ouvert
+  // useEffect(() => {
+  //     if (menuOpen) {
+  //         document.body.style.overflow = "hidden";
+  //     } else {
+  //         document.body.style.overflow = "";
+  //     }
+  //     // Nettoyage de l'effet pour éviter les fuites de mémoire
+  //     return () => {
+  //         document.body.style.overflow = "";
+  //     };
+  // }, [menuOpen]);
 
-    return (
-        <>
-            <header className="flex justify-between items-center">
+  return (
+    <>
+      <header className="flex justify-between items-center">
+        <h1 className="flex items-center h-2">
+          <div className="text-6xl pb-3 font-black">C</div>
+          <div className="bg-slate-800 rounded-full w-7 h-7">
+            <Image className="w-full h-full" src={logo} alt="logo" />
+          </div>
+          <div className="text-4xl font-black pb-1">ook</div>
+        </h1>
 
-                <h1 className="flex items-center h-2">
-                    <div className="text-6xl pb-3 font-black">C</div>
-                    <div
-
-                        className="bg-slate-800 rounded-full w-7 h-7"
-                    >
-
-                        <Image
-
-                            className="w-full h-full"
-                            src={logo}
-                            alt="logo"
-                        />
-
-                    </div>
-                    <div className="text-4xl font-black pb-1">ook</div>
-                </h1>
-
-                {/* Bouton Menu pour les petits écrans */}
-                {/* <IconButton
+        {/* Bouton Menu pour les petits écrans */}
+        {/* <IconButton
                     onClick={toggleMenu}
                     className="md:hidden text-2xl z-30"
                     aria-label="Menu Button"
@@ -64,8 +56,8 @@ const Header = ({ loginHandler }: { loginHandler: MouseEventHandler<HTMLButtonEl
                     )}
                 </IconButton> */}
 
-                {/* Navigation */}
-                {/* <nav
+        {/* Navigation */}
+        {/* <nav
                     className={`${menuOpen ? "flex" : "hidden"
                     } flex-col md:flex md:flex-row items-center justify-center fixed md:static inset-0 md:inset-auto bg-white md:bg-transparent gap-4 z-20 p-4 md:p-0`}
                 >
@@ -85,13 +77,15 @@ const Header = ({ loginHandler }: { loginHandler: MouseEventHandler<HTMLButtonEl
                     </ul>
                 </nav> */}
 
-                {/* Bouton Login */}
-                <div className="">
-                    <FillButton className="text-lg" onClick={loginHandler}>Get started</FillButton>
-                </div>
-            </header>
-        </>
-    );
+        {/* Bouton Login */}
+        <div className="">
+          <FillButton className="text-lg" onClick={loginHandler}>
+            Get started
+          </FillButton>
+        </div>
+      </header>
+    </>
+  );
 };
 
 export default Header;

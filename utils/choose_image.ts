@@ -1,4 +1,4 @@
-const pickImage = (): Promise<string | null> => {
+const chooseImage = (): Promise<string | null> => {
   return new Promise((resolve, reject) => {
     const input = document.createElement("input");
     input.type = "file";
@@ -28,4 +28,4 @@ const pickImage = (): Promise<string | null> => {
   });
 };
 
-export default pickImage;
+export default chooseImage;

@@ -1,30 +1,18 @@
-import {Timestamp} from "firebase/firestore";
-
 export type Recipe = {
-    image?: string;
-    id?: string;
-    createdBy?: string;
-    name: string;
+    id: bigint;
+    image: string;
+    created_at: Date;
+    recipe_name: string;
+    created_by: string;
     ingredients: string[];
     instructions: string[];
-    duration: string;
-    servings: string;
+    continent: string;
+    language: string;
+    duration_to_cook: number;
+    servings: number;
     difficulty: string;
     cuisine: string;
-    description?: string;
-    nutritionFacts?: {
-        carbone: string;
-        protein: string;
-        fibres: string;
-        sel: string;
-        sodium: string;
-        potassium: string;
-    };
-    diet?: string;
-    language?: string;
-    index?: number;
-    createdAt: Timestamp;
-    continent: string;
-    mealType: string;
-    trainByServer?: boolean;
+    description: string;
+    meal_type: string;
+    nutrition_facts: Record<string, any>;
 }

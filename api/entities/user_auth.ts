@@ -1,11 +1,12 @@
 export type UserAuth = {
     uid: string;
-    fullname: string;
-    photoURL?: string;
-    birthday?: Date;
-    numberOfTokens?: number;
-    lastRequest?: Date;
+    full_name: string;
+    photo_url?: string;
+    birth_date?: string;
+    number_of_tokens?: number;
+    last_request?: string;
     email?: string;
-    createdAt?: Date;
+    created_at?: string;
     status?: boolean;
+    info_message?: string;
 }

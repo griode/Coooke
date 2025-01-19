@@ -1,28 +1,65 @@
-import {compressImageToBase64} from "@/utils/upload_file"
-import {apiConfig} from "@/api/config";
-import {Recipe} from "@/api/entities/recipe";
+import { compressImageToBase64 } from "@/utils/upload_file"
+import { apiConfig } from "@/api/config";
+import { Recipe } from "@/api/entities/recipe";
+
+type BaseType = {
+    base64: string;
+    mimeType: string;
+}
+
+const convertDataURLToBase64 = (dataURL: string): BaseType | null => {
+    // Check if the dataURL is a valid image
+    if (dataURL.startsWith("data:image/")) {
+        const base64 = dataURL.split(",")[1];
+        return {
+            "base64": base64,
+            "mimeType": "image/$ext",
+        };
+    } else {
+        console.error("the dataURL is not a valid image");
+        return null;
+    }
+}
+
 
 
 export class RecipeProvider {
-    static mapRecipes = (data: any): Recipe[] => {
-        const recipes: Recipe[] = [];
-        for (const jsonData of data) {
-            recipes.push(jsonData as Recipe);
+    static async saveRecipe(recipe: Recipe): Promise<boolean> {
+        try {
+            const response = await fetch(`${apiConfig.base_url}/recipe/`, {
+                method: 'POST',
+                headers: apiConfig.request_headers,
+                body: JSON.stringify(recipe),
+            });
+
+            return response.ok;
+        } catch (error) {
+            console.error("Unexpected error:", error);
+            return false;
         }
-        return recipes;
     }
 
-    static convertDataURLToBase64 = (dataURL: string)=> {
-        if (dataURL.startsWith("api:image/")) {
-            const base64 = dataURL.split(",")[1];
-            return {"base64": base64, "mimeType": "image/$ext",};
-        } else {
-            console.error("Le format de l'image n'est pas valide");
+    static async generateImage(image: string): Promise<string | null> {
+        try {
+            const response = await fetch(`${apiConfig.base_url}/generate_image_text/`, {
+                method: 'POST',
+                headers: apiConfig.request_headers,
+                body: JSON.stringify({ text: image }),
+            })
+
+            if (response.ok) {
+                return (await response.json())['url'] as string;;
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error("Unexpected error:", error);
             return null;
         }
     }
 
     static async generateWithDescription(prompt: string): Promise<Recipe[]> {
+        
         try {
             const response = await fetch(`${apiConfig.base_url}/gen_witch_text/`, {
                 method: 'POST',
@@ -31,10 +68,11 @@ export class RecipeProvider {
             })
 
             if (response.ok) {
-                const data = (await response.json())['data'];
-                return RecipeProvider.mapRecipes(data);
+                const recipes = (await response.json())['data'] as Recipe[];
+                return recipes;
+            } else {
+                return [];
             }
-            return [];
         } catch (error) {
             console.error("Unexpected error:", error);
             return [];
@@ -43,13 +81,12 @@ export class RecipeProvider {
 
     // Generate a recipe based on an image
     static async generateWithImage(image: string): Promise<Recipe[]> {
-        const imageCompress = await compressImageToBase64(image, 3)
-        if (!imageCompress) return []
-
-        const imageConvert = RecipeProvider.convertDataURLToBase64(imageCompress)
-        if (!imageConvert)  return []
-
         try {
+            const imageCompress = await compressImageToBase64(image, 3)
+            if (!imageCompress) { return [] }
+            const imageConvert = convertDataURLToBase64(imageCompress)
+            if (!imageConvert) { return [] }
+
             const response = await fetch(`${apiConfig.base_url}/gen_witch_image/`, {
                 method: 'POST',
                 headers: apiConfig.request_headers,
@@ -58,10 +95,8 @@ export class RecipeProvider {
                     "images": [imageConvert],
                 }),
             })
-            console.log(response)
             if (response.ok) {
-                const recipes = (await response.json())['data'];
-                return RecipeProvider.mapRecipes(recipes)
+                return (await response.json()) as Recipe[];
             }
             return []
         } catch (error) {

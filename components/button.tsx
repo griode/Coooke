@@ -18,7 +18,7 @@ export const OutlineButton = ({
   return (
     <button
       onClick={!disabled ? onClick : undefined}
-      className={`font-bold rounded-full border border-slate-400/50 md:text-sm px-4 py-2 
+      className={`font-bold rounded-full border border-slate-400/50 text-sm px-4 py-2 
         ${
           disabled
             ? "bg-gray-200 text-slate-500 border-gray-300 cursor-not-allowed"
@@ -45,7 +45,7 @@ export const FillButton = ({
     <button
       id={id}
       onClick={!disabled ? onClick : undefined}
-      className={`rounded-full border-2 md:text-sm px-4 py-2 
+      className={`rounded-full border-2 text-sm px-4 py-2 
         ${
           disabled
             ? "bg-gray-500 text-white border-gray-400 cursor-not-allowed"
