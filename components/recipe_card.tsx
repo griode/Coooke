@@ -8,6 +8,7 @@ import { PiCookingPot } from "react-icons/pi";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { RecipeProvider } from "@/api/provider/recipe_provider";
 import { useCurrentUser } from "@/hooks/use_current_user";
+import { uploadUrlImage } from "@/utils/upload_file";
 
 const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
   const [showDetail, setShowDetail] = useState(false);
@@ -19,26 +20,21 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
   const toggleDetail = useCallback(() => setShowDetail((prev) => !prev), []);
 
   useEffect(() => {
-    // Save recipe to database
-    const saveRecipe = async () => {
-      if (currentUser) {
-        recipe.created_by = currentUser.uid;
-        await RecipeProvider.saveRecipe(recipe);
-      }
-    };
-
     // Check if the image is a URL or a generated image
     const fetchImage = async () => {
       if (recipe.image.startsWith("https://")) {
         setImage(recipe.image);
       } else {
-        console.log("Generating image...");
         const value = await RecipeProvider.generateImage(recipe.image);
         if (value === null) {
           setLoadImageError(true);
         } else {
           setImage(value);
-          recipe.image = value;
+          if (currentUser) {
+            recipe.image = (await uploadUrlImage(value)) ?? recipe.image;
+            recipe.created_by = currentUser.uid;
+            await RecipeProvider.saveRecipe(recipe);
+          }
         }
       }
     };
@@ -46,7 +42,6 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
     if (runFunction) {
       runFunction = false;
       fetchImage();
-      saveRecipe();
     }
   }, []);
 

@@ -24,6 +24,25 @@ const convertDataURLToBase64 = (dataURL: string): BaseType | null => {
 
 
 export class RecipeProvider {
+    //get last recipes
+    static async getLastRecipes(offset: number, limit: number): Promise<Recipe[] | []> {
+        try {
+            const response = await fetch(`${apiConfig.base_url}/recipes/?offset=${offset}&limit=${limit}`, {
+                method: 'GET',
+                headers: apiConfig.request_headers,
+            })
+            if (response.ok) {
+                const data = (await response.json())['data'] as Recipe[];
+                return data;
+            } else {
+                return [];
+            }
+        } catch (error) {
+            console.error("Unexpected error:", error);
+            return [];
+        }
+    }
+
     static async saveRecipe(recipe: Recipe): Promise<boolean> {
         try {
             const response = await fetch(`${apiConfig.base_url}/recipe/`, {
@@ -59,7 +78,6 @@ export class RecipeProvider {
     }
 
     static async generateWithDescription(prompt: string): Promise<Recipe[]> {
-        
         try {
             const response = await fetch(`${apiConfig.base_url}/gen_witch_text/`, {
                 method: 'POST',

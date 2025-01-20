@@ -1,6 +1,6 @@
 "use client";
 import { PiSparkleDuotone } from "react-icons/pi";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "@/style/scroll-style.css";
 import RecipeCard from "@/components/recipe_card";
 import { Categories, CategoryItem } from "@/app/home/category";
@@ -28,19 +28,23 @@ const HomePage = () => {
   const { currentUser } = useCurrentUser();
   const [recipesGenerated, setRecipesGenerated] = useState<Recipe[]>([]);
 
-  // Check user info exist
+  // Redirect to homepage if user is not logged in
   useEffect(() => {
     if (!currentUser) {
       router.push("/");
     }
   }, [currentUser, router]);
 
-  // Call api to generate recipe
+  // API call to generate a recipe based on description
   const generateRecipe = async () => {
     if (description.length > 3) {
       // Clear textarea
-      const textAreaDescription = document.getElementById("recipe-description") as HTMLTextAreaElement;
+      scrollToTop();
+      const textAreaDescription = document.getElementById(
+        "recipe-description"
+      ) as HTMLTextAreaElement;
       textAreaDescription.value = "";
+
       // Generate recipe
       setServiceLoading("generation");
       const response = await RecipeProvider.generateWithDescription(
@@ -53,10 +57,11 @@ const HomePage = () => {
     }
   };
 
-  // choose image
+  // Handle image upload and generate recipes
   const chooseImageHandler = async () => {
     const image = await chooseImage();
     if (image) {
+      scrollToTop();
       setServiceLoading("generation");
       const response = await RecipeProvider.generateWithImage(image);
       if (response.length > 0) {
@@ -66,7 +71,7 @@ const HomePage = () => {
     }
   };
 
-  // Filter categories
+  // Filter recipes based on selected category
   const filteredRecipes = useMemo(() => {
     if (categorySelected === 0) {
       return recipes;
@@ -87,8 +92,21 @@ const HomePage = () => {
     );
   }, [categorySelected, recipes]);
 
+  const scrollToTop = () => {
+    const container = document.getElementById("home-page");
+    if (container) {
+      container.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
-    <div className="p-4 flex flex-col items-center justify-center relative">
+    <div
+      id="home-page"
+      className="h-full w-full overflow-y-scroll p-4 flex flex-col items-center justify-center relative"
+    >
       <div className="md:w-3/4 relative">
         <NavigationBar />
         <div>

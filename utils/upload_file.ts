@@ -1,53 +1,40 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { storage } from "@/app/firebase";
-import { deleteObject, ref } from "firebase/storage";
-import { v1 } from "uuid";
+import { apiConfig } from "@/api/config";
 import imageCompression from "browser-image-compression";
-import { uploadData } from 'aws-amplify/storage';
+
+
+const options = {
+    maxSizeMB: 2.9,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true,
+};
+
+const base64ToBlob = (base64: string): Blob => {
+    const byteString = atob(base64.split(",")[1]);
+    const mimeString = base64.split(",")[0].split(":")[1].split(";")[0];
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const intArray = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+        intArray[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([arrayBuffer], { type: mimeString });
+};
 
 // Compress an image to a Base64 string
-export async function compressImageToBase64(
+export const compressImageToBase64 = async (
     base64String: string, megabytes: number
-): Promise<string | null> {
-    // Convertir Base64 en Blob
-    const base64ToBlob = (base64: string): Blob => {
-        const byteString = atob(base64.split(",")[1]);
-        const mimeString = base64.split(",")[0].split(":")[1].split(";")[0];
-        const arrayBuffer = new ArrayBuffer(byteString.length);
-        const intArray = new Uint8Array(arrayBuffer);
-        for (let i = 0; i < byteString.length; i++) {
-            intArray[i] = byteString.charCodeAt(i);
-        }
-        return new Blob([arrayBuffer], { type: mimeString });
-    };
-
-    const fileBlob: any = base64ToBlob(base64String);
-
-    // Définir les options initiales de compression
-    const options = {
-        maxSizeMB: 2.9, // Légèrement inférieur à 3 MB
-        maxWidthOrHeight: 1920, // Dimensions maximales
-        useWebWorker: true,
-    };
-
+): Promise<string | null> => {
     try {
+        const fileBlob: any = base64ToBlob(base64String);
         let compressedFile = await imageCompression(fileBlob, options);
 
-        // Vérifier la taille de l'image compressée
         while (compressedFile.size > megabytes * 1024 * 1024) {
-            // Réduire la taille maximale pour compresser davantage
             options.maxSizeMB /= 2;
-
-            // Compresser de nouveau
             compressedFile = await imageCompression(fileBlob, options);
-
-            // Si les options atteignent une limite trop basse
             if (options.maxSizeMB < 0.1) {
-                throw new Error(`Impossible de compresser l'image ${megabytes} Mo.`);
+                console.error(`Error to compress image ${megabytes} Mo.`)
             }
         }
 
-        // Convertir Blob compressé en Base64
         return await imageCompression.getDataUrlFromFile(compressedFile);
     } catch (error) {
         console.error(`Failed to compress image below ${megabytes} Mo: ` + error);
@@ -55,44 +42,22 @@ export async function compressImageToBase64(
     }
 }
 
-// Delete a file from Firebase Storage
-export async function deleteFileByUrl(fileUrl: string): Promise<void> {
+export const uploadUrlImage = async (url: string): Promise<string | null> => {
     try {
-        const fileRef = ref(storage, fileUrl);
-        await deleteObject(fileRef)
-    } catch (error) {
-        console.log("Error to delete image or image dose not existe : " + error);
-    }
-}
-
-export async function uploadBase64ImageCompress(
-    base64String: string,
-    storagePath: string
-): Promise<string | null> {
-    try {
-        // Convertir Blob compressé en Base64
-        const compressedBase64 = await compressImageToBase64(base64String, 0.8);
-
-        // Créer une référence pour le fichier dans Firebase Storage
-        const fileRef = `${storagePath}/${v1()}`;
-
-        // Uploader le Base64 compressé dans Firebase Storage
-        if (!compressedBase64) {
+        console.log(url)
+        const response = await fetch(`${apiConfig.base_url}/upload_image_url/`, {
+            method: 'POST',
+            headers: apiConfig.request_headers,
+            body: JSON.stringify({ url: url }),
+        });
+        if (response.ok) {
+            return (await response.json())['url'] as string;
+        } else {
+            console.log("Upload => error to get image data");
             return null;
         }
-        //await uploadString(fileRef, compressedBase64, StringFormat.DATA_URL);
-        console.log('Uploading compressed Base64 file started ')
-        const result = await uploadData({
-            path: fileRef,
-            // Alternatively, path: ({identityId}) => `album/${identityId}/1.jpg`
-            data: compressedBase64,
-        }).result;
-        console.log('Succeeded: ', result);
-
-        // Obtenir et retourner l'URL de téléchargement
-        return '';
-    } catch (error) {
-        console.error("Failed to upload compressed Base64 file." + error);
+    } catch (e) {
+        console.log(`Error to upload image: ${e}`);
         return null;
     }
 }
