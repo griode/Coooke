@@ -1,4 +1,3 @@
-import { InteractiveButtonFilled } from "@/components/interactive_panel_props";
 import React from "react";
 import { LuEggFried } from "react-icons/lu";
 import { PiCookingPotDuotone } from "react-icons/pi";
