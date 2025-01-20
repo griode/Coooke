@@ -12,12 +12,17 @@ import CircularProgress from "@/components/circular_progress";
 import { useCurrentUser } from "@/hooks/use_current_user";
 import { LoginPage } from "@/app/login_page/loginPage";
 import { routeNames } from "@/app/router/router";
+import { Recipe } from "@/api/entities/recipe";
 
 export default function Home() {
   const starIconStyle = "text-yellow-500 h-5 w-5";
   const router = useRouter();
   const { currentUser, loading } = useCurrentUser();
   const [isLogin, setIsLogin] = useState(false);
+
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loadingRecipes, setLoadingRecipes] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
   const loginHandler = () => {
     setIsLogin(true);
