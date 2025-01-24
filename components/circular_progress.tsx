@@ -1,11 +1,11 @@
 import React from "react";
 
 interface CircularProgressProps {
-  size?: number; // Taille du cercle
-  strokeWidth?: number; // Épaisseur du cercle
-  progress?: number; // Progression (en pourcentage de 0 à 100)
-  color?: string; // Couleur du cercle de progression
-  infinite?: boolean; // Indicateur de progression infinie
+  size?: number; 
+  strokeWidth?: number; 
+  progress?: number; 
+  color?: string; 
+  infinite?: boolean;
 }
 
 const CircularProgress: React.FC<CircularProgressProps> = ({

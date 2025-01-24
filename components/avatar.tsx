@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { useState } from "react";
-import { BsPersonCircle } from "react-icons/bs";
 
 interface AvatarProps {
   src: string;
   alt: string;
-  width: number;
-  height: number;
-  radius?: number;
+  size?: string;
+  radius?: string;
+  width?: number;
+  height?: number;
   name?: string;
   onClick?: () => void;
   className?: string;
@@ -16,9 +16,11 @@ interface AvatarProps {
 export default function Avatar({
   src,
   alt,
-  width,
-  height,
-  name = "V",
+  size = "2.29rem",
+  width = 100,
+  height = 100,
+  radius = "50%",
+  name = "",
   onClick,
   className = "",
 }: AvatarProps) {
@@ -28,6 +30,7 @@ export default function Avatar({
     <div
       onClick={onClick}
       className={`bg-slate-100 cursor-pointer rounded-full overflow-hidden ${className}`}
+      style={{ borderRadius: radius ?? "50%", width: size, height: size }}
     >
       {src === "" || loadingError ? (
         <div className="w-full h-full font-bold flex justify-center items-center">

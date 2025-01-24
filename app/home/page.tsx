@@ -168,7 +168,7 @@ const HomePage = () => {
         <div className="h-40"></div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 md:left-auto md:right-auto flex md:w-3/4 bg-white/80 backdrop-blur-lg">
+      <div className="fixed bottom-0 left-0 right-0 md:left-auto md:right-auto flex md:w-3/4 bg-white/80 md:bg-white backdrop-blur-lg">
         <div className="w-full m-4 md:mx-0">
           <div className="border rounded-2xl w-full bg-white">
             <textarea

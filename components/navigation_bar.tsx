@@ -33,7 +33,7 @@ export const NavigationBar = () => {
         <div className="text-4xl font-black pb-1">ook</div>
       </h1>
       <div className="gap-2 flex">
-        <div className="rounded-full border w-10 h-10 flex items-center justify-center">
+        <div className="rounded-full font-bold border w-10 h-10 flex items-center justify-center">
           {userInfo?.number_of_tokens ?? 0}
         </div>
         <InteractiveButton
