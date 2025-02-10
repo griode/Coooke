@@ -1,8 +1,7 @@
 "use client";
 import { MouseEventHandler, useEffect, useState } from "react";
-// import {BsList, BsListNested} from "react-icons/bs";
 import { FillButton } from "./button";
-import logo from "@/assets/icons/logo.png";
+import logo from "@/app/assets/icons/logo.png";
 import Image from "next/image";
 
 //const navLinks = ["Home", "Menu", "Booking", "Pricing"];

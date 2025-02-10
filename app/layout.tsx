@@ -1,8 +1,8 @@
 "use client";
-import "../style/globals.css";
-import "../style/scroll-style.css";
+import "@/app/style/globals.css";
+import "@/app/style/scroll-style.css";
 import { Analytics } from "@vercel/analytics/react";
-import { UserProviderContext } from "@/hooks/use_current_user";
+import { UserProviderContext } from "@/app/hooks/use_current_user";
 import { Poppins } from "next/font/google";
 import React from "react";
 

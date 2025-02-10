@@ -1,4 +1,4 @@
-import { apiConfig } from "@/api/config";
+import { apiConfig } from "@/app/api/config";
 import imageCompression from "browser-image-compression";
 
 

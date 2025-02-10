@@ -1,5 +1,5 @@
-import { apiConfig } from "@/api/config";
-import { UserAuth } from "@/api/entities/user_auth";
+import { apiConfig } from "@/app/api/config";
+import { UserAuth } from "@/app/api/entities/user_auth";
 
 
 export class UserProvider {

@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "@/app/firebase";
 import { User } from "firebase/auth";
-import { UserAuth } from "@/api/entities/user_auth";
-import { UserProvider } from "@/api/provider/user_provider";
+import { UserAuth } from "@/app/api/entities/user_auth";
+import { UserProvider } from "@/app/api/provider/user_provider";
 
 interface UserContextType {
   currentUser: User | null;

@@ -1,7 +1,7 @@
 import { BsChevronLeft, BsChevronRight, BsStarFill } from "react-icons/bs";
-import cake from "@/assets/icons/cake.png";
-import burger from "@/assets/icons/burger.png";
-import salad from "@/assets/icons/salad.png";
+import cake from "@/app/assets/icons/cake.png";
+import burger from "@/app/assets/icons/burger.png";
+import salad from "@/app/assets/icons/salad.png";
 import Image, { StaticImageData } from "next/image";
 
 interface Category {

@@ -1,23 +1,24 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { Recipe } from "@/api/entities/recipe";
-import { DetailPage } from "@/app/detail_recipe/detail_recipe";
+import { Recipe } from "@/app/api/entities/recipe";
 import Image from "next/image";
 import { PiCookingPot } from "react-icons/pi";
 import { IoFastFoodOutline } from "react-icons/io5";
-import { RecipeProvider } from "@/api/provider/recipe_provider";
-import { useCurrentUser } from "@/hooks/use_current_user";
-import { uploadUrlImage } from "@/utils/upload_file";
+import { RecipeProvider } from "@/app/api/provider/recipe_provider";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
+import { uploadUrlImage } from "@/app/utils/upload_file";
+import { useRouter } from "next/navigation";
+import { routeNames } from "../router/router";
+
+export let recipeSelected: Recipe;
 
 const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
-  const [showDetail, setShowDetail] = useState(false);
   const [loadImageError, setLoadImageError] = useState(false);
   const [image, setImage] = useState<string>("");
   const { currentUser } = useCurrentUser();
   let runFunction = true;
-
-  const toggleDetail = useCallback(() => setShowDetail((prev) => !prev), []);
+  const router = useRouter();
 
   useEffect(() => {
     // Check if the image is a URL or a generated image
@@ -47,13 +48,11 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
 
   return (
     <>
-      {showDetail && (
-        <DetailPage recipe={recipe} setShowDialog={setShowDetail} />
-      )}
       <div
         onClick={(event) => {
           event.stopPropagation();
-          toggleDetail();
+          recipeSelected = recipe;
+          router.push(routeNames.detailRecipe);
         }}
         className="w-full bg-slate-50 rounded-2xl shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow"
       >

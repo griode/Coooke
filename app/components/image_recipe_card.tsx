@@ -1,6 +1,6 @@
 import Image from "next/image";
-import image1 from "@/assets/images/image_1.jpg";
-import image2 from "@/assets/images/image_2.jpg";
+import image1 from "@/app/assets/images/image_1.jpg";
+import image2 from "@/app/assets/images/image_2.jpg";
 import { StaticImageData } from "next/image";
 
 interface Recipe {

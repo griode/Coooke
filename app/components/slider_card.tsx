@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import slide1 from "@/assets/images/slide_1.jpg";
-import slide2 from "@/assets/images/slide_2.jpg";
-import slide3 from "@/assets/images/slide_3.jpg";
+import slide1 from "@/app/assets/images/slide_1.jpg";
+import slide2 from "@/app/assets/images/slide_2.jpg";
+import slide3 from "@/app/assets/images/slide_3.jpg";
 import { useEffect, useState, useMemo } from "react";
 import { BsStarFill } from "react-icons/bs";
 

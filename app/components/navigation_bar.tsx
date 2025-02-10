@@ -1,10 +1,9 @@
 import Avatar from "./avatar";
 import Image from "next/image";
-import logo from "@/assets/icons/logo.png";
-import { useCurrentUser } from "@/hooks/use_current_user";
+import logo from "@/app/assets/icons/logo.png";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
 import { InteractiveButton, InteractivePanel } from "./interactive_panel_props";
 import { HiArrowRightOnRectangle } from "react-icons/hi2";
-import { LiaUserEditSolid } from "react-icons/lia";
 import { OutlineButton } from "./button";
 import { useCallback } from "react";
 import { auth } from "@/app/firebase";

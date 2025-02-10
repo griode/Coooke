@@ -2,20 +2,20 @@
 
 import { PiSparkleDuotone } from "react-icons/pi";
 import React, { useEffect, useMemo, useState } from "react";
-import "@/style/scroll-style.css";
-import RecipeCard from "@/components/recipe_card";
+import "@/app/style/scroll-style.css";
+import RecipeCard from "@/app/components/recipe_card";
 import { Categories, CategoryItem } from "@/app/home/category";
 import { EmptyView } from "@/app/home/empty_view";
-import { FillButton, IconButton } from "@/components/button";
+import { FillButton, IconButton } from "@/app/components/button";
 import { HiOutlinePhoto } from "react-icons/hi2";
-import { NavigationBar } from "@/components/navigation_bar";
+import { NavigationBar } from "@/app/components/navigation_bar";
 import { Example } from "./example";
 import { LoadingRecipe } from "@/app/home/loadingRecipe";
-import { RecipeProvider } from "@/api/provider/recipe_provider";
-import chooseImage from "@/utils/choose_image";
+import { RecipeProvider } from "@/app/api/provider/recipe_provider";
+import chooseImage from "@/app/utils/choose_image";
 import { useRouter } from "next/navigation";
-import { useCurrentUser } from "@/hooks/use_current_user";
-import { Recipe } from "@/api/entities/recipe";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
+import { Recipe } from "@/app/api/entities/recipe";
 
 const HomePage = () => {
   const [categorySelected, setCategorySelected] = useState(0);
@@ -116,7 +116,7 @@ const HomePage = () => {
       id="home-page"
       className="h-full w-full overflow-y-scroll p-4 flex flex-col items-center justify-center relative"
     >
-      <div className="md:w-3/4 relative">
+      <div className="lg:w-3/4 relative">
         <NavigationBar />
 
         <div className="my-4">
@@ -168,8 +168,8 @@ const HomePage = () => {
         <div className="h-40"></div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 md:left-auto md:right-auto flex md:w-3/4 bg-white/80 md:bg-white backdrop-blur-lg">
-        <div className="w-full m-4 md:mx-0">
+      <div className="fixed bottom-0 left-0 right-0 md:left-auto md:right-auto flex w-full lg:w-3/4 bg-white/80 md:bg-white backdrop-blur-lg">
+        <div className="w-full m-4 lg:mx-0">
           <div className="border rounded-2xl w-full bg-white">
             <textarea
               onChange={(e) => setDescription(e.target.value)}

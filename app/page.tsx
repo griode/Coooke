@@ -1,18 +1,18 @@
 "use client";
 import { BsSearch, BsStarFill } from "react-icons/bs";
-import { CategorySection } from "@/components/category_card";
-import { SliderCard } from "@/components/slider_card";
-import Header from "@/components/header";
-import { RecipeSection } from "@/components/image_recipe_card";
+import { CategorySection } from "@/app/components/category_card";
+import { SliderCard } from "@/app/components/slider_card";
+import Header from "@/app/components/header";
+import { RecipeSection } from "@/app/components/image_recipe_card";
 import Image from "next/image";
-import arrow from "@/assets/icons/arrow.png";
+import arrow from "@/app/assets/icons/arrow.png";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import CircularProgress from "@/components/circular_progress";
-import { useCurrentUser } from "@/hooks/use_current_user";
+import CircularProgress from "@/app/components/circular_progress";
+import { useCurrentUser } from "@/app/hooks/use_current_user";
 import { LoginPage } from "@/app/login_page/loginPage";
 import { routeNames } from "@/app/router/router";
-import { Recipe } from "@/api/entities/recipe";
+import { Recipe } from "@/app/api/entities/recipe";
 
 export default function Home() {
   const starIconStyle = "text-yellow-500 h-5 w-5";

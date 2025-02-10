@@ -1,6 +1,6 @@
-import { compressImageToBase64 } from "@/utils/upload_file"
-import { apiConfig } from "@/api/config";
-import { Recipe } from "@/api/entities/recipe";
+import { compressImageToBase64 } from "@/app/utils/upload_file"
+import { apiConfig } from "@/app/api/config";
+import { Recipe } from "@/app/api/entities/recipe";
 
 type BaseType = {
     base64: string;

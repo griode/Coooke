@@ -1,6 +1,6 @@
 import Image from "next/image";
-import recipe1 from "@/assets/images/image_1.jpg";
-import recipe2 from "@/assets/images/image_2.jpg";
+import recipe1 from "@/app/assets/images/image_1.jpg";
+import recipe2 from "@/app/assets/images/image_2.jpg";
 
 type RecipeExample = {
   image: string;
