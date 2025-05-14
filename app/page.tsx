@@ -1,63 +1,51 @@
 "use client";
-import { BsSearch, BsStarFill } from "react-icons/bs";
-import { CategorySection } from "@/app/components/category_card";
-import { SliderCard } from "@/app/components/slider_card";
-import Header from "@/app/components/header";
-import { RecipeSection } from "@/app/components/image_recipe_card";
-import Image from "next/image";
-import arrow from "@/app/assets/icons/arrow.png";
-import { useRouter } from "next/navigation";
+
 import { useEffect, useState } from "react";
-import CircularProgress from "@/app/components/circular_progress";
-import { useCurrentUser } from "@/app/hooks/use_current_user";
-import { LoginPage } from "@/app/login_page/loginPage";
-import { routeNames } from "@/app/router/router";
-import { Recipe } from "@/app/api/entities/recipe";
+import { Recipe } from "./api/entities/recipe";
+import { RecipeProvider } from "./api/provider/recipe_provider";
+import Header from "@/components/widgets/header";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { SliderCard } from "@/components/widgets/slider_card";
+import RecipeCard from "@/components/widgets/recipe_card";
+import { RecipeSection } from "@/components/widgets/image_recipe_card";
+import { CategorySection } from "@/components/widgets/category_card";
+import { Search } from "lucide-react";
+import arrow from "@/app/assets/icons/arrow.png";
+import RecipeCreator from "@/components/widgets/recipe-composer";
+import { SkeletonCard } from "@/components/widgets/skeleton-card";
 
 export default function Home() {
-  const starIconStyle = "text-yellow-500 h-5 w-5";
-  const router = useRouter();
-  const { currentUser, loading } = useCurrentUser();
-  const [isLogin, setIsLogin] = useState(false);
-
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [loadingRecipes, setLoadingRecipes] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  const loginHandler = () => {
-    setIsLogin(true);
-  };
+  const [recipesData, setRecipes] = useState<Recipe[]>([]);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(20); // nombre total de pages
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const getUserHandler = async () => {
-      if (currentUser !== null) {
-        router.push(routeNames.home);
+    const fetchRecipes = async () => {
+      setLoading(true);
+      try {
+        const { recipes, totalCount } = await RecipeProvider.getLastRecipes(page, totalPages);
+        setRecipes([...recipesData, ...recipes]);
+      } catch (error) {
+        console.error("Error fetching recipes:", error);
+        setRecipes([]);
       }
+      setLoading(false);
     };
-    // Call the function
-    getUserHandler().then(() => console.log("Page loaded"));
-  }, [currentUser, router]);
 
-  if (loading) {
-    return (
-      <div className="w-screen h-screen  flex justify-center items-center">
-        <CircularProgress size={40} />
-      </div>
-    );
-  }
+    fetchRecipes();
+  }, [page, totalPages]);
 
   return (
     <main className="overflow-x-hidden w-screen">
-      {isLogin ? <LoginPage closeAction={setIsLogin} /> : <></>}
-      <div className="lg:mx-16 my-6 mx-6">
-        <Header loginHandler={loginHandler} />
+      <div className="lg:mx-16 m-4 md:m-8">
+        <Header />
         <section className="flex flex-col md:flex-row mt-12 md:space-x-8 space-y-6 lg:space-y-0">
           <div className="lg:w-1/2 w-full">
-            <h2 className="text-5xl lg:text-6xl font-bold">
+            <h2 className="text-4xl lg:text-6xl font-bold">
               <div>
-                <div
-                  className={`ml-12 bg-[url('../assets/images/text_bg.jpg')] bg-clip-text bg-cover bg-center text-transparent`}
-                >
+                <div className={`ml-12 bg-[url('../assets/images/text_bg.jpg')] bg-clip-text bg-cover bg-center text-transparent`}>
                   <span className="text-transparent bg-clip-text bg-cover bg-gradient-to-r from-85% from-slate-800 to-transparent">
                     Fresh
                   </span>{" "}
@@ -70,11 +58,7 @@ export default function Home() {
                   Great
                   <span className="relative ml-4">
                     Taste
-                    <Image
-                      className="absolute w-40 top-0 left-4"
-                      src={arrow}
-                      alt="fleche"
-                    />
+                    <Image className="absolute w-40 top-0 left-4" src={arrow} alt="fleche" />
                   </span>
                 </div>
               </div>
@@ -84,10 +68,9 @@ export default function Home() {
               resource for anyone looking to start a food business or take their
               culinary skills to the next level.
             </p>
-            <div className="mt-12 rounded-full justify-end flex items-center">
+            <div className="rounded-full mt-5 justify-end flex items-center">
               <input
                 readOnly={true}
-                onClick={loginHandler}
                 className="focus:bg-transparent shadow-lg shadow-slate-100 border outline-none text-sm pl-8 py-4 rounded-full bg-transparent w-full"
                 type="search"
                 name="search"
@@ -95,23 +78,17 @@ export default function Home() {
                 placeholder="Find Great Food"
               />
               <button className="bg-slate-800 rounded-full text-white absolute mr-1">
-                <BsSearch className="m-3 h-6 w-6" />
+                <Search className="m-3 h-6 w-6" />
               </button>
             </div>
+            <RecipeCreator />
           </div>
           <div className="lg:w-1/2 w-full">
             <SliderCard />
-            <div className="w-full bg-slate-800 text-white rounded-3xl px-8 py-4 mt-4 flex items-center justify-between">
-              <p className="font-bold text-lg">1,000 + Ratings</p>
-              <div className="flex gap-2">
-                <BsStarFill className={starIconStyle} />
-                <BsStarFill className={starIconStyle} />
-                <BsStarFill className={starIconStyle} />
-                <BsStarFill className={starIconStyle} />
-              </div>
-            </div>
           </div>
         </section>
+
+        <h2 className="mt-12 font-bold text-2xl mb-4">Popular Recipes</h2>
         <div className="mt-5 md:mt-0 flex space-y-5 md:space-y-0 md:space-x-12 flex-col md:flex-row">
           <div className="w-full md:w-1/2 flex justify-center">
             <CategorySection />
@@ -120,6 +97,34 @@ export default function Home() {
             <RecipeSection />
           </div>
         </div>
+
+        <hr className="my-8" />
+        <div className="my-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 py-2">
+            {recipesData.map((recipe, index) => (
+              <RecipeCard key={recipe.id || index} recipe={recipe} />
+            ))}
+
+            {
+              loading && (Array(20).fill(0).map((_, index) => (
+                <SkeletonCard key={index} />
+              )))
+            }
+          </div>
+        </div>
+        <div className="flex justify-center space-x-4">
+          <Button
+            onClick={() => {
+              setLoading(true);
+              setPage(totalPages + 1)
+              setTotalPages(totalPages + 20)
+            }}
+            variant={'outline'}
+          >
+            Show more
+          </Button>
+        </div>
+        <div className="h-36" />
       </div>
     </main>
   );

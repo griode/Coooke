@@ -8,7 +8,6 @@ type BaseType = {
 }
 
 const convertDataURLToBase64 = (dataURL: string): BaseType | null => {
-    // Check if the dataURL is a valid image
     if (dataURL.startsWith("data:image/")) {
         const base64 = dataURL.split(",")[1];
         return {
@@ -24,8 +23,25 @@ const convertDataURLToBase64 = (dataURL: string): BaseType | null => {
 
 
 export class RecipeProvider {
+    static async getRecipe(id: string): Promise<{ recipe: Recipe | null }> {
+        try {
+            const response = await fetch(`${apiConfig.base_url}/recipe/?recipe_id=${id}`, {
+                method: 'GET',
+                headers: apiConfig.request_headers,
+            })
+            if (response.ok) {
+                const data = (await response.json())['data'][0] as Recipe;
+                return { recipe: data };
+            } else {
+                return { recipe: null };
+            }
+        } catch (error) {
+            console.error("Unexpected error:", error);
+            return { recipe: null };
+        }
+    }
     //get last recipes
-    static async getLastRecipes(offset: number, limit: number): Promise<Recipe[] | []> {
+    static async getLastRecipes(offset: number, limit: number): Promise<{ recipes: Recipe[], totalCount: number }> {
         try {
             const response = await fetch(`${apiConfig.base_url}/recipes/?offset=${offset}&limit=${limit}`, {
                 method: 'GET',
@@ -33,13 +49,14 @@ export class RecipeProvider {
             })
             if (response.ok) {
                 const data = (await response.json())['data'] as Recipe[];
-                return data;
+                return { recipes: data, totalCount: 20 };
+
             } else {
-                return [];
+                return { recipes: [], totalCount: 0 };
             }
         } catch (error) {
             console.error("Unexpected error:", error);
-            return [];
+            return { recipes: [], totalCount: 0 };
         }
     }
 
@@ -120,6 +137,23 @@ export class RecipeProvider {
         } catch (error) {
             console.error("Unexpected error:", error)
             return [];
+        }
+    }
+
+    static async getTotalRecipes(): Promise<number> {
+        try {
+            const response = await fetch(`${apiConfig.base_url}/recipes/count/`, {
+                method: 'GET',
+                headers: apiConfig.request_headers,
+            })
+            if (response.ok) {
+                return (await response.json())['count'] as number;
+            } else {
+                return 0;
+            }
+        } catch (error) {
+            console.error("Unexpected error:", error);
+            return 20;
         }
     }
 }
