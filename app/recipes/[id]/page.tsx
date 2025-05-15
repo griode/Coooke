@@ -170,6 +170,7 @@ const DetailRecipe = () => {
                   </div>
                 ))}
               </div>
+              <div className="h-0 md:h-20"></div>
             </div>
           </div>
           {/* Recipe detail view */}

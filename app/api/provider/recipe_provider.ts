@@ -60,18 +60,22 @@ export class RecipeProvider {
         }
     }
 
-    static async saveRecipe(recipe: Recipe): Promise<boolean> {
+    static async saveRecipe(recipe: Recipe): Promise<{ success: boolean, recipe: Recipe | null }> {
         try {
+            recipe.created_by = '1'
             const response = await fetch(`${apiConfig.base_url}/recipe/`, {
                 method: 'POST',
                 headers: apiConfig.request_headers,
                 body: JSON.stringify(recipe),
             });
-
-            return response.ok;
+            if (response.ok) {
+                const recipeSave = (await response.json())['data'][0] as Recipe;
+                return { success: true, recipe: recipeSave };
+            }
+            return { success: false, recipe: null };
         } catch (error) {
             console.error("Unexpected error:", error);
-            return false;
+            return { success: false, recipe: null };
         }
     }
 
@@ -94,12 +98,12 @@ export class RecipeProvider {
         }
     }
 
-    static async generateWithDescription(prompt: string): Promise<Recipe[]> {
+    static async generateWithDescription(prompt: string, language: string = "en"): Promise<Recipe[]> {
         try {
             const response = await fetch(`${apiConfig.base_url}/gen_witch_text/`, {
                 method: 'POST',
                 headers: apiConfig.request_headers,
-                body: JSON.stringify({ text: prompt, language: "en" }),
+                body: JSON.stringify({ text: prompt, language: language }),
             })
 
             if (response.ok) {
@@ -115,7 +119,7 @@ export class RecipeProvider {
     }
 
     // Generate a recipe based on an image
-    static async generateWithImage(image: string): Promise<Recipe[]> {
+    static async generateWithImage(image: string, language: string = "en"): Promise<Recipe[]> {
         try {
             const imageCompress = await compressImageToBase64(image, 3)
             if (!imageCompress) { return [] }
@@ -126,7 +130,7 @@ export class RecipeProvider {
                 method: 'POST',
                 headers: apiConfig.request_headers,
                 body: JSON.stringify({
-                    "language": "en",
+                    "language": language,
                     "images": [imageConvert],
                 }),
             })

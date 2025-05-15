@@ -1,5 +1,5 @@
 export type Recipe = {
-    id: bigint;
+    id: number;
     image: string;
     created_at: Date;
     recipe_name: string;
