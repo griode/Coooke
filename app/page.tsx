@@ -17,15 +17,15 @@ import { SkeletonCard } from "@/components/widgets/skeleton-card";
 
 export default function Home() {
   const [recipesData, setRecipes] = useState<Recipe[]>([]);
-  const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(20); // nombre total de pages
+  const [lastRecipeIndex, setLastRecipeIndex] = useState(0);
+  const [recipesToLoad, setRecipesToLoad] = useState(25);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchRecipes = async () => {
       setLoading(true);
       try {
-        const { recipes, totalCount } = await RecipeProvider.getLastRecipes(page, totalPages);
+        const { recipes } = await RecipeProvider.getLastRecipes(lastRecipeIndex, recipesToLoad);
         setRecipes([...recipesData, ...recipes]);
       } catch (error) {
         console.error("Error fetching recipes:", error);
@@ -33,9 +33,8 @@ export default function Home() {
       }
       setLoading(false);
     };
-
     fetchRecipes();
-  }, [page, totalPages]);
+  }, [lastRecipeIndex, recipesToLoad]);
 
   return (
     <main className="overflow-x-hidden w-screen">
@@ -116,8 +115,8 @@ export default function Home() {
           <Button
             onClick={() => {
               setLoading(true);
-              setPage(totalPages + 1)
-              setTotalPages(totalPages + 20)
+              setLastRecipeIndex(recipesToLoad + 1)
+              setRecipesToLoad(recipesToLoad + 20)
             }}
             variant={'outline'}
           >

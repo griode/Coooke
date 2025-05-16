@@ -1,6 +1,6 @@
 'use client'
 
-import { Beef, Circle, CircleCheck, CookingPot, Flame, House, Printer, Share, User } from "lucide-react";
+import { Beef, ChevronLeft, Circle, CircleCheck, CookingPot, Flame, House, Printer, Share, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Recipe } from "@/app/api/entities/recipe";
@@ -36,7 +36,6 @@ const Instruction = ({ instruction }: { instruction: string }) => {
       className="flex p-2 rounded-lg text-sm space-x-2 cursor-pointer"
     >
       <div>{isOpen ? <CircleCheck className="w-4 h-4" /> : <Circle className="w-4 h-4" />}</div>
-
       <div className={isOpen ? "line-through" : ""}>{instruction}</div>
     </div>
   )
@@ -78,10 +77,11 @@ const DetailRecipe = () => {
         height={500}
       />
       <div className="absolute p-2 md:p-5 top-0 bottom-0 left-0 right-0 bg-background/80 backdrop-blur-3xl overflow-y-scroll md:overflow-y-hidden">
-        <div className="rounded-lg bg-background/50 p-2 mb-4 flex items-center justify-between">
+        <div className="rounded-xl sticky top-0 bg-background/60 backdrop-blur-3xl p-2 mb-4 flex items-center justify-between">
           <Button
+
             onClick={() => router.push("/")}
-            variant="secondary"><House /> My Recipes</Button>
+            variant="secondary"><ChevronLeft/>Back</Button>
           <div className="flex space-x-2">
             <Button
               onClick={async () => {

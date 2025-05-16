@@ -8,7 +8,6 @@ import { IoFastFoodOutline } from "react-icons/io5";
 import { RecipeProvider } from "@/app/api/provider/recipe_provider";
 import { uploadUrlImage } from "@/app/utils/upload_file";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
   const [loadImageError, setLoadImageError] = useState(false);
@@ -18,30 +17,15 @@ const RecipeCard = ({ recipe }: { recipe: Recipe }) => {
 
   // Handler for saving recipes
   const saveRecipesHandler = async (recipeToSave: Recipe): Promise<Recipe | null> => {
-    // No separate loading state for this, as it's part of the generation flow
-    // However, a separate toast can indicate saving progress if it were a standalone action.
     try {
       const { success, recipe } = await RecipeProvider.saveRecipe(recipeToSave)
       if (success) {
-        // This toast might be redundant if generation success toast is already shown.
-        // Consider if a separate "saved" confirmation is needed or if generation success implies saving.
-        // For now, let's assume it's good to have a specific save confirmation.
-        toast.info(`Sauvegarde terminée`, {
-          description: `recette enregistrée(s) avec succès.`,
-        });
+        console.log("Recipe saved:", recipe);
         return recipe
-      } else {
-        // Only show error if there were recipes to save
-        toast.error("Erreur lors de la sauvegarde", {
-          description: "Aucune des nouvelles recettes n'a pu être sauvegardée.",
-        });
-        return null
       }
+      return null
     } catch (error) {
       console.error("Error saving recipes:", error);
-      toast.error("Erreur de sauvegarde", {
-        description: "Un problème est survenu lors de la sauvegarde des recettes.",
-      });
       return null
     }
   };

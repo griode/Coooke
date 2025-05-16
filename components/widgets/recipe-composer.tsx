@@ -14,7 +14,6 @@ import {
     Sheet,
     SheetContent,
     SheetDescription,
-    SheetFooter,
     SheetHeader,
     SheetTitle,
     SheetTrigger,
@@ -29,27 +28,27 @@ import { useEffect } from "react";
 export function RecipeListPanel({
     open = false,
     recipes = [],
-    setOpen,
+    onOpenChange,
     prompt
 }: {
     open?: boolean,
     recipes?: Recipe[],
-    setOpen: (isOpen: boolean) => void, // More specific type for setOpen
+    onOpenChange: (isOpen: boolean) => void,
     prompt?: string
 }) {
     return (
-        <Sheet open={open} onOpenChange={setOpen}>
+        <Sheet open={open} onOpenChange={onOpenChange}>
             <SheetTrigger asChild>
                 {/* Trigger is handled externally in this setup */}
             </SheetTrigger>
-            <SheetContent className="overflow-y-scroll"> {/* Added sm:max-w-lg for better responsiveness on larger screens */}
+            <SheetContent className="overflow-y-scroll">
                 <SheetHeader>
                     <SheetTitle>Recettes</SheetTitle>
-                    {prompt && ( // Conditionally render description if prompt exists
+                    {prompt && (
                         <SheetDescription className="text-xs bg-gray-500/10 rounded-md p-2 italic">{prompt}</SheetDescription>
                     )}
                 </SheetHeader>
-                <div className="grid gap-4 py-4"> {/* Removed overflow-y-scroll here as SheetContent handles it */}
+                <div className="grid gap-4 py-4">
                     {recipes.length > 0 ? (
                         recipes.map((recipe, index) => (
                             <RecipeCard key={recipe.id || index} recipe={recipe} />
@@ -58,9 +57,6 @@ export function RecipeListPanel({
                         <p className="text-sm text-muted-foreground text-center py-4">Aucune recette à afficher pour le moment.</p>
                     )}
                 </div>
-                <SheetFooter>
-                    {/* Footer content can be added here if needed */}
-                </SheetFooter>
             </SheetContent>
         </Sheet>
     );
@@ -202,7 +198,7 @@ const RecipeCreator: React.FC = () => {
             <RecipeListPanel
                 open={isSheetOpen}
                 recipes={recipes}
-                setOpen={handleCloseSheet}
+                onOpenChange={handleCloseSheet}
                 prompt={currentPrompt}
             />
 
