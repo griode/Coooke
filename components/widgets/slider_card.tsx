@@ -25,13 +25,13 @@ export const SliderCard = () => {
   }, [slides.length]);
 
   return (
-    <div className="relative w-full h-80 bg-black rounded-3xl overflow-hidden">
+    <div className="relative w-full h-80 bg-background rounded-3xl overflow-hidden">
       {/* Badge "Top-Rated Foods" */}
       <div className="absolute top-4 left-4 z-10 flex items-center space-x-2">
-        <div className="bg-black p-2 rounded-full">
+        <div className="bg-background/65 backdrop-blur-xl p-2 rounded-full">
           <BsStarFill className="text-yellow-500 h-5 w-5" />
         </div>
-        <h6 className="text-sm bg-white/80 px-4 py-2 rounded-full backdrop-blur-sm">
+        <h6 className="text-sm bg-background/65 backdrop-blur-xl px-4 py-2 rounded-full">
           Show Top-Rated Foods
         </h6>
       </div>

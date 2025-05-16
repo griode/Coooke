@@ -45,13 +45,18 @@ export default function Home() {
             <h2 className="text-4xl lg:text-6xl font-bold">
               <div>
                 <div className={`ml-12 bg-[url('../assets/images/text_bg.jpg')] bg-clip-text bg-cover bg-center text-transparent`}>
-                  <span className="text-transparent bg-clip-text bg-cover bg-gradient-to-r from-85% from-slate-800 to-transparent">
+                  <span
+                    className="text-transparent bg-clip-text bg-cover bg-gradient-to-r from-85% 
+                    from-slate-800 to-transparent
+                    dark:from-white
+                    light:from-slate-800 light:to-transparent"
+                  >
                     Fresh
                   </span>{" "}
                   Food
                 </div>
                 <div className="flex">
-                  <div className="italic font-medium pb-2 pr-2 text-green-800/70 text-3xl lg:text-4xl">
+                  <div className="italic font-medium pb-2 pr-2 text-green-800 dark:text-green-600 text-3xl lg:text-4xl">
                     With{" "}
                   </div>
                   Great
@@ -70,7 +75,7 @@ export default function Home() {
             <div className="rounded-full mt-5 justify-end flex items-center">
               <input
                 readOnly={true}
-                className="focus:bg-transparent shadow-lg shadow-slate-100 border outline-none text-sm pl-8 py-4 rounded-full bg-transparent w-full"
+                className="focus:bg-transparent shadow-md border outline-none text-sm pl-8 py-4 rounded-full bg-transparent w-full"
                 type="search"
                 name="search"
                 id="search"
@@ -99,7 +104,7 @@ export default function Home() {
 
         <hr className="my-8" />
         <div className="my-5">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 py-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 py-2">
             {recipesData.map((recipe, index) => (
               <RecipeCard key={recipe.id || index} recipe={recipe} />
             ))}

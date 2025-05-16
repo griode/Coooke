@@ -77,11 +77,11 @@ const DetailRecipe = () => {
         height={500}
       />
       <div className="absolute p-2 md:p-5 top-0 bottom-0 left-0 right-0 bg-background/80 backdrop-blur-3xl overflow-y-scroll md:overflow-y-hidden">
-        <div className="rounded-xl sticky top-0 bg-background/60 backdrop-blur-3xl p-2 mb-4 flex items-center justify-between">
+        <div className="rounded-xl sticky top-0 bg-background/40 backdrop-blur-3xl p-2 mb-4 flex items-center justify-between">
           <Button
 
             onClick={() => router.push("/")}
-            variant="secondary"><ChevronLeft/>Back</Button>
+            variant="secondary"><ChevronLeft />Back</Button>
           <div className="flex space-x-2">
             <Button
               onClick={async () => {
@@ -107,7 +107,7 @@ const DetailRecipe = () => {
           </div>
         </div>
         <div className="flex flex-col md:flex-row h-full gap-5">
-          <div className="md:w-80 rounded-xl md:h-full bg-white/50 p-2 overflow-y-visible md:overflow-y-scroll">
+          <div className="md:w-80 rounded-xl md:h-full bg-background/40 p-2 overflow-y-visible md:overflow-y-scroll">
             <Image
               className="rounded-xl w-full mb-5"
               src={recipe.image}
@@ -128,7 +128,7 @@ const DetailRecipe = () => {
                     <span>{`${recipe.servings} reviews`}</span>
                   </div>
                 </div>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm">
                   {showFullDescription
                     ? recipe.description
                     : `${recipe.description?.substring(0, 100)}...`}
@@ -164,7 +164,7 @@ const DetailRecipe = () => {
                 {recipe.ingredients.map((ingredient, index) => (
                   <div
                     key={index}
-                    className="bg-white p-2 text-sm rounded-lg"
+                    className="bg-background/40 p-2 text-sm rounded-lg"
                   >
                     {ingredient}
                   </div>
@@ -187,7 +187,7 @@ const DetailRecipe = () => {
                   <span>{`${recipe.servings} reviews`}</span>
                 </div>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm">
                 {showFullDescription
                   ? recipe.description
                   : `${recipe.description?.substring(0, 100)}...`}
@@ -219,7 +219,7 @@ const DetailRecipe = () => {
               </div>
             </div>
             {/* Recipe instructions component */}
-            <div className="bg-white/50 p-2 rounded-xl">
+            <div className="bg-background/40 p-2 rounded-xl">
               <h2 className="font-bold mb-2">Instructions</h2>
               <div className="space-y-2">
                 {recipe.instructions.map((instruction, index) => (

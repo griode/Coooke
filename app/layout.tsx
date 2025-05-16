@@ -1,8 +1,9 @@
 "use client";
 import "@/app/style/globals.css";
 import "@/app/style/scroll-style.css";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
-import { Montserrat} from "next/font/google";
+import { Montserrat } from "next/font/google";
 import React from "react";
 
 const montserrat = Montserrat({
@@ -18,11 +19,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head />
       <body
-        className={`${montserrat.className} antialiased bg-white text-slate-800`}
+        className={`${montserrat.className}`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme={'system'}
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

@@ -212,7 +212,7 @@ const RecipeCreator: React.FC = () => {
                             <span className="sr-only">Ajouter une image</span>
                         </Button>
                         <textarea
-                            rows={onFocus? 4 : 2}
+                            rows={onFocus ? 4 : 2}
                             className="bg-transparent mt-1.5 w-full outline-none resize-none"
                             name="search"
                             id="search"
