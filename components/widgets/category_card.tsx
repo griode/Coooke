@@ -40,17 +40,11 @@ export const CategorySection = () => {
   return (
     <div className="w-fit">
       <div className="flex items-center justify-between space-x-2">
-        <button className="rounded-full p-2 hover:bg-gray-200">
-          <BsChevronLeft className="w-5 h-5" />
-        </button>
         <div className="grid grid-cols-3 gap-4 mt-4">
           {listCategories.map((category, index) => (
             <CategoryCard key={index} {...category} />
           ))}
         </div>
-        <button className="rounded-full p-2 hover:bg-gray-200">
-          <BsChevronRight className="w-5 h-5" />
-        </button>
       </div>
     </div>
   );

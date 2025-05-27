@@ -188,28 +188,23 @@ const RecipeCreator: React.FC = () => {
 
     return (
         <>
-            {/* The Toaster component is essential for sonner to display toasts.
-              It can be placed at a higher level in your app (e.g., layout component)
-              or here if this component is a primary view.
-              `richColors` and `position` are common props for styling.
-            */}
             <Toaster richColors position="top-right" />
-
             <RecipeListPanel
                 open={isSheetOpen}
                 recipes={recipes}
                 onOpenChange={handleCloseSheet}
                 prompt={currentPrompt}
             />
-
             {/* Main input area for recipe generation */}
-
             <div className={`fixed transition-all duration-300 z-40 flex justify-center items-center left-2 right-2 bottom-2`}>
                 <div className={`mt-12 border p-2 backdrop-blur-2xl  md:w-2/3 rounded-2xl bg-background/80 ${(onFocus || search.length > 0) ? 'w-full' : ''}`}>
                     <div className="flex gap-2"> {/* items-start to align button and textarea top */}
-                        <Button onClick={chooseImageHandler} size="icon" variant="ghost" className="" disabled={isLoading}>
+                        <Button onClick={e => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            chooseImageHandler();
+                        }} size="icon" variant="ghost" disabled={isLoading}>
                             <Plus />
-                            <span className="sr-only">Ajouter une image</span>
                         </Button>
                         <textarea
                             rows={onFocus ? 4 : 2}
@@ -218,7 +213,11 @@ const RecipeCreator: React.FC = () => {
                             id="search"
                             placeholder="Décrivez votre plat idéal, ex: 'Poulet curry coco, rapide et facile'..."
                             value={search}
-                            onChange={e => setSearch(e.target.value)}
+                            onChange={e => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setSearch(e.target.value)
+                            }}
                             onFocus={() => setOnFocus(true)}
                             onBlur={() => setOnFocus(false)}
                         ></textarea>

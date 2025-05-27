@@ -93,11 +93,11 @@ export default function Home() {
         </section>
 
         <h2 className="mt-12 font-bold text-2xl mb-4">Popular Recipes</h2>
-        <div className="mt-5 md:mt-0 flex space-y-5 md:space-y-0 md:space-x-12 flex-col md:flex-row">
-          <div className="w-full md:w-1/2 flex justify-center">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+          <div className="md:w-1/2 w-full flex justify-center items-center">
             <CategorySection />
           </div>
-          <div className="w-full md:w-1/2 flex">
+          <div className="w-full md:w-1/2 flex justify-center items-center">
             <RecipeSection />
           </div>
         </div>

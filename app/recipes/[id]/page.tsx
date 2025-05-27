@@ -33,7 +33,7 @@ const Instruction = ({ instruction }: { instruction: string }) => {
   return (
     <div
       onClick={() => setIsOpen(!isOpen)}
-      className="flex p-2 rounded-lg text-sm space-x-2 cursor-pointer"
+      className="flex rounded-lg text-sm space-x-2 cursor-pointer"
     >
       <div>{isOpen ? <CircleCheck className="w-4 h-4" /> : <Circle className="w-4 h-4" />}</div>
       <div className={isOpen ? "line-through" : ""}>{instruction}</div>
@@ -76,10 +76,9 @@ const DetailRecipe = () => {
         width={500}
         height={500}
       />
-      <div className="absolute p-2 md:p-5 top-0 bottom-0 left-0 right-0 bg-background/80 backdrop-blur-3xl overflow-y-scroll md:overflow-y-hidden">
-        <div className="rounded-xl sticky top-0 bg-background/40 backdrop-blur-3xl p-2 mb-4 flex items-center justify-between">
+      <div className="absolute top-0 bottom-0 left-0 right-0 bg-background/80 backdrop-blur-3xl overflow-y-scroll md:overflow-y-hidden">
+        <div className="sticky top-0 bg-background/40 backdrop-blur-3xl p-2 flex items-center justify-between">
           <Button
-
             onClick={() => router.push("/")}
             variant="secondary"><ChevronLeft />Back</Button>
           <div className="flex space-x-2">
@@ -106,8 +105,8 @@ const DetailRecipe = () => {
               variant="ghost" size={"icon"}><Printer /></Button>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row h-full gap-5">
-          <div className="md:w-80 rounded-xl md:h-full bg-background/40 p-2 overflow-y-visible md:overflow-y-scroll">
+        <div className="flex flex-col md:flex-row h-full">
+          <div className="md:w-80 md:min-w-80 md:h-full bg-background/40 p-4 overflow-y-visible md:overflow-y-scroll">
             <Image
               className="rounded-xl w-full mb-5"
               src={recipe.image}
@@ -174,7 +173,7 @@ const DetailRecipe = () => {
             </div>
           </div>
           {/* Recipe detail view */}
-          <div className="overflow-y-visible md:overflow-y-scroll">
+          <div className="overflow-y-visible md:overflow-y-scroll py-2 md:px-5">
             <div className="hidden md:block space-y-4 mb-5">
               <h1 className="text-2xl font-bold">{recipe.recipe_name}</h1>
               <div className="flex space-x-4">
@@ -219,9 +218,9 @@ const DetailRecipe = () => {
               </div>
             </div>
             {/* Recipe instructions component */}
-            <div className="bg-background/40 p-2 rounded-xl">
-              <h2 className="font-bold mb-2">Instructions</h2>
-              <div className="space-y-2">
+            <div className="bg-background/40 md:rounded-xl p-4 mb-16">
+              <h2 className="font-bold mb-4">Instructions</h2>
+              <div className="space-y-4">
                 {recipe.instructions.map((instruction, index) => (
                   <Instruction key={index} instruction={instruction} />
                 ))}
@@ -229,7 +228,6 @@ const DetailRecipe = () => {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
