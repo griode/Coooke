@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import { Beef, ChevronLeft, Circle, CircleCheck, CookingPot, Flame, House, Printer, Share, User } from "lucide-react";
+import { Beef, ChevronLeft, Circle, CircleCheck, CookingPot, Flame, Printer, Share, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Recipe } from "@/app/api/entities/recipe";
@@ -53,9 +53,8 @@ const DetailRecipe = () => {
         const id = params.id as string
         if (id) {
           const { recipe } = await RecipeProvider.getRecipe(params.id as string);
-          if (recipe) {
-            setRecipe(recipe);
-          }
+          // Set recipe
+          if (recipe) setRecipe(recipe);
         }
       } catch (error) {
         console.error("Error fetching recipe:", error);
